@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsz.peini.mapper.GoldHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.jsz.peini.bean.GoldHistory" >
+    <id column="his_id" property="hisId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="op_type" property="opType" jdbcType="INTEGER" />
+    <result column="is_finish" property="isFinish" jdbcType="INTEGER" />
+    <result column="val_num" property="valNum" jdbcType="DECIMAL" />
+    <result column="his_type" property="hisType" jdbcType="INTEGER" />
+    <result column="param_id" property="paramId" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="otherId" property="otherid" jdbcType="VARCHAR" />
+      <result column="idCardNo" property="idCardNo" jdbcType="VARCHAR" />
+      <result column="realName" property="realName" jdbcType="VARCHAR" />
+     <result column="type" property="type" jdbcType="INTEGER" />
+      <result column="errorRow" property="errorRow" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    his_id, user_id, create_time, op_type, is_finish, val_num, his_type, param_id, is_del, 
+    otherId,idCardNo,errorRow,type,realName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from gold_history
+    where his_id = #{hisId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from gold_history
+    where his_id = #{hisId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jsz.peini.bean.GoldHistory" >
+    insert into gold_history (his_id, user_id, create_time, 
+      op_type, is_finish, val_num, 
+      his_type, param_id, is_del, 
+      otherId,type,idCardNo,errorRow)
+    values (#{hisId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{opType,jdbcType=INTEGER}, #{isFinish,jdbcType=INTEGER}, #{valNum,jdbcType=DECIMAL}, 
+      #{hisType,jdbcType=INTEGER}, #{paramId,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, 
+      #{otherid,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},#{idCardNo,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jsz.peini.bean.GoldHistory" >
+    insert into gold_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hisId != null" >
+        his_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="opType != null" >
+        op_type,
+      </if>
+      <if test="isFinish != null" >
+        is_finish,
+      </if>
+      <if test="valNum != null" >
+        val_num,
+      </if>
+      <if test="hisType != null" >
+        his_type,
+      </if>
+      <if test="paramId != null" >
+        param_id,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="otherid != null" >
+        otherId,
+      </if>
+       <if test="type != null" >
+        type,
+      </if>
+       <if test="errorRow != null" >
+        errorRow,
+      </if>
+       <if test="idCardNo != null" >
+        idCardNo,
+      </if>
+       <if test="realName != null" >
+        realName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hisId != null" >
+        #{hisId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opType != null" >
+        #{opType,jdbcType=INTEGER},
+      </if>
+      <if test="isFinish != null" >
+        #{isFinish,jdbcType=INTEGER},
+      </if>
+      <if test="valNum != null" >
+        #{valNum,jdbcType=DECIMAL},
+      </if>
+      <if test="hisType != null" >
+        #{hisType,jdbcType=INTEGER},
+      </if>
+      <if test="paramId != null" >
+        #{paramId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="otherid != null" >
+        #{otherid,jdbcType=VARCHAR},
+      </if>
+       <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+       <if test="errorRow != null" >
+        #{errorRow,jdbcType=INTEGER},
+      </if>
+       <if test="idCardNo != null" >
+        #{idCardNo,jdbcType=VARCHAR},
+      </if>
+       <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jsz.peini.bean.GoldHistory" >
+    update gold_history
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opType != null" >
+        op_type = #{opType,jdbcType=INTEGER},
+      </if>
+      <if test="isFinish != null" >
+        is_finish = #{isFinish,jdbcType=INTEGER},
+      </if>
+      <if test="valNum != null" >
+        val_num = #{valNum,jdbcType=DECIMAL},
+      </if>
+      <if test="hisType != null" >
+        his_type = #{hisType,jdbcType=INTEGER},
+      </if>
+      <if test="paramId != null" >
+        param_id = #{paramId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="otherid != null" >
+        otherId = #{otherid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where his_id = #{hisId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jsz.peini.bean.GoldHistory" >
+    update gold_history
+    set user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      op_type = #{opType,jdbcType=INTEGER},
+      is_finish = #{isFinish,jdbcType=INTEGER},
+      val_num = #{valNum,jdbcType=DECIMAL},
+      his_type = #{hisType,jdbcType=INTEGER},
+      param_id = #{paramId,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      otherId = #{otherid,jdbcType=VARCHAR}
+    where his_id = #{hisId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectGoldHistorySum" parameterType="GoldHistoryQueryVo" resultType="GoldHistoryCustom">
+  		SELECT 
+  			COUNT(*) AS orderCount,
+  			CAST(IFNULL(SUM(i.payMoney/100),0) as DECIMAL(20,2)) AS payMoneySum,
+  			CAST(IFNULL(SUM(i.valNum/100),0) as DECIMAL(20,2)) AS rechargeSum,
+  			SUM(i.officialAssume) as assumeSum
+		FROM
+		
+		(
+			SELECT
+			c.order_code AS orderCode,
+			d.nickname AS nickname,
+			d.acc_code AS accCode,
+			d.user_phone AS userPhone,
+			b.val_num AS valNum,
+			c.pay_type AS payType,
+			b.his_type AS hisType,
+			c.discount AS discount,
+			c.pay_money AS payMoney,
+			c.official_assume AS officialAssume,
+			b.create_time AS createTime
+			
+		FROM
+			(
+				SELECT
+					a.user_id,
+					a.val_num,
+					a.create_time,
+					a.his_type,
+					a.param_id
+				FROM
+					gold_history a
+				WHERE
+					a.his_type IN (9, 11, 12, 16)
+				AND (a.type = 1 OR a.type IS NULL)
+			) b 
+		
+		INNER JOIN order_info c ON b.param_id = c.id
+		INNER JOIN user_info d ON b.user_id = d.id
+		<!-- INNER JOIN (SELECT e.id,e.codes_province,e.codes_name FROM t_system_city e WHERE e.codes_order = 1) g  ON d.now_province = g.codes_province
+		INNER JOIN (SELECT f.id,f.codes_city,f.codes_name FROM t_system_city f WHERE f.codes_order = 2) h ON d.now_city = h.codes_city -->
+		<where>
+			<!-- <if test="nowProvince != 0">
+				g.id = #{nowProvince}
+			</if>
+			<if test="nowCity != 0">
+				AND h.id = #{nowCity}
+			</if> -->
+			<if test="startTime != null and startTime != ''">
+				AND b.create_time &gt; #{startTime} 
+			</if>
+			<if test="endTime != null and endTime != ''">
+				AND b.create_time &lt; #{endTime}
+			</if>
+			<if test="queryType == 1">
+				<if test="startNum != null and startNum != ''">
+					AND b.val_num/100 &gt; #{startNum}
+				</if>
+				<if test="endNum != null and endNum != ''">
+					AND b.val_num/100 &lt; #{endNum}
+				</if>
+			</if>
+			<if test="queryType == 2">
+				<if test="startNum != null and startNum != ''">
+					AND c.official_assume &gt; #{startNum}
+				</if> 
+				<if test="endNum != null and endNum != ''">
+					AND c.official_assume &lt;  #{endNum}
+				</if>
+			</if>
+			<if test="queryType == 3">
+				<if test="startNum != null and startNum != ''">
+					AND c.pay_money/100 &gt; #{startNum}
+				</if>
+				<if test="endNum != null and endNum != ''">
+					AND c.pay_money/100 &lt; #{endNum}
+				</if>
+			</if>
+			<if test="queryType == 4">
+				<if test="startNum != null and startNum != ''">
+					AND c.discount  &gt; #{startNum}
+				</if>
+				<if test="endNum != null and endNum != ''">
+					AND c.discount &lt; #{endNum} 
+				</if>
+			</if>
+			<if test="payType ==2 or payType ==3">
+				AND c.pay_type = #{payType}
+			</if>
+			<if test="payType ==11 or payType ==12 or payType ==16">
+				AND b.his_type = #{payType}
+			</if>
+			<if test="orderCode != null and orderCode != ''">
+				<bind name="orderCode" value="'%'+orderCode+'%'"/>
+				AND c.order_code LIKE #{orderCode}
+			</if>
+			<if test="queryText != null and queryText != ''">
+				<bind name="queryText" value="'%'+queryText+'%'"/>
+				AND (d.acc_code LIKE #{queryText} or d.nickname LIKE #{queryText} or d.user_phone LIKE #{queryText})
+			</if>
+		</where>
+		) i
+		
+		<!-- (SELECT
+			b.order_code,
+			c.nickname,
+			c.acc_code,
+			c.user_phone,
+			a.val_num/100 as valNum,
+			ROUND(b.pay_money/a.val_num,2)*10 AS discount,
+			(a.val_num/100-b.pay_money/100)  AS gift,
+			b.pay_money/100 as payMoney,
+			DATE_FORMAT(a.create_time,'%Y-%m-%d %H:%i') AS createTime,
+			b.pay_type
+		FROM gold_history a 
+		LEFT JOIN order_info b ON a.param_id = b.id
+		LEFT JOIN user_info c ON a.user_id = c.id 
+		
+		WHERE a.his_type = 9) e
+		<where>
+			<if test="startTime != null and startTime != ''">
+				e.createTime &gt;= #{startTime}
+			</if>
+			<if test="endTime != null and endTime !=''">
+			 AND e.createTime &lt;= #{endTime}
+			</if>
+			<if test="queryType == 1">
+				<if test="startNum != null and startNum != 0">
+				AND	e.valNum &gt;= #{startNum}
+				</if>
+				<if test="endNum !=null and endNum != 0">
+				AND	e.valNum &lt;= #{endNum}
+				</if>
+			</if>
+			<if test="queryType == 2">
+				<if test="startNum != null and startNum != 0">
+				AND	e.gift &gt;= #{startNum}
+				</if>
+				<if test="endNum !=null and endNum != 0">
+				AND	e.gift &lt;= #{endNum}
+				</if>
+			</if>
+			<if test="queryType == 3">
+				<if test="startNum != null and startNum != 0">
+				AND	e.payMoney &gt;= #{startNum}
+				</if>
+				<if test="endNum !=null and endNum != 0">
+				AND	e.payMoney  &lt;= #{endNum}
+				</if>
+			</if>
+			<if test="payType != 0">
+				AND	e.pay_type = #{payType}
+			</if>
+			<if test="queryText != null and queryText != ''">
+				<bind name="queryText" value="'%'+queryText+'%'"/>
+				AND (e.order_code LIKE #{queryText} OR e.nickname LIKE #{queryText} OR e.acc_code LIKE #{queryText} OR e.user_phone LIKE #{queryText})	
+			</if>
+		</where> -->
+  
+  </select>
+  <select id="selectGoldHistoryListBySelective" parameterType="GoldHistoryQueryVo" resultType="GoldHistoryCustom">
+  		
+  		SELECT
+			c.order_code AS orderCode,
+			d.nickname AS nickname,
+			d.acc_code AS accCode,
+			d.user_phone AS userPhone,
+			b.val_num AS valNum,
+			c.pay_type AS payType,
+			b.his_type AS hisType,
+			c.discount AS discount,
+			c.pay_money AS payMoney,
+			c.official_assume AS officialAssume,
+			DATE_FORMAT(b.create_time,'%Y-%m-%d %H:%i') AS createTime
+		FROM
+			(
+				SELECT
+					a.user_id,
+					a.val_num,
+					a.create_time,
+					a.his_type,
+					a.param_id
+				FROM
+					gold_history a
+				WHERE
+					a.his_type IN (9, 11, 12, 16)
+				AND (a.type = 1 OR a.type IS NULL)
+			) b 
+		
+		INNER JOIN order_info c ON b.param_id = c.id
+		INNER JOIN user_info d ON b.user_id = d.id
+		<!-- INNER JOIN (SELECT e.id,e.codes_province,e.codes_name FROM t_system_city e WHERE e.codes_order = 1) g  ON d.now_province = g.codes_province
+		INNER JOIN (SELECT f.id,f.codes_city,f.codes_name FROM t_system_city f WHERE f.codes_order = 2) h ON d.now_city = h.codes_city -->
+		<where>
+			<!-- <if test="nowProvince != 0">
+				AND g.id = #{nowProvince}
+			</if>
+			<if test="nowCity != 0">
+				AND h.id = #{nowCity}
+			</if> -->
+			<if test="startTime != null and startTime != ''">
+				AND b.create_time &gt; #{startTime} 
+			</if>
+			<if test="endTime != null and endTime != ''">
+				AND b.create_time &lt; #{endTime}
+			</if>
+			<if test="queryType == 1">
+				<if test="startNum != null and startNum != 0">
+					AND b.val_num/100 &gt; #{startNum}
+				</if>
+				<if test="endNum != null and endNum != 0">
+					AND b.val_num/100 &lt; #{endNum}
+				</if>
+			</if>
+			<if test="queryType == 2">
+				<if test="startNum != null and startNum != 0">
+					AND c.official_assume &gt; #{startNum}
+				</if> 
+				<if test="endNum != null and endNum != 0">
+					AND c.official_assume &lt;  #{endNum}
+				</if>
+			</if>
+			<if test="queryType == 3">
+				<if test="startNum != null and startNum != 0">
+					AND c.pay_money/100 &gt; #{startNum}
+				</if>
+				<if test="endNum != null and endNum != 0">
+					AND c.pay_money/100 &lt; #{endNum}
+				</if>
+			</if>
+			<if test="queryType == 4">
+				<if test="startNum != null and startNum != 0">
+					AND c.discount  &gt; #{startNum}
+				</if>
+				<if test="endNum != null and endNum != 0">
+					AND c.discount &lt; #{endNum} 
+				</if>
+			</if>
+			<if test="payType ==2 or payType ==3">
+				AND c.pay_type = #{payType}
+			</if>
+			<if test="payType ==11 or payType ==12 or payType ==16">
+				AND b.his_type = #{payType}
+			</if>
+			<if test="orderCode != null and orderCode != ''">
+				<bind name="orderCode" value="'%'+orderCode+'%'"/>
+				AND c.order_code LIKE #{orderCode}
+			</if>
+			<if test="queryText != null and queryText != ''">
+				<bind name="queryText" value="'%'+queryText+'%'"/>
+				AND (d.acc_code LIKE #{queryText} or d.nickname LIKE #{queryText} or d.user_phone LIKE #{queryText})
+			</if>
+		</where>
+		<if test="orderFlag == 1">
+			ORDER BY b.create_time DESC 
+		</if>		
+		<if test="orderFlag == 2">
+			ORDER BY b.create_time
+		</if>	
+		<if test="orderFlag == 3">
+			ORDER BY c.order_code DESC
+		</if>	
+		<if test="orderFlag == 4">
+			ORDER BY c.order_code
+		</if>	
+		<if test="orderFlag == 5">
+			ORDER BY d.acc_code DESC
+		</if>	
+		<if test="orderFlag == 6">
+			order by d.acc_code
+		</if>	
+		<if test="orderFlag == 7">
+			ORDER BY b.val_num DESC
+		</if>	
+		<if test="orderFlag == 8">
+			ORDER BY b.val_num
+		</if>	
+		<if test="orderFlag == 9">
+			ORDER BY  c.discount DESC
+		</if>	
+		<if test="orderFlag == 10">
+			ORDER BY c.discount
+		</if>	
+		<if test="orderFlag == 11">
+			ORDER BY c.pay_money DESC
+		</if>	
+		<if test="orderFlag == 12">
+			ORDER BY c.pay_money 
+		</if>	
+		<if test="orderFlag == 13">
+			ORDER BY c.official_assume DESC
+		</if>	
+		<if test="orderFlag == 14">
+			ORDER BY c.official_assume
+		</if>	
+		
+  		<!-- SELECT 
+			e.order_code AS orderCode,
+			e.nickname AS nickname,
+			e.acc_code AS accCode,
+			e.user_phone AS userPhone,
+			e.valNum,
+			e.discount,
+			e.gift,
+			e.payMoney,
+			e.createTime,
+			e.pay_type as payType
+		FROM
+		(SELECT
+			b.order_code,
+			c.nickname,
+			c.acc_code,
+			c.user_phone,
+			a.val_num/100 as valNum,
+			ROUND(b.pay_money/a.val_num,2)*10 AS discount,
+			(a.val_num/100-b.pay_money/100)  AS gift,
+			CAST(b.pay_money/100  as DECIMAL(20,2)) as payMoney,
+			DATE_FORMAT(a.create_time,'%Y-%m-%d %H:%i') AS createTime,
+			b.pay_type 	
+		FROM gold_history a 
+		LEFT JOIN order_info b ON a.param_id = b.id
+		LEFT JOIN user_info c ON a.user_id = c.id 
+		
+		WHERE a.his_type = 9) e
+		<where>
+			<if test="startTime != null and startTime != ''">
+				e.createTime &gt;= #{startTime}
+			</if>
+			<if test="endTime != null and endTime !=''">
+			 	AND e.createTime &lt;= #{endTime}
+			</if>
+			<if test="queryType == 1">
+				<if test="startNum != null and startNum != 0">
+				AND	e.valNum &gt;= #{startNum}
+				</if>
+				<if test="endNum !=null and endNum != 0">
+				AND	e.valNum &lt;= #{endNum}
+				</if>
+			</if>
+			<if test="queryType == 2">
+				<if test="startNum != null and startNum != 0">
+				AND	e.gift &gt;= #{startNum}
+				</if>
+				<if test="endNum !=null and endNum != 0">
+				AND	e.gift &lt;= #{endNum}
+				</if>
+			</if>
+			<if test="queryType == 3">
+				<if test="startNum != null and startNum != 0">
+				AND	e.payMoney &gt;= #{startNum}
+				</if>
+				<if test="endNum !=null and endNum != 0">
+				AND	e.payMoney  &lt;= #{endNum}
+				</if>
+			</if>
+			<if test="payType != 0">
+				AND	e.pay_type = #{payType}
+			</if>
+			<if test="queryText != null and queryText != ''">
+				<bind name="queryText" value="'%'+queryText+'%'"/>
+				AND (e.order_code LIKE #{queryText} OR e.nickname LIKE #{queryText} OR e.acc_code LIKE #{queryText} OR e.user_phone LIKE #{queryText})	
+			</if>
+		</where>
+		
+  		ORDER BY e.createTime  DESC -->
+  </select>
+  <select id="selectGoldDetailListBySelective" parameterType="GoldHistoryQueryVo" resultType="GoldHistoryCustom">
+  		SELECT
+			b.nickname as nickname,
+			b.acc_code as accCode,
+			b.user_phone as userPhone,
+			a.op_type as opType,
+			a.val_num as valNum,
+			DATE_FORMAT(a.create_time,'%Y-%m-%d %H:%i') AS createTime,
+			c.pay_type as payType,
+			a.his_type as hisType,
+			h.seller_name as sellerName,
+			i.nickname as othernickname,
+			a.current_gold as currentGold,
+			a.current_recharge_total as currentRechargeTotal,
+			a.current_pay_total as currentPayTotal,
+			a.current_give_total as currentGiveTotal
+		FROM
+			gold_history a
+		INNER JOIN user_info b ON a.user_id = b.id
+		LEFT JOIN order_info c ON a.param_id = c.id
+		LEFT JOIN (select DISTINCT k.id,k.nickname from gold_history j INNER JOIN user_info k on j.otherId = k.id) i ON a.otherId = i.id
+		LEFT JOIN seller_info h ON c.seller_info_id = h.id
+		LEFT JOIN (SELECT d.id,d.codes_province,d.codes_name FROM t_system_city d WHERE d.codes_order = 1) e ON b.now_province = e.codes_province
+		LEFT JOIN (SELECT f.id,f.codes_city,f.codes_name FROM t_system_city f WHERE f.codes_order = 2) g ON b.now_city = g.codes_city
+		
+		<where>
+				(a.type = 1 OR a.type IS NULL)
+				<if test="nowProvince != 0">
+					and e.id = #{nowProvince}
+				</if>
+				<if test="nowCity != 0">
+					AND g.id = #{nowCity}
+				</if>
+				<if test="startTime != null and startTime !=''">
+					AND a.create_time &gt; #{startTime}
+				</if>
+				<if test="endTime != null and endTime != ''">
+					AND a.create_time &lt; #{endTime}
+				</if>
+				<if test="queryType == 1">
+					<if test="startNum != null and startNum != ''">
+						AND a.val_num &gt; #{startNum}
+					</if>
+					<if test="endNum != null and endNum != ''">
+						AND a.val_num &lt; #{endNum} 
+					</if>
+				</if>
+				<if test="queryType == 2">
+					<if test="startNum != null and startNum != ''">
+						AND a.current_gold &gt; #{startNum}
+					</if>
+					<if test="endNum != null and endNum != ''">
+						AND a.current_gold &lt; #{endNum}
+					</if>
+				</if>
+				<if test="queryType == 3">
+					<if test="startNum != null and startNum != ''">
+						AND a.current_recharge_total &gt; #{startNum}
+					</if>
+					<if test="endNum != null and endNum != ''">
+						AND a.current_recharge_total &lt; #{endNum}
+					</if>
+				</if>
+				<if test="queryType == 4">
+					<if test="startNum != null and startNum != ''">
+						AND a.current_pay_total &gt; #{startNum}
+					</if>
+					<if test="endNum != null and endNum != ''">
+						AND a.current_pay_total &lt; #{endNum}
+					</if>
+				</if>
+				<if test="queryType == 5">
+					<if test="startNum != null and startNum != ''">
+						AND a.current_give_total &gt; #{startNum}
+					</if>
+					<if test="endNum != null and endNum != ''">
+						AND a.current_give_total &lt; #{endNum}
+					</if>
+				</if>
+				<if test="optionType == 1">
+					AND a.his_type IN (1,9,11,12,16,18)
+				</if>
+				<if test="optionType == 2">
+					AND a.his_type IN (2,4,10,13,14,15,17)
+				</if>
+				<if test="optionType == 3">
+					AND a.his_type IN (7,8)
+				</if>
+				<if test="hisType == 1">
+					AND c.pay_type = 2
+				</if>
+				<if test="hisType == 2">
+					AND c.pay_type = 3
+				</if>
+				<if test="hisType == 3">
+					AND a.his_type = 11
+				</if>
+				<if test="hisType == 4">
+					AND a.his_type IN (1,12)
+				</if>
+				<if test="hisType == 5">
+					AND a.his_type = 16
+				</if>
+				<if test="hisType == 6">
+					AND a.his_type IN (2,4)
+				</if>
+				<if test="hisType == 7">
+					AND a.his_type  = 10
+				</if>
+				<if test="hisType == 8">
+					AND a.his_type IN (13,14,15,18)
+				</if>
+				<if test="hisType == 9">
+					AND a.his_type IN (7,8)
+				</if>
+				<if test="hisType == 10">
+					AND a.his_type = 17
+				</if>
+				<if test="objName != null and objName != ''">
+					AND (h.seller_name LIKE #{objName} OR i.nickname LIKE #{objName})
+				</if>
+				<if test="queryText != null and queryText != ''">
+					AND (b.nickname LIKE #{queryText} OR b.acc_code LIKE #{queryText} OR b.user_phone LIKE #{queryText})
+				</if>
+		</where>
+		<if test="orderFlag == 1">
+			ORDER BY a.create_time DESC
+		</if>
+		<if test="orderFlag == 2">
+			ORDER BY a.create_time
+		</if>
+		<if test="orderFlag == 3">
+			ORDER BY b.acc_code DESC
+		</if>
+		<if test="orderFlag == 4">
+			ORDER BY b.acc_code
+		</if>
+		<if test="orderFlag == 5">
+			ORDER BY a.val_num DESC
+		</if>
+		<if test="orderFlag == 6">
+			ORDER BY a.val_num
+		</if>
+		<if test="orderFlag == 7">
+			ORDER BY a.current_gold DESC
+		</if>
+		<if test="orderFlag == 8">
+			ORDER BY a.current_gold
+		</if>
+  
+  </select>
+  <select id="selectGoldDetailSumBySelective" parameterType="GoldHistoryQueryVo" resultType="GoldHistoryCustom">
+		SELECT 
+			CAST(IFNULL(SUM(m.payMoney/100),0) as DECIMAL(20,2)) AS payMoneySum,
+  			CAST(IFNULL(SUM(m.valNum/100),0) as DECIMAL(20,2)) AS rechargeSum,
+  			SUM(m.officialAssume) as assumeSum
+		from 
+	(
+		SELECT
+			b.nickname as nickname,
+			b.acc_code as accCode,
+			b.user_phone as userPhone,
+			a.op_type as opType,
+			a.val_num as valNum,
+			DATE_FORMAT(a.create_time,'%Y-%m-%d %H:%i') AS createTime,
+			c.pay_type as payType,
+			c.pay_money as payMoney,
+			c.official_assume as officialAssume,
+			a.his_type as hisType,
+			h.seller_name as sellerName,
+			i.nickname as othernickname,
+			a.current_gold as currentGold,
+			a.current_recharge_total as currentRechargeTotal,
+			a.current_pay_total as currentPayTotal,
+			a.current_give_total as currentGiveTotal
+		FROM
+			gold_history a
+		INNER JOIN user_info b ON a.user_id = b.id
+		LEFT JOIN order_info c ON a.param_id = c.id
+		LEFT JOIN (select DISTINCT k.id,k.nickname from gold_history j INNER JOIN user_info k on j.otherId = k.id) i ON a.otherId = i.id
+		LEFT JOIN seller_info h ON c.seller_info_id = h.id
+		LEFT JOIN (SELECT d.id,d.codes_province,d.codes_name FROM t_system_city d WHERE d.codes_order = 1) e ON b.now_province = e.codes_province
+		LEFT JOIN (SELECT f.id,f.codes_city,f.codes_name FROM t_system_city f WHERE f.codes_order = 2) g ON b.now_city = g.codes_city
+		
+		<where>
+				(a.type = 1 OR a.type IS NULL)
+				<if test="nowProvince != 0">
+					and e.id = #{nowProvince}
+				</if>
+				<if test="nowCity != 0">
+					AND g.id = #{nowCity}
+				</if>
+				<if test="startTime != null and startTime !=''">
+					AND a.create_time &gt; #{startTime}
+				</if>
+				<if test="endTime != null and endTime != ''">
+					AND a.create_time &lt; #{endTime}
+				</if>
+				<if test="queryType == 1">
+					<if test="startNum != null and startNum != ''">
+						AND a.val_num &gt; #{startNum}
+					</if>
+					<if test="endNum != null and endNum != ''">
+						AND a.val_num &lt; #{endNum} 
+					</if>
+				</if>
+				<if test="queryType == 2">
+					<if test="startNum != null and startNum != ''">
+						AND a.current_gold &gt; #{startNum}
+					</if>
+					<if test="endNum != null and endNum != ''">
+						AND a.current_gold &lt; #{endNum}
+					</if>
+				</if>
+				<if test="queryType == 3">
+					<if test="startNum != null and startNum != ''">
+						AND a.current_recharge_total &gt; #{startNum}
+					</if>
+					<if test="endNum != null and endNum != ''">
+						AND a.current_recharge_total &lt; #{endNum}
+					</if>
+				</if>
+				<if test="queryType == 4">
+					<if test="startNum != null and startNum != ''">
+						AND a.current_pay_total &gt; #{startNum}
+					</if>
+					<if test="endNum != null and endNum != ''">
+						AND a.current_pay_total &lt; #{endNum}
+					</if>
+				</if>
+				<if test="queryType == 5">
+					<if test="startNum != null and startNum != ''">
+						AND a.current_give_total &gt; #{startNum}
+					</if>
+					<if test="endNum != null and endNum != ''">
+						AND a.current_give_total &lt; #{endNum}
+					</if>
+				</if>
+				<if test="optionType == 1">
+					AND a.his_type IN (1,9,11,12,16,18)
+				</if>
+				<if test="optionType == 2">
+					AND a.his_type IN (2,4,10,13,14,15,17)
+				</if>
+				<if test="optionType == 3">
+					AND a.his_type IN (7,8)
+				</if>
+				<if test="hisType == 1">
+					AND c.pay_type = 2
+				</if>
+				<if test="hisType == 2">
+					AND c.pay_type = 3
+				</if>
+				<if test="hisType == 3">
+					AND a.his_type = 11
+				</if>
+				<if test="hisType == 4">
+					AND a.his_type IN (1,12)
+				</if>
+				<if test="hisType == 5">
+					AND a.his_type = 16
+				</if>
+				<if test="hisType == 6">
+					AND a.his_type IN (2,4)
+				</if>
+				<if test="hisType == 7">
+					AND a.his_type  = 10
+				</if>
+				<if test="hisType == 8">
+					AND a.his_type IN (13,14,15,18)
+				</if>
+				<if test="hisType == 9">
+					AND a.his_type IN (7,8)
+				</if>
+				<if test="hisType == 10">
+					AND a.his_type = 17
+				</if>
+				<if test="objName != null and objName != ''">
+					AND (h.seller_name LIKE #{objName} OR i.nickname LIKE #{objName})
+				</if>
+				<if test="queryText != null and queryText != ''">
+					AND (b.nickname LIKE #{queryText} OR b.acc_code LIKE #{queryText} OR b.user_phone LIKE #{queryText})
+				</if>
+		</where>
+  	) m	
+  	where
+  	 m.hisType IN (1,9,11,12,16)
+  </select>
+  <select id="selectOrderCount" resultType="String">
+  		SELECT
+			COUNT(*) AS orderCount
+		FROM
+			gold_history a
+		WHERE
+			a.his_type = 9
+  </select>
+  <select id="selectPayMoneySum" resultType="String">
+  		SELECT 
+  			IFNULL(ROUND(SUM(a.pay_money)/100,2),0) AS PayMoneySum
+		FROM 
+			order_info a 
+		WHERE 
+			a.order_type = 6 AND a.order_status = 2
+  </select>
+  <select id="selectRechargeSum" resultType="String">
+  		SELECT 
+			CAST(IFNULL(SUM(a.val_num)/100,0) as DECIMAL(20,2)) AS rechargeSum
+		FROM 
+			gold_history a 
+		WHERE 
+			a.his_type = 9
+  </select>
+    <select id="selectgoldhistory" parameterType="GoldHistoryQueryVo" resultType="java.util.LinkedHashMap">
+    SELECT 
+            e.id,
+			e.nickname AS nickname,
+			e.sex AS sex,
+			e.age AS age,
+			e.nowProvince AS nowProvince,
+			e.nowCity AS nowCity,
+			e.idCardNo,
+			e.phone,
+			e.create_time as createTime,
+			e.valNum,
+			e.type
+		FROM
+  		(SELECT 
+  		    a.id,
+  			a.nickname as nickname,
+  			a.sex as sex,
+  			a.age as age,
+  			a.now_province as nowProvince, 
+  			a.now_city as nowCity,
+  			a.idCardNo as idCardNo,
+  			a.user_phone as phone,
+  			g.create_time ,
+  			g.val_num as valNum,
+  			g.type
+		FROM 
+			user_info a,
+			gold_history g) e
+		<where>
+			<if test="startTime != null and startTime != ''">
+				e.create_time &gt;= #{startTime}
+			</if>
+			<if test="nowProvince != null">
+			AND	e.nowProvince &gt;= #{nowProvince}
+			</if>
+			<if test="nowCity != null">
+			AND	e.nowCity &gt;= #{nowCity}
+			</if>
+			<if test="type != null">
+				AND	e.type = #{type}
+			</if>
+			<if test="queryText != null and queryText != ''">
+				<bind name="queryText" value="'%'+queryText+'%'"/>
+				AND (e.nickname LIKE #{queryText} OR e.idCardNo LIKE #{queryText} OR e.user_phone LIKE #{queryText})	
+			</if>
+		</where>	
+		ORDER BY e.create_time
+  </select>
+  <select id="getGoldErrorPrompt" parameterType="GoldHistory" resultType="java.util.LinkedHashMap">
+  		select
+  			(select codes_name from t_system_city where codes_city=0 and codes_province in(select now_province from user_info where user_info.id=gold_history.user_id)) as province, 
+  			(select codes_name from t_system_city where codes_county=0 and codes_city in(select now_city from user_info where user_info.id=gold_history.user_id)) as nowCity, 
+  			realName,
+  			idCardNo,
+  			(select sex from user_info where user_info.id=gold_history.user_id) as sex,
+  			(select age from user_info where user_info.id=gold_history.user_id) as age,
+  			(select user_phone from user_info where user_info.id=gold_history.user_id) as userPhone,
+  			(select nickname from user_info where user_info.id=gold_history.user_id) as nickname,
+  			(select acc_code from user_info where user_info.id=gold_history.user_id) as accCode,
+  			val_num as valNum,
+  			DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') as createTime,
+  			type,
+  			errorRow
+  		from
+  			gold_history
+  		where
+			his_type=11
+			and create_time=#{createTime}
+			<if test="nickname!=null and nickname!=''">
+			and (errorRow=#{nickname} OR realName=#{nickname} OR idCardNo=#{nickname} OR (#{nickname} in(select acc_code from user_info where user_info.id=gold_history.user_id)) OR (#{nickname} in(select user_phone from user_info where user_info.id=gold_history.user_id))) 
+			</if>
+			<if test="type!=null">
+			and type=#{type}
+			</if>
+			<if test="valNumtop!=null and valNumtop!='' and valNum!=null and valNum!=''">
+			and val_num&gt;=#{valNum} and val_num&lt;=#{valNumtop}
+			</if>
+			<if test="nowProvince!=null and nowProvince!=''">
+			and #{nowProvince} in(select id from t_system_city where codes_city=0 and codes_province in(select now_province from user_info where user_info.id=gold_history.user_id))
+			</if>
+			<if test="nowCity!=null and nowCity!=''">
+			and #{nowCity} in(select id from t_system_city where codes_county=0 and codes_city in(select now_city from user_info where user_info.id=gold_history.user_id))	
+			</if>
+			order by errorRow
+  </select>
+</mapper>

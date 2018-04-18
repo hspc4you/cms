@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsz.peini.mapper.WxFestivalActivityUserMapper">
+	<resultMap id="BaseResultMap" type="com.jsz.peini.bean.WxFestivalActivityUser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="wx_user_id" property="wxUserId" jdbcType="VARCHAR" />
+		<result column="activity_id" property="activityId" jdbcType="INTEGER" />
+		<result column="activity_time" property="activityTime" jdbcType="TIMESTAMP" />
+		<result column="award_chance" property="awardChance" jdbcType="INTEGER" />
+		<result column="wx_is_share" property="wxIsShare" jdbcType="INTEGER" />
+		<result column="wx_share_time" property="wxShareTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, wx_user_id, activity_id, activity_time, award_chance, wx_is_share, wx_share_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from wx_festival_activity_user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from wx_festival_activity_user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.jsz.peini.bean.WxFestivalActivityUser">
+		insert into wx_festival_activity_user (id, wx_user_id, activity_id,
+		activity_time, award_chance, wx_is_share,
+		wx_share_time)
+		values (#{id,jdbcType=INTEGER}, #{wxUserId,jdbcType=VARCHAR}, #{activityId,jdbcType=INTEGER},
+		#{activityTime,jdbcType=TIMESTAMP}, #{awardChance,jdbcType=INTEGER}, #{wxIsShare,jdbcType=INTEGER},
+		#{wxShareTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jsz.peini.bean.WxFestivalActivityUser">
+		insert into wx_festival_activity_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="wxUserId != null">
+				wx_user_id,
+			</if>
+			<if test="activityId != null">
+				activity_id,
+			</if>
+			<if test="activityTime != null">
+				activity_time,
+			</if>
+			<if test="isAward != null">
+				is_award,
+			</if>
+			<if test="awardChance != null">
+				award_chance,
+			</if>
+			<if test="wxIsShare != null">
+				wx_is_share,
+			</if>
+			<if test="wxShareTime != null">
+				wx_share_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="wxUserId != null">
+				#{wxUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="activityId != null">
+				#{activityId,jdbcType=INTEGER},
+			</if>
+			<if test="activityTime != null">
+				#{activityTime},
+			</if>
+			<if test="isAward != null">
+				#{isAward},
+			</if>
+			<if test="awardChance != null">
+				#{awardChance,jdbcType=INTEGER},
+			</if>
+			<if test="wxIsShare != null">
+				#{wxIsShare,jdbcType=INTEGER},
+			</if>
+			<if test="wxShareTime != null">
+				#{wxShareTime},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jsz.peini.bean.WxFestivalActivityUser">
+		update wx_festival_activity_user
+		<set>
+			<if test="wxUserId != null">
+				wx_user_id = #{wxUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="activityId != null">
+				activity_id = #{activityId,jdbcType=INTEGER},
+			</if>
+			<if test="activityTime != null">
+				activity_time = #{activityTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="awardChance != null">
+				award_chance = #{awardChance,jdbcType=INTEGER},
+			</if>
+			<if test="wxIsShare != null">
+				wx_is_share = #{wxIsShare,jdbcType=INTEGER},
+			</if>
+			<if test="wxShareTime != null">
+				wx_share_time = #{wxShareTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jsz.peini.bean.WxFestivalActivityUser">
+		update wx_festival_activity_user
+		set wx_user_id = #{wxUserId,jdbcType=VARCHAR},
+		activity_id = #{activityId,jdbcType=INTEGER},
+		activity_time = #{activityTime,jdbcType=TIMESTAMP},
+		award_chance = #{awardChance,jdbcType=INTEGER},
+		wx_is_share = #{wxIsShare,jdbcType=INTEGER},
+		wx_share_time = #{wxShareTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectActivityUserByUserId" resultType="WxFestivalActivityUser">
+		SELECT
+		a.id AS id,
+		a.wx_user_id AS wxUserId,
+		a.activity_id AS activityId,
+		DATE_FORMAT(a.activity_time,'%Y-%m-%d %T') AS activityTime,
+		a.is_award AS isAward,
+		a.award_chance AS awardChance,
+		a.wx_is_share AS wxIsShare,
+		DATE_FORMAT(a.wx_share_time,'%Y-%m-%d %T') as wxShareTime
+		FROM
+		wx_festival_activity_user a
+		WHERE
+		a.wx_user_id =#{userId}
+		AND a.activity_id = #{activityId}
+	</select>
+	<select id="selectQualificationByUserId" resultType="WxFestivalActivityUser">
+		<bind name="today" value="'%'+today+'%'" />
+		SELECT
+		COUNT(*) AS todayCount,
+		IFNULL(SUM(a.wx_is_share), 0) AS shareSum
+		FROM
+		wx_festival_activity_user a
+		WHERE
+		a.wx_user_id = #{userId}
+		AND a.activity_time LIKE #{today}
+		FOR UPDATE
+	</select>
+	<update id="updateActivityUserAwardResultByUserId">
+		UPDATE wx_festival_activity_user a
+		SET a.is_award =#{isAward},
+		 	a.award_chance = 0
+		WHERE
+			a.wx_user_id =#{userId}
+		AND a.activity_id = #{activityId}
+	</update>
+	<update id="updateActivityUserShareStatus">
+		UPDATE wx_festival_activity_user a
+		SET a.wx_is_share =1,
+		 a.wx_share_time =#{wxShareTime}
+		WHERE
+			a.wx_user_id =#{userId}
+			and a.wx_share_time is  null
+	</update>
+</mapper>

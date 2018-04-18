@@ -1,0 +1,19 @@
+package com.jsz.peini.util.common;
+
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.UUID;
+
+public class StringUtil {
+	
+	public static String getUUID() {
+		String uuid = UUID.randomUUID().toString();
+		return uuid.replaceAll("-", "");
+	}
+	public static void main(String[] args) {
+		System.out.println(new Date().getTime());
+		System.out.println(new Timestamp(new Date().getTime()).getTime());
+		System.out.println(System.currentTimeMillis()/1000);
+	}
+
+}

@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsz.peini.mapper.UserAccountMapper" >
+   <resultMap id="BaseResultMap" type="com.jsz.peini.bean.UserAccount" >
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="pay_password" jdbcType="VARCHAR" property="payPassword" />
+    <result column="gold" jdbcType="INTEGER" property="gold" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="pay_money" jdbcType="DECIMAL" property="payMoney" />
+    <result column="pay_money_year" jdbcType="DECIMAL" property="payMoneyYear" />
+    <result column="pay_money_quarter" jdbcType="DECIMAL" property="payMoneyQuarter" />
+    <result column="pay_money_month" jdbcType="DECIMAL" property="payMoneyMonth" />
+    <result column="gold_rechage_total" jdbcType="DECIMAL" property="goldRechageTotal" />
+    <result column="gold_rechage_quarter" jdbcType="DECIMAL" property="goldRechageQuarter" />
+    <result column="gold_rechage_year" jdbcType="DECIMAL" property="goldRechageYear" />
+    <result column="gold_month" jdbcType="DECIMAL" property="goldMonth" />
+    <result column="pay_by_gold" jdbcType="DECIMAL" property="payByGold" />
+    <result column="pay_by_wxpay" jdbcType="DECIMAL" property="payByWxpay" />
+    <result column="pay_by_alipay" jdbcType="DECIMAL" property="payByAlipay" />
+    <result column="last_update" jdbcType="TIMESTAMP" property="lastUpdate" />
+    <result column="last_paytime" jdbcType="TIMESTAMP" property="lastPaytime" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, pay_password, gold, score, status, pay_money, pay_money_year, pay_money_quarter, 
+    pay_money_month, gold_rechage_total, gold_rechage_quarter, gold_rechage_year, gold_month, 
+    pay_by_gold, pay_by_wxpay, pay_by_alipay, last_update, last_paytime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertAccount" parameterType="UserAccount" useGeneratedKeys="true" keyProperty="id">
+    insert into user_account (id, user_id, pay_password, 
+      gold, score, status, 
+      pay_money, pay_money_year, pay_money_quarter, 
+      pay_money_month, gold_rechage_total, gold_rechage_quarter, 
+      gold_rechage_year, gold_month, pay_by_gold, 
+      pay_by_wxpay, pay_by_alipay, last_update, 
+      last_paytime)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{payPassword,jdbcType=VARCHAR}, 
+      #{gold,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{payMoney,jdbcType=DECIMAL}, #{payMoneyYear,jdbcType=DECIMAL}, #{payMoneyQuarter,jdbcType=DECIMAL}, 
+      #{payMoneyMonth,jdbcType=DECIMAL}, #{goldRechageTotal,jdbcType=DECIMAL}, #{goldRechageQuarter,jdbcType=DECIMAL}, 
+      #{goldRechageYear,jdbcType=DECIMAL}, #{goldMonth,jdbcType=DECIMAL}, #{payByGold,jdbcType=DECIMAL}, 
+      #{payByWxpay,jdbcType=DECIMAL}, #{payByAlipay,jdbcType=DECIMAL}, #{lastUpdate,jdbcType=TIMESTAMP}, 
+      #{lastPaytime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="UserAccount" useGeneratedKeys="true" keyProperty="id">
+    insert into user_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="payPassword != null" >
+        pay_password,
+      </if>
+      <if test="gold != null" >
+        gold,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="payMoney != null" >
+        pay_money,
+      </if>
+      <if test="payMoneyYear != null" >
+        pay_money_year,
+      </if>
+      <if test="payMoneyQuarter != null" >
+        pay_money_quarter,
+      </if>
+      <if test="payMoneyMonth != null" >
+        pay_money_month,
+      </if>
+      <if test="goldRechageTotal != null" >
+        gold_rechage_total,
+      </if>
+      <if test="goldRechageQuarter != null" >
+        gold_rechage_quarter,
+      </if>
+      <if test="goldRechageYear != null" >
+        gold_rechage_year,
+      </if>
+      <if test="goldMonth != null" >
+        gold_month,
+      </if>
+      <if test="payByGold != null" >
+        pay_by_gold,
+      </if>
+      <if test="payByWxpay != null" >
+        pay_by_wxpay,
+      </if>
+      <if test="payByAlipay != null" >
+        pay_by_alipay,
+      </if>
+      <if test="lastUpdate != null" >
+        last_update,
+      </if>
+      <if test="lastPaytime != null" >
+        last_paytime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="payPassword != null" >
+        #{payPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="gold != null" >
+        #{gold,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null" >
+        #{payMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="payMoneyYear != null" >
+        #{payMoneyYear,jdbcType=DECIMAL},
+      </if>
+      <if test="payMoneyQuarter != null" >
+        #{payMoneyQuarter,jdbcType=DECIMAL},
+      </if>
+      <if test="payMoneyMonth != null" >
+        #{payMoneyMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="goldRechageTotal != null" >
+        #{goldRechageTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="goldRechageQuarter != null" >
+        #{goldRechageQuarter,jdbcType=DECIMAL},
+      </if>
+      <if test="goldRechageYear != null" >
+        #{goldRechageYear,jdbcType=DECIMAL},
+      </if>
+      <if test="goldMonth != null" >
+        #{goldMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="payByGold != null" >
+        #{payByGold,jdbcType=DECIMAL},
+      </if>
+      <if test="payByWxpay != null" >
+        #{payByWxpay,jdbcType=DECIMAL},
+      </if>
+      <if test="payByAlipay != null" >
+        #{payByAlipay,jdbcType=DECIMAL},
+      </if>
+      <if test="lastUpdate != null" >
+        #{lastUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastPaytime != null" >
+        #{lastPaytime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateOldCustGoldByUserId" parameterType="UserAccount">
+		UPDATE 
+			user_account a
+		<set>
+			<if test="gold != null">
+				a.gold = a.gold+#{gold},
+			</if>
+			<if test="rechangegold != null">
+				a.gold_rechage_total = a.gold_rechage_total+#{rechangegold},
+			</if>
+			<if test="goldMonth">
+				a.gold_month = a.gold_month+#{goldMonth},
+			</if>
+			<if test="lastUpdate != null">
+				a.last_update =  #{lastUpdate},
+			</if>
+		</set>
+		<where>
+			<if test="userId != null">
+				a.user_id = #{userId}
+			</if>
+		</where>
+
+</update>
+  <update id="updateByPrimaryKeySelective" parameterType="UserAccount" >
+    update user_account
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="payPassword != null" >
+        pay_password = #{payPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="gold != null" >
+        gold = #{gold,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null">
+        pay_money = #{payMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="payMoneyYear != null">
+        pay_money_year = #{payMoneyYear,jdbcType=DECIMAL},
+      </if>
+      <if test="payMoneyQuarter != null">
+        pay_money_quarter = #{payMoneyQuarter,jdbcType=DECIMAL},
+      </if>
+      <if test="payMoneyMonth != null">
+        pay_money_month = #{payMoneyMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="goldRechageTotal != null">
+        gold_rechage_total = #{goldRechageTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="goldRechageQuarter != null">
+        gold_rechage_quarter = #{goldRechageQuarter,jdbcType=DECIMAL},
+      </if>
+      <if test="goldRechageYear != null">
+        gold_rechage_year = #{goldRechageYear,jdbcType=DECIMAL},
+      </if>
+      <if test="goldMonth != null">
+        gold_month = #{goldMonth,jdbcType=DECIMAL},
+      </if>
+      <if test="payByGold != null">
+        pay_by_gold = #{payByGold,jdbcType=DECIMAL},
+      </if>
+      <if test="payByWxpay != null">
+        pay_by_wxpay = #{payByWxpay,jdbcType=DECIMAL},
+      </if>
+      <if test="payByAlipay != null">
+        pay_by_alipay = #{payByAlipay,jdbcType=DECIMAL},
+      </if>
+      <if test="lastUpdate != null">
+        last_update = #{lastUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastPaytime != null">
+        last_paytime = #{lastPaytime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="UserAccount" >
+    update user_account
+    set user_id = #{userId,jdbcType=VARCHAR},
+      pay_password = #{payPassword,jdbcType=VARCHAR},
+      gold = #{gold,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      pay_money = #{payMoney,jdbcType=DECIMAL},
+      pay_money_year = #{payMoneyYear,jdbcType=DECIMAL},
+      pay_money_quarter = #{payMoneyQuarter,jdbcType=DECIMAL},
+      pay_money_month = #{payMoneyMonth,jdbcType=DECIMAL},
+      gold_rechage_total = #{goldRechageTotal,jdbcType=DECIMAL},
+      gold_rechage_quarter = #{goldRechageQuarter,jdbcType=DECIMAL},
+      gold_rechage_year = #{goldRechageYear,jdbcType=DECIMAL},
+      gold_month = #{goldMonth,jdbcType=DECIMAL},
+      pay_by_gold = #{payByGold,jdbcType=DECIMAL},
+      pay_by_wxpay = #{payByWxpay,jdbcType=DECIMAL},
+      pay_by_alipay = #{payByAlipay,jdbcType=DECIMAL},
+      last_update = #{lastUpdate,jdbcType=TIMESTAMP},
+      last_paytime = #{lastPaytime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+<update id="updateGoldByUserId" parameterType="UserAccount">
+	UPDATE 
+		user_account
+	SET
+		<if test="payType == 1">
+		gold = gold + #{gold}
+		</if>
+		<if test="payType == 2">
+		gold = gold - #{gold}
+		</if>
+	WHERE
+		user_id = #{userId}
+</update>
+
+<update id="updateScoreByUserId" parameterType="UserAccount">
+	UPDATE 
+		user_account
+	SET
+		<if test="payType == 1">
+		score = score + #{score}
+		</if>
+		<if test="payType == 2">
+		score = score - #{score}
+		</if>
+	WHERE
+		user_id = #{userId}
+</update>
+
+<select id="selectByUserId" parameterType="String" resultMap="BaseResultMap">
+	SELECT 
+		<include refid="Base_Column_List" />
+	FROM
+		user_account
+	WHERE
+		user_id = #{_parameter}
+</select>
+
+<update id="updatePayPwd" parameterType="UserAccount">
+	UPDATE 
+		user_account
+	SET
+		pay_password = #{payPassword}
+	WHERE
+		user_id = #{userId}
+</update>
+
+<insert id="insert" parameterType="String" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO user_account (user_id) VALUES (#{_parameter})
+</insert>
+</mapper>

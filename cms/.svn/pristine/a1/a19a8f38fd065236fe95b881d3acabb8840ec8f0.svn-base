@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsz.peini.mapper.WxFestivalAwardMapper" >
+  <resultMap id="BaseResultMap" type="com.jsz.peini.bean.WxFestivalAward" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="wx_user_id" property="wxUserId" jdbcType="VARCHAR" />
+    <result column="award_type" property="awardType" jdbcType="INTEGER" />
+    <result column="award_content" property="awardContent" jdbcType="DECIMAL" />
+    <result column="activity_id" property="activityId" jdbcType="DATE" />
+    <result column="get_time" property="getTime" jdbcType="TIMESTAMP" />
+    <result column="provide_time" property="provideTime" jdbcType="TIMESTAMP" />
+    <result column="remain_phone" property="remainPhone" jdbcType="VARCHAR" />
+    <result column="is_available" property="isAvailable" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, wx_user_id, award_type, award_content, activity_id, get_time, provide_time, remain_phone, 
+    is_available
+  </sql>
+  <select id="selectByPrimaryKey" resultType="WxFestivalAward" parameterType="java.lang.Integer" >
+    select 
+	    a.id as id, 
+	    a.wx_user_id as wxUserId, 
+	    a.award_type as awardType, 
+	    a.award_content as awardContent, 
+	    a.activity_id as activityId, 
+	    DATE_FORMAT(a.get_time,'%Y-%m-%d %T') as getTime, 
+	    DATE_FORMAT(a.provide_time,'%Y-%m-%d %T') as provideTime,  
+	    a.remain_phone as remainPhone, 
+	    a.is_available as isAvailable,
+	    b.open_id as openId,
+	    c.activity_name as activityName
+    from wx_festival_award a 
+    left join wx_user_info b on a.wx_user_id = b.id
+    left join wx_festival_activity c on a.activity_id = c.id
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wx_festival_award
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jsz.peini.bean.WxFestivalAward" >
+    insert into wx_festival_award (id, wx_user_id, award_type, 
+      award_content, activity_id, get_time, 
+      provide_time, remain_phone, is_available
+      )
+    values (#{id,jdbcType=INTEGER}, #{wxUserId,jdbcType=VARCHAR}, #{awardType,jdbcType=INTEGER}, 
+      #{awardContent,jdbcType=DECIMAL}, #{activityId,jdbcType=DATE}, #{getTime,jdbcType=TIMESTAMP}, 
+      #{provideTime,jdbcType=TIMESTAMP}, #{remainPhone,jdbcType=VARCHAR}, #{isAvailable,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jsz.peini.bean.WxFestivalAward" >
+    insert into wx_festival_award
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="wxUserId != null" >
+        wx_user_id,
+      </if>
+      <if test="awardType != null" >
+        award_type,
+      </if>
+      <if test="awardContent != null" >
+        award_content,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="getTime != null" >
+        get_time,
+      </if>
+      <if test="provideTime != null" >
+        provide_time,
+      </if>
+      <if test="remainPhone != null" >
+        remain_phone,
+      </if>
+      <if test="isAvailable != null" >
+        is_available,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="wxUserId != null" >
+        #{wxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="awardType != null" >
+        #{awardType,jdbcType=INTEGER},
+      </if>
+      <if test="awardContent != null" >
+        #{awardContent},
+      </if>
+      <if test="activityId != null" >
+        #{activityId},
+      </if>
+      <if test="getTime != null" >
+        #{getTime},
+      </if>
+      <if test="provideTime != null" >
+        #{provideTime},
+      </if>
+      <if test="remainPhone != null" >
+        #{remainPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="isAvailable != null" >
+        #{isAvailable,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jsz.peini.bean.WxFestivalAward" >
+    update wx_festival_award
+    <set >
+      <if test="wxUserId != null" >
+        wx_user_id = #{wxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="awardType != null" >
+        award_type = #{awardType,jdbcType=INTEGER},
+      </if>
+      <if test="awardContent != null" >
+        award_content = #{awardContent,jdbcType=DECIMAL},
+      </if>
+      <if test="activityId != null" >
+        activity_id = #{activityId},
+      </if>
+      <if test="getTime != null" >
+        get_time = #{getTime},
+      </if>
+      <if test="provideTime != null" >
+        provide_time = #{provideTime},
+      </if>
+      <if test="remainPhone != null" >
+        remain_phone = #{remainPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="isAvailable != null" >
+        is_available = #{isAvailable,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jsz.peini.bean.WxFestivalAward" >
+    update wx_festival_award
+    set wx_user_id = #{wxUserId,jdbcType=VARCHAR},
+      award_type = #{awardType,jdbcType=INTEGER},
+      award_content = #{awardContent,jdbcType=DECIMAL},
+      activity_id = #{activityId,jdbcType=DATE},
+      get_time = #{getTime,jdbcType=TIMESTAMP},
+      provide_time = #{provideTime,jdbcType=TIMESTAMP},
+      remain_phone = #{remainPhone,jdbcType=VARCHAR},
+      is_available = #{isAvailable,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

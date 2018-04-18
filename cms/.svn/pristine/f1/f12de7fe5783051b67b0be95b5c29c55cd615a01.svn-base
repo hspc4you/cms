@@ -1,0 +1,74 @@
+$(function () {
+	 /*倒计时*/
+    var timer=null;
+    var count=6;
+    $(".code-btn").click(function(event) {
+         clearInterval(timer);
+         var _this=$(this);
+         timer=setInterval(setime,1000);
+         function setime(){
+             count--;
+             if (count>=1) {
+                 _this.attr({
+                     disabled: 'disabled'
+                 });
+                 _this.addClass('cur');
+                 _this.html(count+"s");
+             }else{
+                 _this.attr({
+                     disabled: false
+                 });
+                 _this.removeClass('cur');
+                 _this.html(" ");
+                 clearInterval(timer);
+                 count=6;
+             }
+         }
+          
+    });
+    /*刮奖*/
+    var imgarr = [ "100元代金券", "50元代金券", "20元代金券","10元金豆","18元现金红包", "5.8元现金红包",  "2.8元现金红包","1.8元现金红包"];
+    
+        $('#redux').eraser({
+            size: 50,   //设置橡皮擦大小
+            completeRatio: .5, //设置擦除面积比例
+            completeFunction: showResetButton   //大于擦除面积比例触发函数
+        });
+        /*获取随机数*/
+        var info = parseInt(Math.random() * 1000);
+        var thanks;
+        /*通过判断设置出现概率*/
+        if (info == 1) {
+            arrinfo = imgarr[0];
+            thanks = true;
+        } else if (info >= 2 && info <= 40) {
+            arrinfo = imgarr[1];
+            thanks = true;
+        } else if (info >= 41 && info <= 90) {
+            arrinfo = imgarr[2];
+            thanks = true;
+        } else if (info >= 91 && info <= 200) {
+            arrinfo = imgarr[3];
+            thanks = true;
+        } else if (info >= 201 && info <= 400) {
+            arrinfo = imgarr[4];
+            thanks = true;
+        } else if (info >= 401 && info <= 500) {
+            arrinfo = imgarr[5];
+            thanks = true;
+        } else if (info >= 501 && info <= 600) {
+            arrinfo = imgarr[6];
+            thanks = true;
+        }else if (info >= 601 ) {
+            arrinfo = imgarr[7];
+            thanks = true;
+        }
+        /*获奖弹出*/
+        $("#mask_img_bg>span").text(arrinfo);
+        function showResetButton() {
+            $(".prize-span").text(arrinfo);
+            if (thanks == true) {
+                $(".prize,.gray").fadeIn(800)
+            }
+        };
+});

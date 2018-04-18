@@ -1,0 +1,124 @@
+package com.jsz.peini.bean;
+
+import java.math.BigDecimal;
+
+public class WxFestivalAward {
+    private Integer id;
+
+    private String wxUserId;
+
+    private Integer awardType;
+
+    private BigDecimal awardContent;
+
+    private Integer activityId;
+
+    private String getTime;
+
+    private String provideTime;
+
+    private String remainPhone;
+
+    private Integer isAvailable;
+    
+    private String openId;
+    
+    private String awardToken;
+    private String activityName;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getWxUserId() {
+        return wxUserId;
+    }
+
+    public void setWxUserId(String wxUserId) {
+        this.wxUserId = wxUserId;
+    }
+
+    public Integer getAwardType() {
+        return awardType;
+    }
+
+    public void setAwardType(Integer awardType) {
+        this.awardType = awardType;
+    }
+
+
+    public String getRemainPhone() {
+        return remainPhone;
+    }
+
+    public void setRemainPhone(String remainPhone) {
+        this.remainPhone = remainPhone;
+    }
+
+    public Integer getIsAvailable() {
+        return isAvailable;
+    }
+
+    public void setIsAvailable(Integer isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+
+	public Integer getActivityId() {
+		return activityId;
+	}
+
+	public void setActivityId(Integer activityId) {
+		this.activityId = activityId;
+	}
+
+	public String getGetTime() {
+		return getTime;
+	}
+
+	public void setGetTime(String getTime) {
+		this.getTime = getTime;
+	}
+
+	public String getProvideTime() {
+		return provideTime;
+	}
+
+	public void setProvideTime(String provideTime) {
+		this.provideTime = provideTime;
+	}
+
+	public BigDecimal getAwardContent() {
+		return awardContent;
+	}
+
+	public void setAwardContent(BigDecimal awardContent) {
+		this.awardContent = awardContent;
+	}
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
+
+	public String getActivityName() {
+		return activityName;
+	}
+
+	public void setActivityName(String activityName) {
+		this.activityName = activityName;
+	}
+
+	public String getAwardToken() {
+		return awardToken;
+	}
+
+	public void setAwardToken(String awardToken) {
+		this.awardToken = awardToken;
+	}
+}

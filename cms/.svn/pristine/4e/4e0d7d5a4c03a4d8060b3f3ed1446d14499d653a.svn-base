@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context.xsd  
+                        http://www.springframework.org/schema/mvc  
+                        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                        http://www.springframework.org/schema/aop 
+                        http://www.springframework.org/schema/aop/spring-aop.xsd
+                        http://www.springframework.org/schema/cache
+						http://www.springframework.org/schema/cache/spring-cache.xsd ">
+
+	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
+	<context:component-scan base-package="com.jsz.peini.controller" />
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+			<bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value> 
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/view/" p:suffix=".jsp" />
+
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+		<property name="maxUploadSize">
+			<value>32505856</value><!-- 上传文件大小限制为31M，31*1024*1024 -->
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+	</bean>
+
+	<!-- <mvc:resources location="/css/" mapping="/css/**" /> <mvc:resources location="/easyui/" mapping="/easyui/**" ></mvc:resources> <mvc:resources location="/fonts/" mapping="/fonts/**" /> <mvc:resources location="/image/" mapping="/image/**" /> <mvc:resources location="/js/" mapping="/js/**" /> <mvc:resources location="/*.html" mapping="/**" /> <mvc:resources location="/*.jsp" mapping="/**" /> -->
+	<!-- <bean id="springMethodInterceptor" class="com.jsz.peini.interceptor.LoginAop"> </bean> -->
+
+	<!-- <bean id="aopLog" class="com.jsz.peini.common.util.AopLog"></bean> -->
+	<!-- <bean id="SpringContextUtil" class="com.jsz.peini.common.util.SpringContextUtil" /> -->
+	<!-- <bean id="UserRegThread" class="com.jsz.peini.server.thread.UserRegThread" scope="singleton" init-method="init" /> -->
+	<!-- <bean id="JudgeISOld" class="com.jsz.peini.server.thread.JudgeISOld" scope="singleton" init-method="init" /> -->
+	<!-- <bean id="FinancialCheckout" class="com.jsz.peini.server.thread.FinancialCheckout" scope="singleton" init-method="init" /> -->
+	<!-- <bean class="com.jsz.peini.server.thread.PartyAccountTask" scope="singleton" init-method="init" /> -->
+	<!-- <aop:config> <aop:pointcut expression="execution(* com.jsz.peini.controller.*.*.*(..))" id="loginPoint" /> <aop:advisor advice-ref="springMethodInterceptor" pointcut-ref="loginPoint" /> <aop:aspect id="aspect" ref="aopLog"> <aop:pointcut id="logService" expression="execution(* com.jsz.peini.controller.*.*.*(..))" /> <aop:before pointcut-ref="logService" method="doBefore" /> <aop:after pointcut-ref="logService" method="doAfter" /> <aop:around pointcut-ref="logService" method="doAround" /> </aop:aspect> </aop:config> -->
+
+</beans>

@@ -1,0 +1,53 @@
+package com.jsz.peini.mapper;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.jsz.peini.bean.WxFestivalActivityUser;
+
+public interface WxFestivalActivityUserMapper {
+	int deleteByPrimaryKey(Integer id);
+
+	int insert(WxFestivalActivityUser record);
+
+	int insertSelective(WxFestivalActivityUser record);
+
+	WxFestivalActivityUser selectByPrimaryKey(Integer id);
+
+	int updateByPrimaryKeySelective(WxFestivalActivityUser record);
+
+	int updateByPrimaryKey(WxFestivalActivityUser record);
+
+	WxFestivalActivityUser selectActivityUserByUserId(@Param("userId") String userId, @Param("activityId") Integer activityId);
+
+	/**
+	 * 查询用户抽奖资格
+	 * 
+	 * @param userId
+	 * @param today
+	 * @return
+	 */
+	WxFestivalActivityUser selectQualificationByUserId(@Param("userId") String userId, @Param("today") String today);
+
+	/**
+	 * 修改用户获奖结果
+	 * 
+	 * @param userId
+	 * @param activityId
+	 * @return
+	 */
+	int updateActivityUserAwardResultByUserId(@Param("userId") String userId, @Param("activityId") Integer activityId, @Param("isAward") Integer isAward);
+	
+	/**
+	 * 修改朋友圈分享状态
+	 * @param userId
+	 * @param activityId
+	 * @return
+	 */
+	int updateActivityUserShareStatus(@Param("userId") String userId ,@Param("wxShareTime") String wxShareTime);
+	
+	/**
+	 * 一共参加数
+	 * @return
+	 */
+	String selectActivityUserCount();
+}

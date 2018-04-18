@@ -1,0 +1,153 @@
+package com.jsz.peini.controller;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.jsz.peini.bean.User;
+import com.jsz.peini.bean.WxFestivalActivity;
+import com.jsz.peini.bean.WxFestivalAward;
+
+import com.jsz.peini.mapper.WxFestivalActivityMapper;
+
+import com.jsz.peini.service.WxFestivalActivityUserService;
+import com.jsz.peini.service.WxFestivalAwardService;
+import com.jsz.peini.util.common.ResponseBean;
+import com.jsz.peini.util.common.SmsVo;
+import com.jsz.peini.util.constant.RedisKey;
+import com.jsz.peini.util.constant.ResponseDesc;
+
+@Controller
+@RequestMapping("festival")
+public class FestivalActivityController {
+	private Logger logger = LogManager.getLogger(FestivalActivityController.class);
+	@Autowired
+	private WxFestivalActivityMapper wxFestivalActivityMapper;
+	@Autowired
+	private WxFestivalActivityUserService wxFestivalActivityUserService;
+	@Autowired
+	private StringRedisTemplate stringRedisTemplate;
+	@Autowired
+	private WxFestivalAwardService wxFestivalAwardService;
+	/**
+	 * 参加并抽奖
+	 * @param userId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("getFestivalAwardResult")
+	public Object getFestivalAwardResult(String userId){
+		try {
+			//验证当前是否是活动时间
+			WxFestivalActivity wxFestivalActivity = wxFestivalActivityMapper.selectActivityByCurrentTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			if (wxFestivalActivity==null) {
+				//未到抽奖时间,直接返回结果
+				ResponseBean<String> responseBean = new ResponseBean<String>();
+				responseBean.setRespStatus(false);
+				responseBean.setRespDesc(ResponseDesc.award_time_no);
+				return responseBean;
+			}
+			String activeResult = wxFestivalActivityUserService.activeAward(userId, wxFestivalActivity.getId());
+			if (activeResult !=null) {
+				//不符合抽奖资格
+				ResponseBean<String> responseBean = new ResponseBean<String>();
+				responseBean.setRespStatus(false);
+				responseBean.setRespDesc(activeResult);
+				return responseBean;
+			}
+			logger.debug(userId+"报名参加ID="+wxFestivalActivity.getId()+"活动了");
+			//根据活动ID从redis中随机拿到奖品ID
+			String awardId = stringRedisTemplate.opsForSet().pop(RedisKey.wx_activity_id_award+wxFestivalActivity.getId());
+			if (awardId==null) {
+				wxFestivalActivityUserService.activityUserNoAward(userId, wxFestivalActivity.getId(), 0);
+				//该轮奖品发完了
+				ResponseBean<String> responseBean = new ResponseBean<String>();
+				responseBean.setRespStatus(false);
+				//寻找下一轮活动
+				WxFestivalActivity nextActivity = wxFestivalActivityMapper.selectNextActivity(wxFestivalActivity.getId());
+				if (nextActivity == null) {
+					responseBean.setRespDesc("本轮奖励抢空啦,抽奖已经结束了,感谢您的参与");
+					return responseBean;
+				} else {
+					responseBean.setRespDesc("本轮奖励抢空啦~下一轮" + nextActivity.getActivityName() + "将在" + (nextActivity.getActivityTime().equals(new SimpleDateFormat("yyyy-MM-dd").format(new Date())) ? "今天" : "明天") + nextActivity.getActivityStartTime() + "开启，记得来抢哦~");
+					return responseBean;
+				}
+			}
+			//修改中奖结果后返回中奖信息
+			WxFestivalAward wxFestivalAward= wxFestivalAwardService.returnAward(userId, wxFestivalActivity.getId(), 1,Integer.valueOf(awardId));
+			//如果奖品是现金红包,直接放入奖品队列
+			if(wxFestivalAward.getAwardType().intValue()==1){
+				stringRedisTemplate.opsForList().rightPush(RedisKey.wx_award_queue, String.valueOf(wxFestivalAward.getId().intValue()));
+			}
+			ResponseBean<WxFestivalAward> responseBean = new ResponseBean<WxFestivalAward>();
+			responseBean.setRespStatus(true);
+			responseBean.setRespObj(wxFestivalAward);
+			return responseBean;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			ResponseBean<String> responseBean = new ResponseBean<String>();
+			responseBean.setRespStatus(false);
+			responseBean.setRespDesc(ResponseDesc.response_fail);
+			return responseBean;
+		}
+		
+	}
+	/**
+	 * 将页面分享至朋友圈
+	 * @param userId
+	 * @param activityId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("shareToCircleOfFriends")
+	public Object shareToCircleOfFriends(String userId ) {
+		ResponseBean<String> responseBean = new ResponseBean<String>();
+		try {
+			wxFestivalActivityUserService.shareToCircleOfFriends(userId, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			responseBean.setRespStatus(true);
+			return responseBean;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			responseBean.setRespStatus(false);
+			responseBean.setRespDesc(ResponseDesc.response_fail);
+			return responseBean;
+		}
+	}
+	/**
+	 * 奖品发放队列
+	 * @param awardId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("addToAwardProvideQueue")
+	public Object addToAwardProvideQueue(Integer awardId,@RequestParam(value="remainPhone",required=true) String remainPhone,@RequestParam(value="anthCode",required=true)String anthCode) {
+		ResponseBean<String> responseBean = new ResponseBean<String>();
+		try {
+			SmsVo smsVo = (SmsVo)stringRedisTemplate.opsForHash().get(RedisKey.SMS_AUTH_PNWEB, remainPhone);
+			if (smsVo!=null&&smsVo.getYzm().equals(anthCode)) {
+				wxFestivalAwardService.remainPhone(awardId, remainPhone, 1);
+				stringRedisTemplate.opsForList().rightPush(RedisKey.wx_award_queue, String.valueOf(awardId.intValue()));
+				responseBean.setRespStatus(true);
+				return responseBean;
+			}
+			responseBean.setRespStatus(false);
+			responseBean.setRespDesc(ResponseDesc.response_fail);
+			return responseBean;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			responseBean.setRespStatus(false);
+			responseBean.setRespDesc(ResponseDesc.response_fail);
+			return responseBean;
+		}
+	}
+}

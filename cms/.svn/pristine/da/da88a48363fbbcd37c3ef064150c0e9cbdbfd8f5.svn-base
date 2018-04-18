@@ -1,0 +1,225 @@
+package com.jsz.peini.controller;
+
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.fastjson.JSONObject;
+import com.jsz.peini.bean.WxFestivalActivity;
+
+import com.jsz.peini.component.HttpClientComponent;
+import com.jsz.peini.mapper.WxFestivalActivityMapper;
+import com.jsz.peini.service.SmsService;
+import com.jsz.peini.service.WxUserInfoService;
+import com.jsz.peini.util.common.CodeUtil;
+import com.jsz.peini.util.common.ResponseBean;
+import com.jsz.peini.util.common.SmsVo;
+import com.jsz.peini.util.common.StringUtil;
+import com.jsz.peini.util.constant.Config;
+import com.jsz.peini.util.constant.Constants;
+import com.jsz.peini.util.constant.RedisKey;
+import com.jsz.peini.util.constant.ResponseDesc;
+
+@Controller
+@RequestMapping("main")
+public class MainController {
+	private Logger logger = LogManager.getLogger(MainController.class);
+	@Autowired
+	private HttpClientComponent httpClientComponent;
+	@Autowired
+	private WxFestivalActivityMapper wxFestivalActivityMapper;
+	@Autowired
+	private WxUserInfoService wxUserInfoService;
+	@Autowired
+	private StringRedisTemplate stringRedisTemplate;
+	@Autowired
+	private SmsService smsService;
+	/**
+	 * 微信授权页面跳转接口
+	 * 
+	 * @return
+	 */
+	@RequestMapping("gotoAuthMain")
+	public ModelAndView gotoAuthMain() {
+		ModelAndView modelAndView = new ModelAndView("common/gotoAuthMain");
+		modelAndView.addObject("weixin_serverno_authorize_url", Config.weixin_serverno_authorize_url);
+		modelAndView.addObject("weixin_serverno_appid", Config.weixin_serverno_appid);
+		modelAndView.addObject("weixin_serverno_redirect_uri", Config.weixin_serverno_redirect_uri);
+		modelAndView.addObject("weixin_serverno_scope", Config.weixin_serverno_scope);
+		return modelAndView;
+	}
+
+	/**
+	 * 活动跳转页接口
+	 * 
+	 * @param request
+	 * @param code
+	 * @return
+	 */
+	@RequestMapping("newYearMain")
+	public ModelAndView newYearMain(HttpServletRequest request, String code) {
+		ModelAndView modelAndView = null;
+		try {
+			HashMap<String, String> access_token_hashMap = new HashMap<String, String>();
+			access_token_hashMap.put("appid", Config.weixin_serverno_appid);
+			access_token_hashMap.put("secret", Config.weixin_serverno_secret);
+			access_token_hashMap.put("code", code);
+			access_token_hashMap.put("grant_type", Config.weixin_serverno_access_token_grant_type);
+			String access_token_body = httpClientComponent.getHttpGet(Config.weixin_serverno_https_scheme, Config.weixin_serverno_api_host, Config.weixin_serverno_access_token_path, access_token_hashMap);
+			if (access_token_body == null) {
+				throw new RuntimeException("http-client==>>access_token:[null]");
+			}
+			JSONObject access_token_bodyObj = JSONObject.parseObject(access_token_body);
+			logger.info(access_token_bodyObj);
+			if (Config.weixin_serverno_access_token_errcode.equals(access_token_bodyObj.getString("errcode"))||Config.weixin_serverno_access_token_usedcode.equals(access_token_bodyObj.getString("errcode"))) {
+				logger.warn("用户授权code已过期,需要重新授权");
+				modelAndView = new ModelAndView("redirect:/main/gotoAuthMain");
+				return modelAndView;
+			}
+			HashMap<String, String> token_hashMap = new HashMap<String, String>();
+			token_hashMap.put("appid", Config.weixin_serverno_appid);
+			token_hashMap.put("secret", Config.weixin_serverno_secret);
+			token_hashMap.put("grant_type", Config.weixin_serverno_token_grant_type);
+			String token_body = httpClientComponent.getHttpGet(Config.weixin_serverno_https_scheme, Config.weixin_serverno_api_host, Config.weixin_serverno_token_path, token_hashMap);
+			if (token_body == null) {
+				throw new RuntimeException("http-client==>>token:[null]");
+			}
+			JSONObject token_bodyObj = JSONObject.parseObject(token_body);
+			logger.info(token_bodyObj);
+			HashMap<String, String> jsapi_ticket_hashMap = new HashMap<String, String>();
+			jsapi_ticket_hashMap.put("access_token", token_bodyObj.getString("access_token"));
+			jsapi_ticket_hashMap.put("type", Config.weixin_serverno_jsapi_ticket_type);
+			String jsapi_ticket_body = httpClientComponent.getHttpGet(Config.weixin_serverno_https_scheme, Config.weixin_serverno_api_host, Config.weixin_serverno_jsapi_ticket_path, jsapi_ticket_hashMap);
+			if (jsapi_ticket_body == null) {
+				throw new RuntimeException("http-client==>>jsapi_ticket:[null]");
+			}
+			JSONObject jsapi_ticket_bodyObj = JSONObject.parseObject(jsapi_ticket_body);
+			logger.info(jsapi_ticket_bodyObj);
+			String jsapi_ticket = jsapi_ticket_bodyObj.getString("ticket");
+			String noncestr = StringUtil.getUUID();
+			String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
+			String url = request.getRequestURL().toString() + "?" + request.getQueryString();
+			String signature = "jsapi_ticket=" + jsapi_ticket + "&noncestr=" + noncestr + "&timestamp=" + timestamp + "&url=" + url;
+			logger.debug(signature);
+			signature = CodeUtil.getSHA1Encode(signature);
+			logger.debug(signature);
+//			*****************************************
+//			JSONObject postObj = new JSONObject();
+//			postObj.put("media_id", "_kdVpsm5bkSqsHGRrdjlpA9I8t6MgIKdyv9srabKUEs");
+////			postObj.put("offset", 0);
+////			postObj.put("count", 20);
+//			HashMap<String, String> param = new HashMap<String, String>();
+//			param.put("access_token", token_bodyObj.getString("access_token"));
+//			String json= httpClientComponent.getHttpPost(Config.weixin_serverno_https_scheme, Config.weixin_serverno_api_host, "/cgi-bin/material/get_material",param, postObj.toString());
+//			logger.debug(json);
+//			JSONObject videoobj= JSONObject.parseObject(json);
+//			logger.debug(videoobj.getString("down_url"));
+			
+//			*****************************************
+			
+			// 增加用户表记录,相当于注册
+			String openId = access_token_bodyObj.getString("openid");
+			wxUserInfoService.newUser(openId);
+			String userId = (String) stringRedisTemplate.opsForHash().get(RedisKey.wx_openId_userId, openId);
+			logger.debug("userId===>" + userId);
+			Date today = new Date();
+			WxFestivalActivity wxFestivalActivity = wxFestivalActivityMapper.selectActivityByCurrentTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			// 如果洗不出活动,说明任何活动均没匹配上
+			if (wxFestivalActivity == null) {
+				// 查询时间段
+				WxFestivalActivity activity_minMax = wxFestivalActivityMapper.selectMax_MinActivity();
+				if (today.before(new SimpleDateFormat("yyyy-MM-dd").parse(activity_minMax.getMinActivityTime()))) {
+					// 如果在活动日期之前 返回最早的页面
+					modelAndView = new ModelAndView("newYear/date_" + activity_minMax.getMinActivityTime().replaceAll("-", "") + "_main");
+					modelAndView.addObject("weixin_serverno_appid", Config.weixin_serverno_appid);
+					modelAndView.addObject("timestamp", timestamp);
+					modelAndView.addObject("noncestr", noncestr);
+					modelAndView.addObject("signature", signature);
+					modelAndView.addObject("userId", userId);
+					return modelAndView;
+				} else if (today.after(new SimpleDateFormat("yyyy-MM-dd").parse(activity_minMax.getMaxActivityTime()))) {
+					// 如果在活动日期之后 返回最晚的页面
+					modelAndView = new ModelAndView("newYear/date_" + activity_minMax.getMaxActivityTime().replaceAll("-", "") + "_main");
+					modelAndView.addObject("weixin_serverno_appid", Config.weixin_serverno_appid);
+					modelAndView.addObject("timestamp", timestamp);
+					modelAndView.addObject("noncestr", noncestr);
+					modelAndView.addObject("signature", signature);
+					modelAndView.addObject("userId", userId);
+					return modelAndView;
+				} else {
+					// 否则返回当天的页面
+					modelAndView = new ModelAndView("newYear/date_" + new SimpleDateFormat("yyyyMMdd").format(today) + "_main");
+					modelAndView.addObject("weixin_serverno_appid", Config.weixin_serverno_appid);
+					modelAndView.addObject("timestamp", timestamp);
+					modelAndView.addObject("noncestr", noncestr);
+					modelAndView.addObject("signature", signature);
+					modelAndView.addObject("userId", userId);
+					return modelAndView;
+				}
+			}
+			// 匹配上活动了
+			modelAndView = new ModelAndView(wxFestivalActivity.getReturnUrl());
+			modelAndView.addObject("weixin_serverno_appid", Config.weixin_serverno_appid);
+			modelAndView.addObject("timestamp", timestamp);
+			modelAndView.addObject("noncestr", noncestr);
+			modelAndView.addObject("signature", signature);
+			modelAndView.addObject("userId", userId);
+			return modelAndView;
+
+		} catch (Exception e) {
+			logger.error("进入抽奖页面出错");
+			logger.error(e.getMessage());
+		}
+		return new ModelAndView("newYear/waitMain");
+	}
+
+	/**
+	 * 手机号注册验证码 短信发送接口
+	 * 
+	 * @param userLogin
+	 * @author jgx
+	 */
+	
+	@ResponseBody
+	@RequestMapping(value = "/smsSendForRegister")
+	public Object smsSendForRegister(String userName) {
+		ResponseBean<String> responseBean = new ResponseBean<String>();
+		try {
+			// 生成验证码
+			String yzm = CodeUtil.createRandom(true, 6);
+			SmsVo smsVo = new SmsVo(yzm, new Date());
+			// 发送验证码
+			boolean smsResult = smsService.sendMessage(userName, yzm, Constants.SMS_YZM);
+			if (smsResult) {
+				responseBean.setRespStatus(true);
+				responseBean.setRespObj(yzm);
+				// 更新手机验证码缓存
+				stringRedisTemplate.opsForHash().put(RedisKey.SMS_AUTH_PNWEB, userName, smsVo);
+			} else {
+				responseBean.setRespStatus(false);
+				responseBean.setRespDesc(ResponseDesc.response_fail);
+			}
+			return responseBean;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			responseBean.setRespStatus(false);
+			responseBean.setRespDesc(ResponseDesc.response_fail);
+			return responseBean;
+		}
+	}
+}

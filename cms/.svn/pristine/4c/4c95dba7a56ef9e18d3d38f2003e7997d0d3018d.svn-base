@@ -1,0 +1,332 @@
+@charset"utf-8";
+html, body, div, span, object, h1, h2, h3, h4, h5, h6, p, em, img, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label,  table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+    border:0 none;    
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family:'Microsoft Yahei','PingFang';
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;
+ }
+ 
+html { font: menu; }
+body { font-size: 16px; }
+html { font: small-caption; }
+body { font-size: 16px; }
+html { font: status-bar; }
+body { font-size: 16px; }
+
+li{
+    list-style: outside none none;
+}
+a:active {
+    outline: 0 none;
+}
+img {
+    vertical-align: middle;
+}
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    border:0 none;
+    outline: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0); -webkit-focus-ring-color: rgba(0, 0, 0, 0);
+  -webkit-appearance: none;
+
+}
+button:focus, input:focus, select:focus, textarea:focus{outline:0 none;}
+html {
+    height: 100%;
+    font-size: 16px;
+}
+body {
+    height: 100%;
+    color: #fff;
+    font-size: 100%;
+    background: #c62320;
+    max-width: 540px;
+    margin:0 auto;
+    font-size: 16px;
+
+}
+a {
+    text-decoration: none;
+}
+
+
+section{
+    width: 100%;
+    max-width: 540px;
+    overflow: hidden;
+    z-index: 99;
+    margin:0rem auto;
+    box-sizing: border-box;
+
+}
+/* logo */
+.logo{
+    position: absolute;
+    left: 1.3rem;
+    top: 0.9rem;
+    width: 8.3rem;
+}
+/* 活动锦囊 */
+
+/* 活动锦囊提示 */
+ 
+.drom{
+    width: 80%;
+    text-align: center;
+    position:absolute;
+    z-index: 99;
+    left: 50%;
+    top:50%;
+    margin:-11rem 0 0 -40%;
+    border:0 none;
+    display: none; 
+}
+.drom h5{
+    width: 46%;
+    height: 2.5rem;
+    margin:0.3rem auto 1.4rem;
+    background:  url(../images/rule-h-bg.png) center center no-repeat;
+    -webkit-background-size: 100% auto;
+    background-size: 100% auto;
+    font-weight: normal;
+}
+  .close-btn{
+    height: 1.8rem;
+    width: 1.8rem;
+    display: block;
+    position: absolute;
+    right: 0;
+    top:0;
+    background:  url(../images/close-bg.png) center no-repeat;
+    -webkit-background-size: 100% auto;
+    background-size: 100% auto;
+}
+.drom-cont{
+    width: 100%;
+    padding:1.25rem 1rem;
+    background:  url(../images/rule-bg.png) 0 0 no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.drom p{
+    font-size: 0.8rem;
+    color:#fff;
+    line-height: 1.24rem;
+    text-align: left;
+}
+
+.gray{
+     position: fixed;
+     top:0;
+     left: 0;
+    content:"";
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 98;
+  display: none; 
+
+} 
+
+
+/* 中奖弹窗 */
+.prize {
+    display: none;
+    z-index: 99;
+    height: 100%;
+    position: absolute;
+    z-index: 99;
+    left: 0%;
+    top: 0%;
+    background: url(../images/gray-bg.png) center center no-repeat;
+    -webkit-background-size:100% 60%;
+    background-size:100% 60%;
+}
+.prize .hint-show{
+    width: 77%;
+    padding:3.1rem 1.8rem 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin:-12rem 0 0 -38%;
+
+}
+.prize .prize-cont{
+    width:100%;
+    height: 15rem;
+    text-align: center;
+    padding-top: 9.5rem;
+    background:  url(../images/bomb-bg-s.png) 0 0 no-repeat;
+    -webkit-background-size:100% 100%;
+    background-size: 100% 100%;
+}
+ .hint-show .colour-img {
+    width: 55%;
+    height: 1.2rem;
+    margin:0 auto;
+}
+ 
+.hint-show .prize-span {
+    color:#f5ed13;
+    display: block;
+    text-align: center;
+    line-height: 2.1rem;
+}
+
+
+
+ .hint-show .close-btn {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 200;
+} 
+
+/* 注册提示弹框 */
+.enroll{
+    display: none;
+    z-index: 99;
+    height: 100%;
+    position: absolute;
+    z-index: 99;
+    left: 0%;
+    top: 0%;
+     background: url(../images/gray-bg.png) center center no-repeat;
+    -webkit-background-size:100% 70%;
+    background-size:100% 70%;
+
+}
+.enroll .hint-show{
+    width: 84%;
+    padding:3.1rem 1.8rem 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin:-15rem 0 0 -42%;
+
+}
+.enroll .prize-cont{
+    width:100%;
+    height:23rem;
+    text-align: center;
+    padding-top: 8.5rem;
+    background:  url(../images/bomg-bg-b.png) 0 0 no-repeat;
+    -webkit-background-size:100% 100%;
+    background-size: 100% 100%;
+}
+.txt,.code{
+    height: 1.8rem;
+    width: 80%;
+    margin:0 auto;
+}
+.txt{
+    margin-bottom: 0.6rem;
+}
+.txt input{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding:0 0.6rem;
+    border-radius: 8px;
+    border:0 none;
+    background-color: #fff;
+    font-size: 0.8rem;
+    line-height: 1.8rem;
+    color:#ff6c00;
+}
+.code input{
+    box-sizing: border-box;
+    width: 60%;
+    height: 100%;
+    padding:0 0.6rem;
+    border-radius: 8px;
+    border:0 none;
+    background-color: #fff;
+    font-size: 0.8rem;
+    line-height: 1.8rem;
+    color:#ff6c00;
+    display: block;
+    float: left;
+    margin-right: 0.3rem
+}
+.code button{
+    box-sizing: border-box;
+    display: block;
+    float: right;
+    width: 34%;
+    height: 100%;
+    border:0 none;
+    background:  url(../images/code-bg.png) 0 0 no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    
+}
+.code button.cur{
+    font-size: 0.7rem;
+    line-height: 1.8rem;
+    color:#c65400;
+    background:  url(../images/code-bg-no.png) 0 0 no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.enroll p{
+    font-size: 0.7rem;
+    line-height: 1.6rem;
+}
+.enroll a{
+    color:#f5ed13;
+    font-size: 0.7rem;
+    border-bottom:1px dashed #f5ed13;
+}
+.enroll .receive{
+    height: 2.4rem;
+    width: 50%;
+    display: block;
+    margin:1.24rem auto;
+    background:  url(../images/receive-bg.png) 0 0 no-repeat;
+    -webkit-background-size:100% auto;
+    background-size:100% auto;
+}
+
+/* 超出次数弹出 */
+.beyond{
+    display: none;
+    position: absolute;
+    top:40%;
+    left:18%;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+    max-width: 66%;
+    text-align: center;
+    color:#fff;
+    padding:0.6rem 1.6rem;
+    background-color: rgba(0,0,0,0.7);
+    word-break: break-all;
+	word-wrap:break-word;
+}
+
+/* 视频 */
+.vid{ 
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  top:0%;
+  left: 0%;
+}
+..vid iframe{
+    width: 100%;
+    height: 100%;
+
+}

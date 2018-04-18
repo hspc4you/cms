@@ -1,0 +1,30 @@
+package com.jsz.peini.util.common;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+
+import com.alibaba.fastjson.JSON;
+
+public class CodeUtil {
+
+	public static String getSHA1Encode(String code) {
+		return DigestUtils.sha1Hex(code);
+	}
+	public static void main(String[] args) throws Exception{
+		String code = "kgt8ON7yVITDhtdwci0qeXy6gxxF6qldz7DQBu2qQhAu7M_uzanlpXly69jTEHmmLm_xdlJZp76oibw205aQsg&09adf3f47b304173b2b13245f6b5f4e3&1517331994&http://hesipeng.free.ngrok.cc/wx/main/newYearMain?code=001yyR1d2mQpsD0NEI4d21qZ1d2yyR1Z&state=wx";
+		System.out.println(CodeUtil.getSHA1Encode(code));
+		Document document= DocumentHelper.parseText("<xml><a><c>11</c></a><b>22</b></xml>");
+		Element xml = document.getRootElement();
+		@SuppressWarnings("unchecked")
+		List<Element> elementList =  xml.elements();
+		for (Element element : elementList) {
+			System.out.println(element.getName());
+			System.out.println(element.getText());
+		}
+	}
+}

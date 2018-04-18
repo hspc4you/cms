@@ -1,0 +1,106 @@
+/**
+ * @日期:2017年11月24日
+ * @文件:UserService.java
+ * @描述:<用户相关服务类>
+ */
+package com.jsz.peini.service;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
+import com.jsz.peini.bean.UserAccount;
+import com.jsz.peini.bean.UserInfo;
+import com.jsz.peini.bean.UserLogin;
+import com.jsz.peini.bean.UserLoginCustom;
+
+
+import com.jsz.peini.mapper.UserAccountMapper;
+import com.jsz.peini.mapper.UserInfoMapper;
+import com.jsz.peini.mapper.UserLoginMapper;
+
+
+import com.jsz.peini.util.common.MDUtil;
+import com.jsz.peini.util.common.StringUtil;
+import com.jsz.peini.util.common.UserVo;
+import com.jsz.peini.util.constant.Constants;
+import com.jsz.peini.util.constant.RedisKey;
+import com.jsz.peini.util.emchat.api.EasemobIMUsers;
+
+
+/**
+ * @日期:2017年11月24日
+ * @作者:hesipeng
+ * @描述:<用户service服务层>
+ */
+@Service
+public class UserService {
+	
+		Logger log = LogManager.getLogger(UserService.class);
+		@Autowired
+		private UserLoginMapper userLoginMapper;
+		@Autowired
+		private UserInfoMapper userInfoMapper;
+		@Autowired
+		private UserAccountMapper userAccountMapper;
+		@Autowired
+		private StringRedisTemplate stringRedisTemplate;
+		
+		/**
+		 * @描述:<新用户注册服务>
+		 * @日期:2017年11月24日
+		 * @作者:hesipeng
+		 * @param userLogin <>
+		 */
+		@Transactional
+		public void userRegister(UserLoginCustom userLoginCustom){
+			//添加注册信息
+			userLoginCustom.setLastTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			userLoginCustom.setUserPassword(MDUtil.encodePwd(userLoginCustom.getUserPassword()));
+			userLoginMapper.insertByUserLogin(userLoginCustom);
+			//初始化用户信息
+			UserInfo userInfo = new UserInfo();
+			userInfo.setUserLoginId(userLoginCustom.getId());
+			userInfo.setId(StringUtil.getUUID());
+			userInfo.setNickname(userLoginCustom.getId().toString());
+			userInfo.setUserPhone(userLoginCustom.getUserName());
+			userInfo.setIsPhone(1);
+			userInfo.setRegTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			userInfo.setActiveTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			userInfo.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			userInfoMapper.insertByRegister(userInfo);
+			//加入分配accCode队列
+//			RedisUtil.lpush(RedisConstants.USER_REG.getBytes(), userInfo.getId().getBytes());
+			stringRedisTemplate.opsForList().leftPush(RedisKey.USER_REG, userInfo.getId());
+			//初始化账户信息
+			UserAccount userAccount = new UserAccount();
+			userAccount.setUserId(userInfo.getId());
+			userAccountMapper.insertSelective(userAccount);
+			
+			//将新用户信息写入缓存
+			UserVo userVo = new UserVo();
+			userVo.setAcountId(String.valueOf(userAccount.getId()));
+			userVo.setUserId(userInfo.getId());
+			userVo.setUserLoginId(userLoginCustom.getId().toString());
+			userVo.setBuyList(new BigDecimal("0"));
+			userVo.setGoldList(new BigDecimal("0"));
+			userVo.setIntegrityList(new BigDecimal("0"));
+			stringRedisTemplate.opsForValue().set(RedisKey.JSON_USER_INFO_USERID + userVo.getUserId(), JSONObject.toJSONString(userVo),Constants.WEEK_SECONDS,TimeUnit.SECONDS);
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("username",userLoginCustom.getUserName());
+			jsonObject.put("password", "123456");
+	        EasemobIMUsers.createNewIMUserSingle(jsonObject);
+		}
+}

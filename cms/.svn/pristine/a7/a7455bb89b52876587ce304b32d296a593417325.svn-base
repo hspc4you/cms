@@ -1,0 +1,6 @@
+mq.url=tcp\://127.0.0.1\:61616
+mq.userName=admin
+mq.password=admin
+mq.sessionCacheSize=100
+#消费者超时时间 单位:ms
+mq.consumer.receiveTimeout=10000

@@ -1,0 +1,1372 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsz.peini.mapper.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jsz.peini.bean.UserInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_login_id" property="userLoginId" jdbcType="INTEGER" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="sign_word" property="signWord" jdbcType="VARCHAR" />
+    <result column="image_head" property="imageHead" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="height" property="height" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+    <result column="old_province" property="oldProvince" jdbcType="INTEGER" />
+    <result column="old_city" property="oldCity" jdbcType="INTEGER" />
+    <result column="old_county" property="oldCounty" jdbcType="INTEGER" />
+    <result column="now_province" property="nowProvince" jdbcType="INTEGER" />
+    <result column="now_city" property="nowCity" jdbcType="INTEGER" />
+    <result column="now_county" property="nowCounty" jdbcType="INTEGER" />
+    <result column="constellation" property="constellation" jdbcType="INTEGER" />
+    <result column="nation" property="nation" jdbcType="INTEGER" />
+    <result column="small_income" property="smallIncome" jdbcType="INTEGER" />
+    <result column="big_income" property="bigIncome" jdbcType="INTEGER" />
+    <result column="degree" property="degree" jdbcType="INTEGER" />
+    <result column="industry" property="industry" jdbcType="INTEGER" />
+    <result column="is_house" property="isHouse" jdbcType="INTEGER" />
+    <result column="is_car" property="isCar" jdbcType="INTEGER" />
+    <result column="is_phone" property="isPhone" jdbcType="INTEGER" />
+    <result column="is_idcard" property="isIdcard" jdbcType="INTEGER" />
+    <result column="is_video" property="isVideo" jdbcType="INTEGER" />
+    <result column="emotion" property="emotion" jdbcType="INTEGER" />
+    <result column="reputation" property="reputation" jdbcType="INTEGER" />
+    <result column="reputation_year" property="reputationYear" jdbcType="INTEGER" />
+    <result column="reputation_quarter" property="reputationQuarter" jdbcType="INTEGER" />
+    <result column="reputation_month" property="reputationMonth" jdbcType="INTEGER" />
+    <result column="gold_list" property="goldList" jdbcType="INTEGER" />
+    <result column="buy_list" property="buyList" jdbcType="INTEGER" />
+    <result column="integrity_list" property="integrityList" jdbcType="INTEGER" />
+    <result column="user_life" property="userLife" jdbcType="INTEGER" />
+    <result column="user_image" property="userImage" jdbcType="INTEGER" />
+    <result column="user_date" property="userDate" jdbcType="INTEGER" />
+    <result column="user_score" property="userScore" jdbcType="INTEGER" />
+    <result column="self_num" property="selfNum" jdbcType="INTEGER" />
+    <result column="idcard_num" property="idcardNum" jdbcType="INTEGER" />
+    <result column="task_num" property="taskNum" jdbcType="INTEGER" />
+    <result column="is_rank" property="isRank" jdbcType="INTEGER" />
+    <result column="acc_code" property="accCode" jdbcType="VARCHAR" />
+    <result column="reg_time" property="regTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="active_time" property="activeTime" jdbcType="TIMESTAMP" />
+    <result column="task_cancle_cnt" property="taskCancleCnt" jdbcType="INTEGER" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="idCardNo" property="idCardNo" jdbcType="VARCHAR" />
+    <result column="realName" property="realName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="UserInfo" extends="BaseResultMap" >
+    <result column="space_bg_img" property="spaceBgImg" jdbcType="LONGVARCHAR" />
+    <result column="black_list" property="blackList" jdbcType="LONGVARCHAR" />
+    <association property="userLogin"  column="user_login_id" javaType="UserLogin" select="com.jsz.peini.mapper.user.UserLoginMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_login_id, nickname, sign_word, image_head, sex, birthday, age, height, weight, 
+    old_province, old_city, old_county, now_province, now_city, now_county, constellation, 
+    nation, small_income, big_income, degree, industry, is_house, is_car, is_phone, is_idcard, 
+    is_video, emotion, reputation, reputation_year, reputation_quarter, reputation_month, 
+    gold_list, buy_list, integrity_list, user_life, user_image, user_date, user_score, 
+    self_num, idcard_num, task_num, is_rank, acc_code, reg_time, update_time, active_time, 
+    task_cancle_cnt, user_phone,idCardNo,realName
+  </sql>
+  <sql id="Blob_Column_List" >
+    space_bg_img, black_list
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="UserInfo" >
+    insert into user_info (id, user_login_id, nickname, 
+      sign_word, image_head, sex, 
+      birthday, age, height, 
+      weight, old_province, old_city, 
+      old_county, now_province, now_city, 
+      now_county, constellation, nation, 
+      small_income, big_income, degree, 
+      industry, is_house, is_car, 
+      is_phone, is_idcard, is_video, 
+      emotion, reputation, reputation_year, 
+      reputation_quarter, reputation_month, gold_list, 
+      buy_list, integrity_list, user_life, 
+      user_image, user_date, user_score, 
+      self_num, idcard_num, task_num, 
+      is_rank, acc_code, reg_time, 
+      update_time, active_time, task_cancle_cnt, 
+      user_phone, space_bg_img, black_list,idCardNo,realName
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userLoginId,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, 
+      #{signWord,jdbcType=VARCHAR}, #{imageHead,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{birthday,jdbcType=DATE}, #{age,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, 
+      #{weight,jdbcType=INTEGER}, #{oldProvince,jdbcType=INTEGER}, #{oldCity,jdbcType=INTEGER}, 
+      #{oldCounty,jdbcType=INTEGER}, #{nowProvince,jdbcType=INTEGER}, #{nowCity,jdbcType=INTEGER}, 
+      #{nowCounty,jdbcType=INTEGER}, #{constellation,jdbcType=INTEGER}, #{nation,jdbcType=INTEGER}, 
+      #{smallIncome,jdbcType=INTEGER}, #{bigIncome,jdbcType=INTEGER}, #{degree,jdbcType=INTEGER}, 
+      #{industry,jdbcType=INTEGER}, #{isHouse,jdbcType=INTEGER}, #{isCar,jdbcType=INTEGER}, 
+      #{isPhone,jdbcType=INTEGER}, #{isIdcard,jdbcType=INTEGER}, #{isVideo,jdbcType=INTEGER}, 
+      #{emotion,jdbcType=INTEGER}, #{reputation,jdbcType=INTEGER}, #{reputationYear,jdbcType=INTEGER}, 
+      #{reputationQuarter,jdbcType=INTEGER}, #{reputationMonth,jdbcType=INTEGER}, #{goldList,jdbcType=INTEGER}, 
+      #{buyList,jdbcType=INTEGER}, #{integrityList,jdbcType=INTEGER}, #{userLife,jdbcType=INTEGER}, 
+      #{userImage,jdbcType=INTEGER}, #{userDate,jdbcType=INTEGER}, #{userScore,jdbcType=INTEGER}, 
+      #{selfNum,jdbcType=INTEGER}, #{idcardNum,jdbcType=INTEGER}, #{taskNum,jdbcType=INTEGER}, 
+      #{isRank,jdbcType=INTEGER}, #{accCode,jdbcType=VARCHAR}, #{regTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{activeTime,jdbcType=TIMESTAMP}, #{taskCancleCnt,jdbcType=INTEGER}, 
+      #{userPhone,jdbcType=VARCHAR}, #{spaceBgImg,jdbcType=LONGVARCHAR}, #{blackList,jdbcType=LONGVARCHAR},
+      #{idCardNo,jdbcType=VARCHAR},#{realName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertByRegister" parameterType="UserInfo">
+  	INSERT INTO user_info (
+			id,
+			user_login_id,
+			nickname,
+			user_phone,
+			reg_time,
+			update_time,
+			active_time
+		)
+	VALUES
+		(
+			#{id}, 
+			#{userLoginId}, 
+			#{nickname},
+			#{userPhone}, 
+			#{regTime}, 
+			#{updateTime}, 
+			#{activeTime}
+		)
+  </insert>
+  <insert id="insertSelective" parameterType="UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userLoginId != null" >
+        user_login_id,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="signWord != null" >
+        sign_word,
+      </if>
+      <if test="imageHead != null" >
+        image_head,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="oldProvince != null" >
+        old_province,
+      </if>
+      <if test="oldCity != null" >
+        old_city,
+      </if>
+      <if test="oldCounty != null" >
+        old_county,
+      </if>
+      <if test="nowProvince != null" >
+        now_province,
+      </if>
+      <if test="nowCity != null" >
+        now_city,
+      </if>
+      <if test="nowCounty != null" >
+        now_county,
+      </if>
+      <if test="constellation != null" >
+        constellation,
+      </if>
+      <if test="nation != null" >
+        nation,
+      </if>
+      <if test="smallIncome != null" >
+        small_income,
+      </if>
+      <if test="bigIncome != null" >
+        big_income,
+      </if>
+      <if test="degree != null" >
+        degree,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="isHouse != null" >
+        is_house,
+      </if>
+      <if test="isCar != null" >
+        is_car,
+      </if>
+      <if test="isPhone != null" >
+        is_phone,
+      </if>
+      <if test="isIdcard != null" >
+        is_idcard,
+      </if>
+      <if test="isVideo != null" >
+        is_video,
+      </if>
+      <if test="emotion != null" >
+        emotion,
+      </if>
+      <if test="reputation != null" >
+        reputation,
+      </if>
+      <if test="reputationYear != null" >
+        reputation_year,
+      </if>
+      <if test="reputationQuarter != null" >
+        reputation_quarter,
+      </if>
+      <if test="reputationMonth != null" >
+        reputation_month,
+      </if>
+      <if test="goldList != null" >
+        gold_list,
+      </if>
+      <if test="buyList != null" >
+        buy_list,
+      </if>
+      <if test="integrityList != null" >
+        integrity_list,
+      </if>
+      <if test="userLife != null" >
+        user_life,
+      </if>
+      <if test="userImage != null" >
+        user_image,
+      </if>
+      <if test="userDate != null" >
+        user_date,
+      </if>
+      <if test="userScore != null" >
+        user_score,
+      </if>
+      <if test="selfNum != null" >
+        self_num,
+      </if>
+      <if test="idcardNum != null" >
+        idcard_num,
+      </if>
+      <if test="taskNum != null" >
+        task_num,
+      </if>
+      <if test="isRank != null" >
+        is_rank,
+      </if>
+      <if test="accCode != null" >
+        acc_code,
+      </if>
+      <if test="regTime != null" >
+        reg_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="activeTime != null" >
+        active_time,
+      </if>
+      <if test="taskCancleCnt != null" >
+        task_cancle_cnt,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="idcardno != null" >
+        idCardNo,
+      </if>
+      <if test="realname != null" >
+        realName,
+      </if>
+      <if test="wxname != null" >
+        wxName,
+      </if>
+      <if test="recommendUserId != null" >
+        recommend_user_id,
+      </if>
+      <if test="devNo != null" >
+        dev_no,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="devtype != null" >
+        devType,
+      </if>
+      <if test="isold != null" >
+        isOld,
+      </if>
+      <if test="imgheadUpdateTime != null" >
+        imgHead_update_time,
+      </if>
+      <if test="imgheadIsdelete != null" >
+        imgHead_isDelete,
+      </if>
+      <if test="xpoint != null" >
+        xpoint,
+      </if>
+      <if test="ypoint != null" >
+        ypoint,
+      </if>
+      <if test="zmpoint != null" >
+        zmpoint,
+      </if>
+      <if test="zmpointtime != null" >
+        zmpointtime,
+      </if>
+      <if test="maxcredit != null" >
+        maxcredit,
+      </if>
+      <if test="nowcredit != null" >
+        nowcredit,
+      </if>
+      <if test="experience != null" >
+        experience,
+      </if>
+      <if test="userRole != null" >
+        user_role,
+      </if>
+      <if test="spaceBgImg != null" >
+        space_bg_img,
+      </if>
+      <if test="blackList != null" >
+        black_list,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userLoginId != null" >
+        #{userLoginId,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="signWord != null" >
+        #{signWord,jdbcType=VARCHAR},
+      </if>
+      <if test="imageHead != null" >
+        #{imageHead,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="oldProvince != null" >
+        #{oldProvince,jdbcType=INTEGER},
+      </if>
+      <if test="oldCity != null" >
+        #{oldCity,jdbcType=INTEGER},
+      </if>
+      <if test="oldCounty != null" >
+        #{oldCounty,jdbcType=INTEGER},
+      </if>
+      <if test="nowProvince != null" >
+        #{nowProvince,jdbcType=INTEGER},
+      </if>
+      <if test="nowCity != null" >
+        #{nowCity,jdbcType=INTEGER},
+      </if>
+      <if test="nowCounty != null" >
+        #{nowCounty,jdbcType=INTEGER},
+      </if>
+      <if test="constellation != null" >
+        #{constellation,jdbcType=INTEGER},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=INTEGER},
+      </if>
+      <if test="smallIncome != null" >
+        #{smallIncome,jdbcType=INTEGER},
+      </if>
+      <if test="bigIncome != null" >
+        #{bigIncome,jdbcType=INTEGER},
+      </if>
+      <if test="degree != null" >
+        #{degree,jdbcType=INTEGER},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=INTEGER},
+      </if>
+      <if test="isHouse != null" >
+        #{isHouse,jdbcType=INTEGER},
+      </if>
+      <if test="isCar != null" >
+        #{isCar,jdbcType=INTEGER},
+      </if>
+      <if test="isPhone != null" >
+        #{isPhone,jdbcType=INTEGER},
+      </if>
+      <if test="isIdcard != null" >
+        #{isIdcard,jdbcType=INTEGER},
+      </if>
+      <if test="isVideo != null" >
+        #{isVideo,jdbcType=INTEGER},
+      </if>
+      <if test="emotion != null" >
+        #{emotion,jdbcType=INTEGER},
+      </if>
+      <if test="reputation != null" >
+        #{reputation,jdbcType=INTEGER},
+      </if>
+      <if test="reputationYear != null" >
+        #{reputationYear,jdbcType=INTEGER},
+      </if>
+      <if test="reputationQuarter != null" >
+        #{reputationQuarter,jdbcType=INTEGER},
+      </if>
+      <if test="reputationMonth != null" >
+        #{reputationMonth,jdbcType=INTEGER},
+      </if>
+      <if test="goldList != null" >
+        #{goldList,jdbcType=INTEGER},
+      </if>
+      <if test="buyList != null" >
+        #{buyList,jdbcType=INTEGER},
+      </if>
+      <if test="integrityList != null" >
+        #{integrityList,jdbcType=INTEGER},
+      </if>
+      <if test="userLife != null" >
+        #{userLife,jdbcType=INTEGER},
+      </if>
+      <if test="userImage != null" >
+        #{userImage,jdbcType=INTEGER},
+      </if>
+      <if test="userDate != null" >
+        #{userDate,jdbcType=INTEGER},
+      </if>
+      <if test="userScore != null" >
+        #{userScore,jdbcType=INTEGER},
+      </if>
+      <if test="selfNum != null" >
+        #{selfNum,jdbcType=INTEGER},
+      </if>
+      <if test="idcardNum != null" >
+        #{idcardNum,jdbcType=INTEGER},
+      </if>
+      <if test="taskNum != null" >
+        #{taskNum,jdbcType=INTEGER},
+      </if>
+      <if test="isRank != null" >
+        #{isRank,jdbcType=INTEGER},
+      </if>
+      <if test="accCode != null" >
+        #{accCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regTime != null" >
+        #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeTime != null" >
+        #{activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskCancleCnt != null" >
+        #{taskCancleCnt,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardno != null" >
+        #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="wxname != null" >
+        #{wxname,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendUserId != null" >
+        #{recommendUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="devNo != null" >
+        #{devNo,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="devtype != null" >
+        #{devtype,jdbcType=INTEGER},
+      </if>
+      <if test="isold != null" >
+        #{isold,jdbcType=INTEGER},
+      </if>
+      <if test="imgheadUpdateTime != null" >
+        #{imgheadUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgheadIsdelete != null" >
+        #{imgheadIsdelete,jdbcType=INTEGER},
+      </if>
+      <if test="xpoint != null" >
+        #{xpoint,jdbcType=DOUBLE},
+      </if>
+      <if test="ypoint != null" >
+        #{ypoint,jdbcType=DOUBLE},
+      </if>
+      <if test="zmpoint != null" >
+        #{zmpoint,jdbcType=INTEGER},
+      </if>
+      <if test="zmpointtime != null" >
+        #{zmpointtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maxcredit != null" >
+        #{maxcredit,jdbcType=VARCHAR},
+      </if>
+      <if test="nowcredit != null" >
+        #{nowcredit,jdbcType=INTEGER},
+      </if>
+      <if test="experience != null" >
+        #{experience,jdbcType=INTEGER},
+      </if>
+      <if test="userRole != null" >
+        #{userRole,jdbcType=INTEGER},
+      </if>
+      <if test="spaceBgImg != null" >
+        #{spaceBgImg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="blackList != null" >
+        #{blackList,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jsz.peini.bean.UserInfo" >
+    update user_info
+    <set >
+      <if test="userLoginId != null" >
+        user_login_id = #{userLoginId,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="signWord != null" >
+        sign_word = #{signWord,jdbcType=VARCHAR},
+      </if>
+      <if test="imageHead != null" >
+        image_head = #{imageHead,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="oldProvince != null" >
+        old_province = #{oldProvince,jdbcType=INTEGER},
+      </if>
+      <if test="oldCity != null" >
+        old_city = #{oldCity,jdbcType=INTEGER},
+      </if>
+      <if test="oldCounty != null" >
+        old_county = #{oldCounty,jdbcType=INTEGER},
+      </if>
+      <if test="nowProvince != null" >
+        now_province = #{nowProvince,jdbcType=INTEGER},
+      </if>
+      <if test="nowCity != null" >
+        now_city = #{nowCity,jdbcType=INTEGER},
+      </if>
+      <if test="nowCounty != null" >
+        now_county = #{nowCounty,jdbcType=INTEGER},
+      </if>
+      <if test="constellation != null" >
+        constellation = #{constellation,jdbcType=INTEGER},
+      </if>
+      <if test="nation != null" >
+        nation = #{nation,jdbcType=INTEGER},
+      </if>
+      <if test="smallIncome != null" >
+        small_income = #{smallIncome,jdbcType=INTEGER},
+      </if>
+      <if test="bigIncome != null" >
+        big_income = #{bigIncome,jdbcType=INTEGER},
+      </if>
+      <if test="degree != null" >
+        degree = #{degree,jdbcType=INTEGER},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=INTEGER},
+      </if>
+      <if test="isHouse != null" >
+        is_house = #{isHouse,jdbcType=INTEGER},
+      </if>
+      <if test="isCar != null" >
+        is_car = #{isCar,jdbcType=INTEGER},
+      </if>
+      <if test="isPhone != null" >
+        is_phone = #{isPhone,jdbcType=INTEGER},
+      </if>
+      <if test="isIdcard != null" >
+        is_idcard = #{isIdcard,jdbcType=INTEGER},
+      </if>
+      <if test="isVideo != null" >
+        is_video = #{isVideo,jdbcType=INTEGER},
+      </if>
+      <if test="emotion != null" >
+        emotion = #{emotion,jdbcType=INTEGER},
+      </if>
+      <if test="reputation != null" >
+        reputation = #{reputation,jdbcType=INTEGER},
+      </if>
+      <if test="reputationYear != null" >
+        reputation_year = #{reputationYear,jdbcType=INTEGER},
+      </if>
+      <if test="reputationQuarter != null" >
+        reputation_quarter = #{reputationQuarter,jdbcType=INTEGER},
+      </if>
+      <if test="reputationMonth != null" >
+        reputation_month = #{reputationMonth,jdbcType=INTEGER},
+      </if>
+      <if test="goldList != null" >
+        gold_list = #{goldList,jdbcType=INTEGER},
+      </if>
+      <if test="buyList != null" >
+        buy_list = #{buyList,jdbcType=INTEGER},
+      </if>
+      <if test="integrityList != null" >
+        integrity_list = #{integrityList,jdbcType=INTEGER},
+      </if>
+      <if test="userLife != null" >
+        user_life = #{userLife,jdbcType=INTEGER},
+      </if>
+      <if test="userImage != null" >
+        user_image = #{userImage,jdbcType=INTEGER},
+      </if>
+      <if test="userDate != null" >
+        user_date = #{userDate,jdbcType=INTEGER},
+      </if>
+      <if test="userScore != null" >
+        user_score = #{userScore,jdbcType=INTEGER},
+      </if>
+      <if test="selfNum != null" >
+        self_num = #{selfNum,jdbcType=INTEGER},
+      </if>
+      <if test="idcardNum != null" >
+        idcard_num = #{idcardNum,jdbcType=INTEGER},
+      </if>
+      <if test="taskNum != null" >
+        task_num = #{taskNum,jdbcType=INTEGER},
+      </if>
+      <if test="isRank != null" >
+        is_rank = #{isRank,jdbcType=INTEGER},
+      </if>
+      <if test="accCode != null" >
+        acc_code = #{accCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regTime != null" >
+        reg_time = #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeTime != null" >
+        active_time = #{activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskCancleCnt != null" >
+        task_cancle_cnt = #{taskCancleCnt,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="spaceBgImg != null" >
+        space_bg_img = #{spaceBgImg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="blackList != null" >
+        black_list = #{blackList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="idCardNo != null" >
+        idCardNo = #{idCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        realName = #{realName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="UserInfo" >
+    update user_info
+    set user_login_id = #{userLoginId,jdbcType=INTEGER},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sign_word = #{signWord,jdbcType=VARCHAR},
+      image_head = #{imageHead,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=DATE},
+      age = #{age,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER},
+      old_province = #{oldProvince,jdbcType=INTEGER},
+      old_city = #{oldCity,jdbcType=INTEGER},
+      old_county = #{oldCounty,jdbcType=INTEGER},
+      now_province = #{nowProvince,jdbcType=INTEGER},
+      now_city = #{nowCity,jdbcType=INTEGER},
+      now_county = #{nowCounty,jdbcType=INTEGER},
+      constellation = #{constellation,jdbcType=INTEGER},
+      nation = #{nation,jdbcType=INTEGER},
+      small_income = #{smallIncome,jdbcType=INTEGER},
+      big_income = #{bigIncome,jdbcType=INTEGER},
+      degree = #{degree,jdbcType=INTEGER},
+      industry = #{industry,jdbcType=INTEGER},
+      is_house = #{isHouse,jdbcType=INTEGER},
+      is_car = #{isCar,jdbcType=INTEGER},
+      is_phone = #{isPhone,jdbcType=INTEGER},
+      is_idcard = #{isIdcard,jdbcType=INTEGER},
+      is_video = #{isVideo,jdbcType=INTEGER},
+      emotion = #{emotion,jdbcType=INTEGER},
+      reputation = #{reputation,jdbcType=INTEGER},
+      reputation_year = #{reputationYear,jdbcType=INTEGER},
+      reputation_quarter = #{reputationQuarter,jdbcType=INTEGER},
+      reputation_month = #{reputationMonth,jdbcType=INTEGER},
+      gold_list = #{goldList,jdbcType=INTEGER},
+      buy_list = #{buyList,jdbcType=INTEGER},
+      integrity_list = #{integrityList,jdbcType=INTEGER},
+      user_life = #{userLife,jdbcType=INTEGER},
+      user_image = #{userImage,jdbcType=INTEGER},
+      user_date = #{userDate,jdbcType=INTEGER},
+      user_score = #{userScore,jdbcType=INTEGER},
+      self_num = #{selfNum,jdbcType=INTEGER},
+      idcard_num = #{idcardNum,jdbcType=INTEGER},
+      task_num = #{taskNum,jdbcType=INTEGER},
+      is_rank = #{isRank,jdbcType=INTEGER},
+      acc_code = #{accCode,jdbcType=VARCHAR},
+      reg_time = #{regTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      active_time = #{activeTime,jdbcType=TIMESTAMP},
+      task_cancle_cnt = #{taskCancleCnt,jdbcType=INTEGER},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      space_bg_img = #{spaceBgImg,jdbcType=LONGVARCHAR},
+      black_list = #{blackList,jdbcType=LONGVARCHAR},
+      idCardNo = #{idCardNo,jdbcType=VARCHAR},
+      realName = #{realName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="UserInfo" >
+    update user_info
+    set user_login_id = #{userLoginId,jdbcType=INTEGER},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sign_word = #{signWord,jdbcType=VARCHAR},
+      image_head = #{imageHead,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=DATE},
+      age = #{age,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER},
+      old_province = #{oldProvince,jdbcType=INTEGER},
+      old_city = #{oldCity,jdbcType=INTEGER},
+      old_county = #{oldCounty,jdbcType=INTEGER},
+      now_province = #{nowProvince,jdbcType=INTEGER},
+      now_city = #{nowCity,jdbcType=INTEGER},
+      now_county = #{nowCounty,jdbcType=INTEGER},
+      constellation = #{constellation,jdbcType=INTEGER},
+      nation = #{nation,jdbcType=INTEGER},
+      small_income = #{smallIncome,jdbcType=INTEGER},
+      big_income = #{bigIncome,jdbcType=INTEGER},
+      degree = #{degree,jdbcType=INTEGER},
+      industry = #{industry,jdbcType=INTEGER},
+      is_house = #{isHouse,jdbcType=INTEGER},
+      is_car = #{isCar,jdbcType=INTEGER},
+      is_phone = #{isPhone,jdbcType=INTEGER},
+      is_idcard = #{isIdcard,jdbcType=INTEGER},
+      is_video = #{isVideo,jdbcType=INTEGER},
+      emotion = #{emotion,jdbcType=INTEGER},
+      reputation = #{reputation,jdbcType=INTEGER},
+      reputation_year = #{reputationYear,jdbcType=INTEGER},
+      reputation_quarter = #{reputationQuarter,jdbcType=INTEGER},
+      reputation_month = #{reputationMonth,jdbcType=INTEGER},
+      gold_list = #{goldList,jdbcType=INTEGER},
+      buy_list = #{buyList,jdbcType=INTEGER},
+      integrity_list = #{integrityList,jdbcType=INTEGER},
+      user_life = #{userLife,jdbcType=INTEGER},
+      user_image = #{userImage,jdbcType=INTEGER},
+      user_date = #{userDate,jdbcType=INTEGER},
+      user_score = #{userScore,jdbcType=INTEGER},
+      self_num = #{selfNum,jdbcType=INTEGER},
+      idcard_num = #{idcardNum,jdbcType=INTEGER},
+      task_num = #{taskNum,jdbcType=INTEGER},
+      is_rank = #{isRank,jdbcType=INTEGER},
+      acc_code = #{accCode,jdbcType=VARCHAR},
+      reg_time = #{regTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      active_time = #{activeTime,jdbcType=TIMESTAMP},
+      task_cancle_cnt = #{taskCancleCnt,jdbcType=INTEGER},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      idCardNo = #{idCardNo,jdbcType=VARCHAR},
+      realName = #{realName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+	<select id="selectByUserLoginId" parameterType="int" resultType="UserInfo">
+		SELECT 
+			id as id,
+			user_login_id as userLoginId,
+			nickname as nickname,
+			image_head as imageHead,
+			sex as sex,
+			user_phone as userPhone
+		FROM 
+			user_info
+		WHERE 
+			user_login_id = #{userLoginId}
+	</select>
+	<select id="selectByUserPhone" parameterType="String" resultType="UserInfo">
+		SELECT 
+			id as id,
+			user_login_id as userLoginId,
+			nickname as nickname,
+			image_head as imageHead,
+			sex as sex,
+			user_phone as userPhone
+		FROM 
+			user_info
+		WHERE 
+			user_phone = #{userPhone}
+	</select>
+	
+	<select id="selectByUserId" parameterType="String" resultType="UserInfo">
+		SELECT 
+			*
+		FROM 
+			v_user_info
+		WHERE 
+			id = #{_parameter}
+	</select>
+	
+	<select id="selectMapByUserId" parameterType="String" resultType="java.util.HashMap">
+		SELECT 
+			*
+		FROM 
+			user_info
+		WHERE 
+			id = #{_parameter}
+	</select>
+	
+	<insert id="insertByUserLoginId" parameterType="UserInfo"> 
+		INSERT INTO 
+			user_info 
+			(id,user_login_id,nickname,sex,birthday,age,now_province,now_city,self_num,idcard_num,image_head,is_phone,user_phone) 
+		VALUES
+			(#{id},#{userLoginId},#{nickname},#{sex},#{birthday},#{age},#{nowProvince},#{nowCity},20,40,#{imageHead},#{isPhone},#{userPhone})
+	</insert>
+	
+	<update id="updateByUserId" parameterType="UserInfo"> 
+		UPDATE  
+			user_info
+		<set>
+	      <if test="nickname != null and nickname != ''" >
+	        nickname = #{nickname},
+	      </if>
+	      <if test="signWord != null and signWord != ''" >
+	        sign_word = #{signWord},
+	      </if>
+	      <if test="imageHead != null and imageHead != ''" >
+	        image_head = #{imageHead},
+	      </if>
+	      <if test="sex != null" >
+	        sex = #{sex},
+	      </if>
+	      <if test="birthday != null" >
+	        birthday = #{birthday},
+	      </if>
+	      <if test="age != null" >
+	        age = #{age},
+	      </if>
+	      <if test="height != null" >
+	        height = #{height},
+	      </if>
+	      <if test="weight != null" >
+	        weight = #{weight},
+	      </if>
+	      <if test="oldProvince != null" >
+	        old_province = #{oldProvince},
+	      </if>
+	      <if test="oldCity != null" >
+	        old_city = #{oldCity},
+	      </if>
+	      <if test="oldCounty != null" >
+	        old_county = #{oldCounty},
+	      </if>
+	      <if test="nowProvince != null" >
+	        now_province = #{nowProvince},
+	      </if>
+	      <if test="nowCity != null" >
+	        now_city = #{nowCity},
+	      </if>
+	      <if test="nowCounty != null" >
+	        now_county = #{nowCounty},
+	      </if>
+	      <if test="constellation != null" >
+	        constellation = #{constellation},
+	      </if>
+	      <if test="nation != null" >
+	        nation = #{nation},
+	      </if>
+	      <if test="emotion != null" >
+	        emotion = #{emotion},
+	      </if>
+	      <if test="smallIncome != null" >
+	        small_income = #{smallIncome},
+	      </if>
+	      <if test="bigIncome != null" >
+	        big_income = #{bigIncome},
+	      </if>
+	      <if test="degree != null" >
+	        degree = #{degree},
+	      </if>
+	      <if test="industry != null" >
+	        industry = #{industry},
+	      </if>
+	      <if test="isHouse != null" >
+	        is_house = #{isHouse},
+	      </if>
+	      <if test="isCar != null" >
+	        is_car = #{isCar},
+	      </if>
+	      <if test="isPhone != null" >
+	        is_phone = #{isPhone},
+	      </if>
+	      <if test="isIdcard != null" >
+	        is_idcard = #{isIdcard},
+	      </if>
+	      <if test="isVideo != null" >
+	        is_video = #{isVideo},
+	      </if>
+	      <if test="selfNum != null" >
+	        self_num = #{selfNum},
+	      </if>
+	      update_time = now()
+    	</set>
+		WHERE
+			id = #{id}
+			
+	</update>
+	
+	
+	<update id="updateImageByUserId" parameterType="UserInfo">
+		UPDATE
+			user_info
+		SET
+			image_head = #{imageHead}
+		WHERE
+			id = #{id}
+	</update>
+	<update id="updateUserInfoIsIdcardByUserId" parameterType="String">
+		UPDATE
+			user_info
+		SET
+			is_idcard=1,
+			idcard_num=100,
+			update_time=now()
+		WHERE
+			id=#{_parameter}
+	</update>
+	<update id="updateUserInfoTaskNumByPlusAndMinus" parameterType="UserInfo">
+		UPDATE
+			user_info
+		SET
+			task_num=#{taskNum}
+		WHERE
+			id=#{id}
+	</update>
+	<select id="selectTaskNumByUserId" parameterType="String" resultType="int">
+		SELECT task_num FROM user_info WHERE id=#{_parameter}
+	</select>
+	<update id="updateSwitchRank" parameterType="UserInfo">
+		UPDATE
+			user_info 
+		SET
+			<if test="isRank==1">
+			is_rank=0
+			</if>
+			<if test="isRank==0||isRank==null">
+			is_rank=1
+			</if>
+		WHERE
+			id=#{id}
+	</update>
+	<update id="updateCreditByUserId" parameterType="UserInfo">
+		UPDATE
+			user_info
+		SET 
+			reputation=#{reputation}
+		WHERE
+			id=#{id}
+	</update>
+	<select id="getSwitchRank" parameterType="String" resultType="int">
+		SELECT
+			is_rank
+		FROM
+			user_info
+		WHERE
+			id=#{_parameter}
+	</select>
+	
+	<select id="getGoldRank" parameterType="int" resultType="java.util.LinkedHashMap">
+		SELECT 
+			<if test="_parameter==0">
+			ifnull(truncate(gold_rechage_total/100,2),0) as num,
+			</if>
+			<if test="_parameter==1">
+			ifnull(truncate(gold_month/100,2),0) as num,
+			</if>
+			<if test="_parameter==2">
+			ifnull(truncate(gold_rechage_quarter/100,2),0) as num,
+			</if>
+			<if test="_parameter==3">
+			ifnull(truncate(gold_rechage_year/100,2),0) as num,
+			</if>
+			user_info.id as userId,
+			user_info.nickname as nickname,
+			ifnull(user_info.image_head,'') imageHead,
+			user_info.age as age,
+			user_info.sex as sex,
+			ifnull(vText(106,user_info.industry),'') as industry
+		FROM
+			user_account
+		LEFT JOIN user_info ON user_account.user_id = user_info.id
+		<if test="_parameter==0">
+			ORDER BY gold DESC LIMIT 10
+		</if>
+		<if test="_parameter==1">
+			ORDER BY gold_month DESC LIMIT 10
+		</if>
+		<if test="_parameter==2">
+			ORDER BY gold_rechage_quarter DESC LIMIT 10
+		</if>
+		<if test="_parameter==3">
+			ORDER BY gold_rechage_year DESC LIMIT 10
+		</if>
+	</select>
+	<select id="getMoneyRank" parameterType="int" resultType="java.util.LinkedHashMap">
+		SELECT 
+			<if test="_parameter==0">
+			ifnull(truncate(pay_money/100,2),0) as num,
+			</if>
+			<if test="_parameter==1">
+			ifnull(truncate(pay_money_month/100,2),0) as num,
+			</if>
+			<if test="_parameter==2">
+			ifnull(truncate(pay_money_quarter/100,2),0) as num,
+			</if>
+			<if test="_parameter==3">
+			ifnull(truncate(pay_money_year/100,2),0) as num,
+			</if>
+			user_info.id as userId,
+			user_info.nickname as nickname,
+			ifnull(user_info.image_head,'') imageHead,
+			user_info.age as age,
+			user_info.sex as sex,
+			ifnull(vText(106,user_info.industry),'') as industry
+		FROM
+			user_account
+		LEFT JOIN user_info ON user_account.user_id = user_info.id
+		<if test="_parameter==0">
+		ORDER BY pay_money DESC LIMIT 10
+		</if>
+		<if test="_parameter==1">
+		ORDER BY pay_money_month DESC LIMIT 10
+		</if>
+		<if test="_parameter==2">
+		ORDER BY pay_money_quarter DESC LIMIT 10
+		</if>
+		<if test="_parameter==3">
+		ORDER BY pay_money_year DESC LIMIT 10
+		</if>
+	</select>
+	<select id="getReputationRank" parameterType="int" resultType="java.util.LinkedHashMap">
+		SELECT 
+			<if test="_parameter==0">
+			ifnull(reputation,0) as num,
+			</if>
+			<if test="_parameter==1">
+			ifnull(reputation_month,0) as num,
+			</if>
+			<if test="_parameter==2">
+			ifnull(reputation_quarter,0) as num,
+			</if>
+			<if test="_parameter==3">
+			ifnull(reputation_year,0) as num,
+			</if>
+			user_info.id as userId,
+			user_info.nickname as nickname,
+			ifnull(user_info.image_head,'') imageHead,
+			user_info.age as age,
+			user_info.sex as sex,
+			ifnull(vText(106,user_info.industry),'') as industry
+		FROM
+			user_info
+			<if test="_parameter==0">
+			ORDER BY reputation DESC LIMIT 10
+			</if>
+			<if test="_parameter==1">
+			ORDER BY reputation_month DESC LIMIT 10
+			</if>
+			<if test="_parameter==2">
+			ORDER BY reputation_quarter DESC LIMIT 10
+			</if>
+			<if test="_parameter==3">
+			ORDER BY reputation_year DESC LIMIT 10
+			</if>
+	</select>
+	
+	<select id="getUserGoldRank" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * FROM(SELECT 
+			<if test="dType==0">
+			ifnull(truncate(gold_rechage_total/100,2),0) as num,
+			</if>
+			<if test="dType==1">
+			ifnull(truncate(gold_month/100,2),0) as num,
+			</if>
+			<if test="dType==2">
+			ifnull(truncate(gold_rechage_quarter/100,2),0) as num,
+			</if>
+			<if test="dType==3">
+			ifnull(truncate(gold_rechage_year/100,2),0) as num,
+			</if>
+			user_info.id as userId,
+			user_info.nickname as nickname,
+			ifnull(user_info.image_head,'') imageHead,
+			user_info.age as age,
+			user_info.sex as sex,
+			ifnull(vText(106,user_info.industry),'') as industry,
+			(@rowNum:=@rowNum+1) as rowNo
+		FROM
+			user_account LEFT JOIN user_info ON user_account.user_id = user_info.id,(SELECT (@rowNum :=0) ) b
+		<if test="dType==0">
+			ORDER BY gold DESC
+		</if>
+		<if test="dType==1">
+			ORDER BY gold_month DESC
+		</if>
+		<if test="dType==2">
+			ORDER BY gold_rechage_quarter DESC
+		</if>
+		<if test="dType==3">
+			ORDER BY gold_rechage_year DESC
+		</if>
+		 )c WHERE c.userId = #{userId}
+	</select>
+	<select id="getUserMoneyRank" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * FROM(SELECT 
+			<if test="dType==0">
+			ifnull(truncate(pay_money/100,2),0) as num,
+			</if>
+			<if test="dType==1">
+			ifnull(truncate(pay_money_month/100,2),0) as num,
+			</if>
+			<if test="dType==2">
+			ifnull(truncate(pay_money_quarter/100,2),0) as num,
+			</if>
+			<if test="dType==3">
+			ifnull(truncate(pay_money_year/100,2),0) as num,
+			</if>
+			user_info.id as userId,
+			user_info.nickname as nickname,
+			ifnull(user_info.image_head,'') imageHead,
+			user_info.age as age,
+			user_info.sex as sex,
+			ifnull(vText(106,user_info.industry),'') as industry,
+			(@rowNum:=@rowNum+1) as rowNo
+		FROM
+			user_account LEFT JOIN user_info ON user_account.user_id = user_info.id,(SELECT (@rowNum :=0) ) b
+		<if test="dType==0">
+		ORDER BY pay_money DESC
+		</if>
+		<if test="dType==1">
+		ORDER BY pay_money_month DESC
+		</if>
+		<if test="dType==2">
+		ORDER BY pay_money_quarter DESC
+		</if>
+		<if test="dType==3">
+		ORDER BY pay_money_year DESC
+		</if>
+		)c WHERE c.userId = #{userId}
+	</select>
+	<select id="getUserReputationRank" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * FROM(SELECT 
+			<if test="dType==0">
+			ifnull(reputation,0) as num,
+			</if>
+			<if test="dType==1">
+			ifnull(reputation_month,0) as num,
+			</if>
+			<if test="dType==2">
+			ifnull(reputation_quarter,0) as num,
+			</if>
+			<if test="dType==3">
+			ifnull(reputation_year,0) as num,
+			</if>
+			user_info.id as userId,
+			user_info.nickname as nickname,
+			ifnull(user_info.image_head,'') imageHead,
+			user_info.age as age,
+			user_info.sex as sex,
+			ifnull(vText(106,user_info.industry),'') as industry,
+			(@rowNum:=@rowNum+1) as rowNo
+		FROM
+			user_info,(SELECT (@rowNum :=0) ) b
+			<if test="dType==0">
+			ORDER BY reputation DESC
+			</if>
+			<if test="dType==1">
+			ORDER BY reputation_month DESC
+			</if>
+			<if test="dType==2">
+			ORDER BY reputation_quarter DESC
+			</if>
+			<if test="dType==3">
+			ORDER BY reputation_year DESC
+			</if>
+			)c WHERE c.userId = #{userId}
+	</select>
+	
+	<update id="updateSelectiveByPrimaryKey" parameterType="UserInfo">
+		update user_info
+	    <set >
+	      <if test="reputation != null and reputation != ''" >
+	        reputation = #{reputation},
+	      </if>
+	      <if test="accCode != null" >
+	        acc_code = #{accCode,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectUserAccCodeByUserId" parameterType="String" resultType="String">
+		SELECT
+			IFNULL(a.acc_code,a.user_phone) AS accCode
+		FROM
+			user_info a
+		WHERE
+			a.id =#{userId}
+	</select>
+	<!-- 获取用户的登录信息、基本信息及账户信息 -->
+	<select id="getUserInfoAndLoginAccountInfo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT	
+			user_info.id as userId,
+			ifnull(user_info.nickname,'') as nickName,
+			user_info.age as age,
+			user_info.sex as sex,
+			ifnull(user_info.gold_list,0) as goldList,
+			ifnull(user_info.buy_list,0) as buyList,
+			ifnull(user_info.integrity_list,0) as integrityList,
+			user_login.user_name as mobileNo,
+			user_account.id as userAccountId, 
+			ifnull(user_account.gold,0) as gold,
+			ifnull(user_account.score,0) as score	
+		FROM
+			user_account,
+			user_info,
+			user_login
+		WHERE
+			user_account.user_id = user_info.id
+			and user_info.user_login_id = user_login.id
+			<if test="userId != null and userId != ''" >
+				and user_info.id = #{userId}
+			</if>
+	</select>
+	
+	<!-- 根据手机号列表获取用户信息 -->
+	<select id="getUserInfoByMobiles" resultMap="BaseResultMap">
+		SELECT	
+			<include refid="Base_Column_List" />
+		    ,
+		    <include refid="Blob_Column_List" />
+    	from user_info
+		WHERE
+			user_login_id IN (
+				SELECT
+					id
+				FROM
+					user_login
+				WHERE
+					user_name IN 
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item}
+				</foreach>
+			)
+	</select>
+	
+	<!-- 将基本用户信息放入redis -->
+	<select id="getUserInfoForRedis" resultType="java.util.HashMap">
+		SELECT
+			a.id as userId,
+			b.id as acountId,
+			ifnull(a.idCardNo,'') as idCardNo
+		FROM
+			user_info a,
+			user_account b
+		where a.id = b.user_id
+	</select>
+</mapper>

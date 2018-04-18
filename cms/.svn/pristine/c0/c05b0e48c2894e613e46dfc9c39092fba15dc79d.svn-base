@@ -1,0 +1,51 @@
+package com.jsz.peini.thread;
+
+import java.util.concurrent.TimeUnit;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+
+import com.jsz.peini.bean.WxFestivalAward;
+import com.jsz.peini.mapper.WxFestivalAwardMapper;
+import com.jsz.peini.service.WxFestivalAwardService;
+import com.jsz.peini.util.constant.RedisKey;
+
+public class FestivalAwardQueueThread extends Thread {
+	private Logger logger = LogManager.getLogger(FestivalAwardQueueThread.class);
+	@Autowired
+	private StringRedisTemplate stringRedisTemplate;
+	@Autowired
+	private WxFestivalAwardService wxFestivalAwardService;
+	@Autowired
+	private WxFestivalAwardMapper wxFestivalAwardMapper;
+
+	public FestivalAwardQueueThread() {
+		this.start();
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+			String awardId = stringRedisTemplate.opsForList().leftPop(RedisKey.wx_award_queue, 0, TimeUnit.SECONDS);
+			try {
+				logger.debug("开始给awardId==>>[" + awardId + "]发奖");
+				if (awardId != null) {
+					Integer award = Integer.valueOf(awardId);
+					WxFestivalAward wxFestivalAward = wxFestivalAwardMapper.selectByPrimaryKey(award);
+					if (wxFestivalAward.getAwardType().intValue() == 1) {
+						// 现金发放
+					} else if (wxFestivalAward.getAwardType().intValue() == 2) {
+						// 金豆发放
+					}
+					wxFestivalAwardService.awardProvideFinish(award);
+				}
+			} catch (Exception e) {
+				logger.error(e.getMessage());
+				logger.error("奖品awardId==>>[" + awardId + "]发放失败");
+			}
+		}
+	}
+
+}

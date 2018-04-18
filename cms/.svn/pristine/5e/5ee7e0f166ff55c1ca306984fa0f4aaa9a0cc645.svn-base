@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsz.peini.mapper.SmsLogMapper" >
+ 	<insert id="insertSms" parameterType="SmsLog"> 
+		INSERT INTO 
+			sms_log 
+			(phone,content,send_time,type,sms_status) 
+		VALUES
+			(#{phone},#{content},now(),#{type},#{smsStatus})
+	</insert>
+</mapper>

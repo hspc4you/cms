@@ -1,0 +1,56 @@
+package com.jsz.peini.service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.swing.plaf.basic.BasicDesktopIconUI;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.jsz.peini.bean.WxFestivalAward;
+import com.jsz.peini.mapper.WxFestivalActivityUserMapper;
+import com.jsz.peini.mapper.WxFestivalAwardMapper;
+
+@Service
+public class WxFestivalAwardService {
+
+	
+	private Logger logger = LogManager.getLogger(WxFestivalAwardService.class);
+	@Autowired
+	private WxFestivalActivityUserMapper wxFestivalActivityUserMapper;
+	@Autowired
+	private WxFestivalAwardMapper wxFestivalAwardMapper;
+	/**
+	 * 抽奖后返回奖励
+	 * @param userId
+	 * @param activityId
+	 * @param awardId
+	 */
+	@Transactional
+	public WxFestivalAward returnAward(String userId,Integer activityId,Integer isAward,Integer awardId) {
+		wxFestivalActivityUserMapper.updateActivityUserAwardResultByUserId(userId, activityId, isAward);
+		WxFestivalAward wxFestivalAward = new WxFestivalAward();
+		wxFestivalAward.setId(awardId);
+		wxFestivalAward.setWxUserId(userId);
+		wxFestivalAward.setGetTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		wxFestivalAwardMapper.updateByPrimaryKeySelective(wxFestivalAward);
+		wxFestivalAward = wxFestivalAwardMapper.selectByPrimaryKey(awardId);
+		return wxFestivalAward;
+	}
+	
+	/**
+	 * 奖品发放完成
+	 * @param awardId
+	 */
+	@Transactional
+	public void awardProvideFinish(Integer awardId) {
+		WxFestivalAward wxFestivalAward = new WxFestivalAward();
+		wxFestivalAward.setId(awardId);
+		wxFestivalAward.setProvideTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		wxFestivalAwardMapper.updateByPrimaryKeySelective(wxFestivalAward);
+	}
+}
