@@ -1,0 +1,18 @@
+
+body{
+	background-color: #fff;
+}
+.wrong>div{
+	text-align: center;
+	padding-top: 3.1rem
+}
+.wrong img{
+ width: 5.6rem;
+ height: 5.6rem;
+ display: block;
+ margin:0 auto 2.8rem; 
+}
+.wrong p{
+	font-size: 1.2rem;
+	color:#1f1f1f;
+}

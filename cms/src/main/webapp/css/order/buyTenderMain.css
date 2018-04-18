@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+label {
+	width: 100%;
+	margin-bottom: 0px;
+}
+
+.table>tbody>tr>td {
+	vertical-align: middle;
+}
+

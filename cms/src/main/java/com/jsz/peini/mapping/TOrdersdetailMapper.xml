@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsz.peini.mapper.TOrdersdetailMapper">
+	<resultMap id="BaseResultMap" type="com.jsz.peini.bean.TOrdersdetail">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="ORDERSCODE" property="orderscode" jdbcType="OTHER" />
+		<result column="FYCODE" property="fycode" jdbcType="OTHER" />
+		<result column="FYNAME" property="fyname" jdbcType="OTHER" />
+		<result column="FYTYPE" property="fytype" jdbcType="OTHER" />
+		<result column="FYJE" property="fyje" jdbcType="DECIMAL" />
+		<result column="REMARKS" property="remarks" jdbcType="OTHER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, ORDERSCODE, FYCODE, FYNAME, FYTYPE, FYJE, REMARKS
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short">
+		select
+		<include refid="Base_Column_List" />
+		from CMS.T_ORDERSDETAIL
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+		delete from CMS.T_ORDERSDETAIL
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.jsz.peini.bean.TOrdersdetail">
+		insert into CMS.T_ORDERSDETAIL (ID, ORDERSCODE, FYCODE,
+		FYNAME, FYTYPE, FYJE, REMARKS
+		)
+		values (#{id,jdbcType=DECIMAL}, #{orderscode,jdbcType=OTHER}, #{fycode,jdbcType=OTHER},
+		#{fyname,jdbcType=OTHER}, #{fytype,jdbcType=OTHER}, #{fyje,jdbcType=DECIMAL}, #{remarks,jdbcType=OTHER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.jsz.peini.bean.TOrdersdetail">
+		insert into CMS.T_ORDERSDETAIL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="orderscode != null">
+				ORDERSCODE,
+			</if>
+			<if test="fycode != null">
+				FYCODE,
+			</if>
+			<if test="fyname != null">
+				FYNAME,
+			</if>
+			<if test="fytype != null">
+				FYTYPE,
+			</if>
+			<if test="fyje != null">
+				FYJE,
+			</if>
+			<if test="remarks != null">
+				REMARKS,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="orderscode != null">
+				#{orderscode,jdbcType=OTHER},
+			</if>
+			<if test="fycode != null">
+				#{fycode,jdbcType=OTHER},
+			</if>
+			<if test="fyname != null">
+				#{fyname,jdbcType=OTHER},
+			</if>
+			<if test="fytype != null">
+				#{fytype,jdbcType=OTHER},
+			</if>
+			<if test="fyje != null">
+				#{fyje,jdbcType=DECIMAL},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=OTHER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jsz.peini.bean.TOrdersdetail">
+		update CMS.T_ORDERSDETAIL
+		<set>
+			<if test="orderscode != null">
+				ORDERSCODE = #{orderscode,jdbcType=OTHER},
+			</if>
+			<if test="fycode != null">
+				FYCODE = #{fycode,jdbcType=OTHER},
+			</if>
+			<if test="fyname != null">
+				FYNAME = #{fyname,jdbcType=OTHER},
+			</if>
+			<if test="fytype != null">
+				FYTYPE = #{fytype,jdbcType=OTHER},
+			</if>
+			<if test="fyje != null">
+				FYJE = #{fyje,jdbcType=DECIMAL},
+			</if>
+			<if test="remarks != null">
+				REMARKS = #{remarks,jdbcType=OTHER},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jsz.peini.bean.TOrdersdetail">
+		update CMS.T_ORDERSDETAIL
+		set ORDERSCODE = #{orderscode,jdbcType=OTHER},
+		FYCODE = #{fycode,jdbcType=OTHER},
+		FYNAME = #{fyname,jdbcType=OTHER},
+		FYTYPE = #{fytype,jdbcType=OTHER},
+		FYJE = #{fyje,jdbcType=DECIMAL},
+		REMARKS = #{remarks,jdbcType=OTHER}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<select id="selectTOrdersdetailListByOrderscode" parameterType="String" resultType="TOrdersdetail">
+		SELECT
+		A .ID AS ID,
+		A .FYCODE AS FYCODE
+		FROM
+		T_ORDERSDETAIL A
+		WHERE
+		A .ORDERSCODE =#{orderscode}
+	</select>
+	<delete id="deleteByOrderscode" parameterType="String">
+		DELETE
+		FROM
+		T_ORDERSDETAIL
+		WHERE
+		ORDERSCODE = #{orderscode}
+	</delete>
+	<select id="selectPayBDByTbdwname" parameterType="String" resultType="TOrdersdetail">
+		SELECT
+		b.FYCODE AS FYCODE
+		FROM
+		T_ORDERS A
+		LEFT JOIN T_ORDERSDETAIL b ON A .ORDERSCODE = b.ORDERSCODE
+		WHERE
+		A .TBDWNAME = #{tbdwname}
+		AND A .PAYMENTSTATUS = 1
+	</select>
+</mapper>

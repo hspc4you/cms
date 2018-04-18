@@ -1,0 +1,2397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsz.peini.mapper.OrderInfoMapper" >
+<resultMap id="BaseResultMap" type="com.jsz.peini.bean.OrderInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="seller_info_id" property="sellerInfoId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="other_id" property="otherId" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="all_money" property="allMoney" jdbcType="INTEGER" />
+    <result column="pay_money" property="payMoney" jdbcType="INTEGER" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="contract_phone" property="contractPhone" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="other_buy" property="otherBuy" jdbcType="INTEGER" />
+    <result column="task_info_id" property="taskInfoId" jdbcType="INTEGER" />
+    <result column="order_desc" property="orderDesc" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="pay_type" property="payType" jdbcType="INTEGER" />
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="discount" property="discount" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="seller_status" property="sellerStatus" jdbcType="INTEGER" />
+    <result column="param_id" jdbcType="VARCHAR" property="paramId" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, seller_info_id, user_id, other_id, order_status, all_money, pay_money, , user_phone, contract_phone, order_time, other_buy, task_info_id, 
+    order_desc, order_type, create_time,  pay_type,order_code, 
+    discount, pay_time, seller_status, param_id
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select 
+    <include refid="Base_Column_List" />
+    from order_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from order_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="OrderInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into order_info (id, seller_info_id, user_id, 
+      other_id, order_status, all_money, 
+      pay_money, user_phone, contract_phone, 
+      order_time, other_buy, task_info_id, 
+      order_desc, order_type, create_time,  pay_type,
+      order_code, discount, pay_time, 
+      seller_status, param_id)
+    values (#{id,jdbcType=BIGINT}, #{sellerInfoId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, 
+      #{otherId,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, #{allMoney,jdbcType=INTEGER}, 
+      #{payMoney,jdbcType=INTEGER}, #{userPhone,jdbcType=VARCHAR}, #{contractPhone,jdbcType=VARCHAR}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{otherBuy,jdbcType=INTEGER}, #{taskInfoId,jdbcType=INTEGER}, 
+      #{orderDesc,jdbcType=VARCHAR}, #{orderType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+       #{payType,jdbcType=INTEGER}, 
+      #{orderCode,jdbcType=VARCHAR}, #{discount,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{sellerStatus,jdbcType=INTEGER}, #{paramId,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="OrderInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into order_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sellerInfoId != null">
+        seller_info_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="otherId != null">
+        other_id,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="allMoney != null">
+        all_money,
+      </if>
+      <if test="payMoney != null">
+        pay_money,
+      </if>
+      <if test="couponMoney != null">
+        coupon_money,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="contractPhone != null">
+        contract_phone,
+      </if>
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="otherBuy != null">
+        other_buy,
+      </if>
+      <if test="taskInfoId != null">
+        task_info_id,
+      </if>
+      <if test="orderDesc != null">
+        order_desc,
+      </if>
+      <if test="orderType != null">
+        order_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="orderCode != null">
+        order_code,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="sellerStatus != null">
+        seller_status,
+      </if>
+      <if test="paramId != null">
+        param_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sellerInfoId != null">
+        #{sellerInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="otherId != null">
+        #{otherId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="allMoney != null">
+        #{allMoney,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null">
+        #{payMoney,jdbcType=INTEGER},
+      </if>
+      <if test="couponMoney != null">
+        #{couponMoney,jdbcType=INTEGER},
+      </if>
+      <if test="couponUserId != null">
+        #{couponUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="couponId != null">
+        #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contractPhone != null">
+        #{contractPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="otherBuy != null">
+        #{otherBuy,jdbcType=INTEGER},
+      </if>
+      <if test="taskInfoId != null">
+        #{taskInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="orderDesc != null">
+        #{orderDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payStreamId != null">
+        #{payStreamId,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="orderCode != null">
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellerStatus != null">
+        #{sellerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="paramId != null">
+        #{paramId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="OrderInfo">
+    update order_info
+    <set>
+      <if test="sellerInfoId != null">
+        seller_info_id = #{sellerInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="otherId != null">
+        other_id = #{otherId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="allMoney != null">
+        all_money = #{allMoney,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null">
+        pay_money = #{payMoney,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contractPhone != null">
+        contract_phone = #{contractPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="otherBuy != null">
+        other_buy = #{otherBuy,jdbcType=INTEGER},
+      </if>
+      <if test="taskInfoId != null">
+        task_info_id = #{taskInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="orderDesc != null">
+        order_desc = #{orderDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        order_type = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="orderCode != null">
+        order_code = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null">
+        discount = #{discount,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellerStatus != null">
+        seller_status = #{sellerStatus,jdbcType=INTEGER},
+      </if>
+      <if test="paramId != null">
+        param_id = #{paramId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="OrderInfo">
+    update order_info
+    set seller_info_id = #{sellerInfoId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      other_id = #{otherId,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      all_money = #{allMoney,jdbcType=INTEGER},
+      pay_money = #{payMoney,jdbcType=INTEGER},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      contract_phone = #{contractPhone,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      other_buy = #{otherBuy,jdbcType=INTEGER},
+      task_info_id = #{taskInfoId,jdbcType=INTEGER},
+      order_desc = #{orderDesc,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pay_type = #{payType,jdbcType=INTEGER},
+      order_code = #{orderCode,jdbcType=VARCHAR},
+      discount = #{discount,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      seller_status = #{sellerStatus,jdbcType=INTEGER},
+      param_id = #{paramId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+ 
+	<select id="getOrderInfoList" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+		SELECT
+			o.id as id,
+			DATE_FORMAT(o.order_time,'%Y-%m-%d %H:%i:%s') as orderTime,
+			truncate(o.all_money/100,2) as allMoney,
+			truncate(o.pay_money/100,2) as payMoney,
+			vText(115,o.order_status) as orderStatus,
+			o.other_buy as otherBuy,
+			o.order_desc as orderDesc,
+			u.nickname as nickname,
+			u.image_head as imageHead,
+			c.nickname as otherNickname,
+			c.image_head as otherImageHead
+		FROM
+			user_info u,
+			order_info o
+			LEFT JOIN 
+			user_info c ON o.other_id=c.id
+		WHERE
+			o.user_id=u.id
+			AND	o.seller_info_id=#{sellerInfoId}
+			<if test="orderStatus!=null">
+			AND order_status=#{orderStatus}
+			</if>
+	</select>
+<!-- 	<select id="selectByOrderId" parameterType="int" resultType="java.util.HashMap"> -->
+<!-- 		SELECT  -->
+<!-- 			order_info.id as orderId, -->
+<!-- 			vText(115,order_status) as orderStatus, -->
+<!-- 			vText(109,other_buy) as otherBuy, -->
+<!-- 			DATE_FORMAT(order_time,'%Y-%m-%d %H:%i:%s') as orderTime, -->
+<!-- 			truncate(all_money/100,2) as allMoney, -->
+<!-- 			truncate(pay_money/100,2) as payMoney, -->
+<!-- 			order_desc as orderDesc, -->
+<!-- 			user_info.nickname as nickname, -->
+<!-- 			user_info.image_head as imageHead -->
+<!-- 		FROM  -->
+<!-- 			order_info -->
+<!-- 		LEFT JOIN user_info on order_info.user_id = user_info.id -->
+<!-- 		WHERE order_info.id = #{orderId} -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectPayByOrderId" parameterType="int" resultType="java.util.HashMap"> -->
+<!-- 		SELECT  -->
+<!-- 			order_pay_info.id as orderId, -->
+<!-- 			truncate(pay_money/100,2) as payMoney, -->
+<!-- 			DATE_FORMAT(pay_time,'%Y-%m-%d %H:%i:%s') as payTime, -->
+<!-- 			user_info.nickname as nickname -->
+<!-- 		FROM  -->
+<!-- 			order_pay_info -->
+<!-- 		LEFT JOIN user_info on order_pay_info.user_id = user_info.id -->
+<!-- 		WHERE order_pay_info.parent_order_id = #{orderId} ORDER BY pay_time -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectPayDetailByOrderId" parameterType="int" resultType="java.util.HashMap"> -->
+<!-- 		SELECT   -->
+<!-- 			order_info.id as orderId, -->
+<!-- 			DATE_FORMAT(order_pay_info.pay_time,'%Y-%m-%d %H:%i:%s') as payTime, -->
+<!-- 			truncate(order_info.all_money/100,2) as allMoney, -->
+<!-- 			truncate(order_info.pay_money/100,2) as payMoney, -->
+<!-- 			truncate(order_pay_info.pay_money/100,2) as payDetailMoney, -->
+<!-- 			order_info.order_desc as orderDesc, -->
+<!-- 			order_pay_info.pay_status as payStatus -->
+<!-- 		FROM  -->
+<!-- 			order_info -->
+<!-- 		LEFT JOIN order_pay_info ON order_info.id = order_pay_info.parent_order_id -->
+<!-- 		WHERE  -->
+<!-- 			order_info.seller_info_id = #{sellerId} ORDER BY payTime DESC -->
+<!-- 	</select> -->
+	
+<!-- 	<update id="updateOrderStatusByOrderId" parameterType="OrderInfo"> -->
+<!-- 		UPDATE  -->
+<!-- 			order_info  -->
+<!-- 		SET  -->
+<!-- 			order_status = #{orderStatus} -->
+<!-- 		WHERE -->
+<!-- 			id = #{id} -->
+<!-- 	</update> -->
+<!-- 	<select id="getOrderInfoList1" parameterType="OrderInfo" resultType="java.util.LinkedHashMap"> -->
+<!-- 		SELECT -->
+<!-- 			o.id as id, -->
+<!-- 			DATE_FORMAT(o.order_time,'%Y-%m-%d %H:%i:%s') as orderTime, -->
+<!-- 			truncate(o.all_money/100,2) as allMoney, -->
+<!-- 			truncate(o.pay_money/100,2) as payMoney, -->
+<!-- 			vText(115,o.order_status) as orderStatus, -->
+<!-- 			o.other_buy as otherBuy, -->
+<!-- 			o.order_desc as orderDesc, -->
+<!-- 			u.nickname as nickname, -->
+<!-- 			u.image_head as imageHead, -->
+<!-- 			c.nickname as otherNickname, -->
+<!-- 			c.image_head as otherImageHead -->
+<!-- 		FROM -->
+<!-- 			user_info u, -->
+<!-- 			order_info o -->
+<!-- 			LEFT JOIN  -->
+<!-- 			user_info c ON o.other_id=c.id -->
+<!-- 		WHERE -->
+<!-- 			o.user_id=u.id -->
+<!-- 			AND	o.seller_info_id=#{sellerInfoId} -->
+<!-- 			<if test="orderStatus!=null"> -->
+<!-- 			AND order_status=#{orderStatus} -->
+<!-- 			</if> -->
+<!-- 	</select> -->
+	<select id="selectByOrderId" parameterType="int" resultType="java.util.HashMap">
+		SELECT 
+			order_info.id as orderId,
+			vText(115,order_status) as orderStatus,
+			vText(109,other_buy) as otherBuy,
+			DATE_FORMAT(order_time,'%Y-%m-%d %H:%i:%s') as orderTime,
+			truncate(all_money/100,2) as allMoney,
+			truncate(pay_money/100,2) as payMoney,
+			order_desc as orderDesc,
+			user_info.nickname as nickname,
+			user_info.image_head as imageHead
+		FROM 
+			order_info
+		LEFT JOIN user_info on order_info.user_id = user_info.id
+		WHERE order_info.id = #{orderId}
+	</select>
+	
+	<select id="selectPayByOrderId" parameterType="int" resultType="java.util.HashMap">
+		SELECT 
+			order_pay_info.id as orderId,
+			truncate(pay_money/100,2) as payMoney,
+			DATE_FORMAT(pay_time,'%Y-%m-%d %H:%i:%s') as payTime,
+			user_info.nickname as nickname
+		FROM 
+			order_pay_info
+		LEFT JOIN user_info on order_pay_info.user_id = user_info.id
+		WHERE order_pay_info.parent_order_id = #{orderId} ORDER BY pay_time
+	</select>
+	
+	<select id="selectPayDetailByOrderId" parameterType="int" resultType="java.util.HashMap">
+		SELECT  
+			order_info.id as orderId,
+			DATE_FORMAT(order_pay_info.pay_time,'%Y-%m-%d %H:%i:%s') as payTime,
+			truncate(order_info.all_money/100,2) as allMoney,
+			truncate(order_info.pay_money/100,2) as payMoney,
+			truncate(order_pay_info.pay_money/100,2) as payDetailMoney,
+			order_info.order_desc as orderDesc,
+			order_pay_info.pay_status as payStatus
+		FROM 
+			order_info
+		LEFT JOIN order_pay_info ON order_info.id = order_pay_info.parent_order_id
+		WHERE 
+			order_info.seller_info_id = #{sellerId} ORDER BY payTime DESC
+	</select>
+	<select id="selectOrderInfoListBySelective" parameterType="OrderInfoQueryVo" resultType="OrderInfoCustom">
+			SELECT 
+				d.nickname AS nickname,
+				d.acc_code AS accCode,
+				d.user_phone AS userPhone,
+				DATE_FORMAT(a.pay_time,'%Y-%m-%d %T') AS payTime,
+				a.order_code AS orderCode,
+				b.id as id,
+				b.seller_name AS sellerName,
+				e.plcae_name AS placeName,
+				a.order_type AS orderType,
+				g.transaction_code AS transactionCode,
+				a.all_money AS allMoney,
+				a.exclusive_money AS exclusiveMoney,
+				a.pay_type AS payType,
+				a.discount AS discount,
+				a.coupon_money AS couponMoney,
+				a.pay_money AS payMoney,
+				a.assume_type as assumeType,
+				h.range_appoint as rangeAppoint,
+				a.official_assume AS officialAssume,
+				a.seller_income AS sellerIncome
+			
+			FROM order_info a 
+			LEFT JOIN seller_info b ON a.seller_info_id = b.id
+			LEFT JOIN t_system_district e ON b.district_code = e.id 
+			LEFT JOIN company_info c ON b.company_id = c.id
+			LEFT JOIN user_info d ON a.user_id = d.id
+			LEFT JOIN order_pay_stream g ON a.pay_stream_id = g.pay_id
+			LEFT JOIN coupon_info h on a.coupon_id = h.id
+			<where>
+				a.pay_status = 1
+				AND a.order_type IN (1,3,11,12)
+				<if test="provinceId != 0">
+					AND b.provinceId = #{provinceId}
+				</if>
+				<if test="cityCode != 0">
+					AND b.city_code = #{cityCode}
+				</if>
+				<if test="sellerType != 0">
+					AND b.seller_type = #{sellerType}
+				</if>
+				<if test="labelsId != 0">
+					AND b.labels_id = #{labelsId}
+				</if>
+				<if test="assumeType != 0">
+					AND a.assume_type = #{assumeType}
+				</if>
+				<if test="rangeAppoint != 0">
+					AND h.range_appoint = #{rangeAppoint}
+				</if>
+				<if test="orderType != 0">
+					AND a.order_type  = #{orderType}
+				</if>
+				<if test="payType != 0">
+					AND a.pay_type =  #{payType}
+				</if>
+				<if test="startTime != null and startTime != ''">
+					AND a.order_time &gt; #{startTime}
+				</if>
+				<if test="endTime != null and endTime != ''">
+					AND a.order_time &lt; #{endTime}
+				</if>
+				<if test="sellerName != null and sellerName != ''">
+					<bind name="sellerName" value="'%'+sellerName+'%'"/>
+					AND b.seller_name LIKE #{sellerName} 
+				</if>
+				<if test="companyName != null and companyName != ''">
+					<bind name="companyName" value="'%'+companyName+'%'"/>
+					AND c.company_name LIKE #{companyName} 
+				</if>
+				<if test="orderCode != null and orderCode != ''">
+					<bind name="orderCode" value="'%'+orderCode+'%'"/>
+					AND (a.order_code LIKE #{orderCode} or g.transaction_code LIKE #{orderCode})
+				</if>
+				<if test="nickname != null and nickname != ''">
+					<bind name="nickname" value="'%'+nickname+'%'"/>
+					AND (d.nickname LIKE #{nickname} OR d.acc_code LIKE #{nickname} OR d.user_phone LIKE #{nickname})
+				</if>
+			</where>
+			order by a.pay_time desc
+	</select>
+	<select id="selectOrderInfoSum" parameterType="OrderInfoQueryVo" resultType="OrderInfoCustom">
+		SELECT
+			count(*) as orderCount,
+			sum(f.allMoney) as orderAllmoneySum,
+			sum(f.payMoney) as orderPaymoneySum,
+			sum(f.officialAssume) as officialAssumeSum,
+			sum(f.sellerIncome) as sellerIncomeSum
+		from
+		(SELECT 
+				d.nickname AS nickname,
+				d.acc_code AS accCode,
+				d.user_phone AS userPhone,
+				DATE_FORMAT(a.pay_time,'%Y-%m-%d %T') AS payTime,
+				a.order_code AS orderCode,
+				b.seller_name AS sellerName,
+				e.plcae_name AS placeName,
+				a.order_type AS orderType,
+				g.transaction_code AS transactionCode,
+				a.all_money AS allMoney,
+				a.exclusive_money AS exclusiveMoney,
+				a.pay_type AS payType,
+				a.discount AS discount,
+				a.pay_money AS payMoney,
+				a.assume_type as assumeType,
+				a.official_assume AS officialAssume,
+				a.seller_income AS sellerIncome
+			
+			FROM order_info a 
+			LEFT JOIN seller_info b ON a.seller_info_id = b.id
+			LEFT JOIN t_system_district e ON b.district_code = e.id 
+			LEFT JOIN company_info c ON b.company_id = c.id
+			LEFT JOIN user_info d ON a.user_id = d.id
+			LEFT JOIN order_pay_stream g ON a.pay_stream_id = g.pay_id
+			LEFT JOIN coupon_info h on a.coupon_id = h.id
+			<where>
+				a.pay_status = 1
+				AND a.order_type IN (1,3,11,12)
+				<if test="provinceId != 0">
+					AND b.provinceId = #{provinceId}
+				</if>
+				<if test="cityCode != 0">
+					AND b.city_code = #{cityCode}
+				</if>
+				<if test="sellerType != 0">
+					AND b.seller_type = #{sellerType}
+				</if>
+				<if test="labelsId != 0">
+					AND b.labels_id = #{labelsId}
+				</if>
+				<if test="assumeType != 0">
+					AND a.assume_type = #{assumeType}
+				</if>
+				<if test="orderType != 0">
+					AND a.order_type  = #{orderType}
+				</if>
+				<if test="rangeAppoint != 0">
+					AND h.range_appoint = #{rangeAppoint}
+				</if>
+				<if test="payType != 0">
+					AND a.pay_type =  #{payType}
+				</if>
+				<if test="startTime != null and startTime != ''">
+					AND a.order_time &gt; #{startTime}
+				</if>
+				<if test="endTime != null and endTime != ''">
+					AND a.order_time &lt; #{endTime}
+				</if>
+				<if test="sellerName != null and sellerName != ''">
+					<bind name="sellerName" value="'%'+sellerName+'%'"/>
+					AND b.seller_name LIKE #{sellerName}
+				</if>
+				<if test="companyName != null and companyName != ''">
+					<bind name="companyName" value="'%'+companyName+'%'"/>
+					AND c.company_name LIKE #{companyName}
+				</if>
+				<if test="orderCode != null and orderCode != ''">
+					<bind name="orderCode" value="'%'+orderCode+'%'"/>
+					AND (a.order_code LIKE #{orderCode} or g.transaction_code LIKE #{orderCode})
+				</if>
+				<if test="nickname != null and nickname != ''">
+					<bind name="nickname" value="'%'+nickname+'%'"/>
+					AND (d.nickname LIKE #{nickname} OR d.acc_code LIKE #{nickname} OR d.user_phone LIKE #{nickname})
+				</if>
+			</where>) f
+	</select>
+	<select id="selectSellerOrderInfoListForTwoDaysBySelective" parameterType="OrderInfoQueryVo" resultType="OrderInfoCustom">
+			SELECT 
+				a.id as id,
+				d.nickname AS nickname,
+				d.acc_code AS accCode,
+				d.user_phone AS userPhone,
+				DATE_FORMAT(a.pay_time,'%Y-%m-%d %T') AS payTime,
+				a.order_code AS orderCode,
+				b.seller_name AS sellerName,
+				e.plcae_name AS placeName,
+				a.order_type AS orderType,
+				a.all_money AS allMoney,
+				a.exclusive_money AS exclusiveMoney,
+				a.pay_type AS payType,
+				a.discount AS discount,
+				a.pay_money AS payMoney,
+				a.assume_type as assumeType,
+				a.official_assume AS officialAssume,
+				a.seller_income AS sellerIncome,
+				a.seller_status as sellerStatus
+			
+			FROM order_info a 
+			LEFT JOIN seller_info b ON a.seller_info_id = b.id
+			LEFT JOIN t_system_district e ON b.district_code = e.id 
+			LEFT JOIN company_info c ON b.company_id = c.id
+			LEFT JOIN user_info d ON a.user_id = d.id
+			LEFT JOIN order_pay_stream g ON a.pay_stream_id = g.pay_id
+			<where>
+				a.pay_status = 1
+				AND a.order_type IN (1,3,11,12)
+				AND a.order_time &gt; DATE_ADD(#{cteatTime},INTERVAL -1 DAY)
+				<if test="companyId != null">
+					AND c.id = #{companyId}
+				</if>
+				<if test="sellerId != null">
+					AND b.id = #{sellerId}
+				</if>
+				<if test="orderType != 0">
+					AND a.order_type  = #{orderType}
+				</if>
+				<if test="payType != 0">
+					AND a.pay_type =  #{payType}
+				</if>
+				<if test="startTimeType == 1">
+					<if test="startTime != null and startTime != ''">
+						AND a.order_time &gt; CONCAT(#{cteatTime},' ',#{startTime}) 
+					</if>
+				</if>
+				<if test="startTimeType == 2">
+					<if test="startTime != null and startTime != ''">
+						AND a.order_time &gt; CONCAT(DATE_ADD(#{cteatTime},INTERVAL -1 DAY),' ',#{startTime})
+					</if>
+				</if>
+				<if test="endTimeType == 1">
+					<if test="endTime != null and endTime != ''">
+						AND a.order_time &lt; CONCAT(#{cteatTime},' ',#{endTime}) 
+					</if>
+				</if>
+				<if test="endTimeType == 2">
+					<if test="endTime != null and endTime != ''">
+						AND a.order_time &lt; CONCAT(DATE_ADD(#{cteatTime},INTERVAL -1 DAY),' ',#{endTime})
+					</if>
+				</if>
+				<if test="orderCode != null and orderCode != ''">
+					<bind name="orderCode" value="'%'+orderCode+'%'"/>
+						and a.order_code like #{orderCode}
+				</if>
+			</where>
+			order by a.pay_time desc
+	</select>
+	<select id="selectSellerOrderInfoForTwoDaysSum" parameterType="OrderInfoQueryVo" resultType="OrderInfoCustom">
+		SELECT
+				count(*) as orderCount,
+				sum(f.allMoney) as orderAllmoneySum,
+				sum(f.payMoney) as orderPaymoneySum,
+				sum(f.officialAssume) as officialAssumeSum,
+				sum(f.sellerIncome) as sellerIncomeSum
+		from
+		(
+			SELECT 
+				a.id as id,
+				d.nickname AS nickname,
+				d.acc_code AS accCode,
+				d.user_phone AS userPhone,
+				DATE_FORMAT(a.pay_time,'%Y-%m-%d %T') AS payTime,
+				a.order_code AS orderCode,
+				b.seller_name AS sellerName,
+				e.plcae_name AS placeName,
+				a.order_type AS orderType,
+				a.all_money AS allMoney,
+				a.exclusive_money AS exclusiveMoney,
+				a.pay_type AS payType,
+				a.discount AS discount,
+				a.pay_money AS payMoney,
+				a.assume_type as assumeType,
+				a.official_assume AS officialAssume,
+				a.seller_income AS sellerIncome,
+				a.seller_status as sellerStatus
+			
+			FROM order_info a 
+			LEFT JOIN seller_info b ON a.seller_info_id = b.id
+			LEFT JOIN t_system_district e ON b.district_code = e.id 
+			LEFT JOIN company_info c ON b.company_id = c.id
+			LEFT JOIN user_info d ON a.user_id = d.id
+			LEFT JOIN order_pay_stream g ON a.pay_stream_id = g.pay_id
+			<where>
+				a.pay_status = 1
+				AND a.order_type IN (1,3,11,12)
+				AND a.order_time &gt; DATE_ADD(#{cteatTime},INTERVAL -1 DAY)
+				<if test="companyId != null">
+					AND c.id = #{companyId}
+				</if>
+				<if test="sellerId != null">
+					AND b.id = #{sellerId}
+				</if>
+				<if test="orderType != 0">
+					AND a.order_type  = #{orderType}
+				</if>
+				<if test="payType != 0">
+					AND a.pay_type =  #{payType}
+				</if>
+				<if test="startTimeType == 1">
+					<if test="startTime != null and startTime != ''">
+						AND a.order_time &gt; CONCAT(#{cteatTime},' ',#{startTime}) 
+					</if>
+				</if>
+				<if test="startTimeType == 2">
+					<if test="startTime != null and startTime != ''">
+						AND a.order_time &gt; CONCAT(DATE_ADD(#{cteatTime},INTERVAL -1 DAY),' ',#{startTime})
+					</if>
+				</if>
+				<if test="endTimeType == 1">
+					<if test="endTime != null and endTime != ''">
+						AND a.order_time &lt; CONCAT(#{cteatTime},' ',#{endTime}) 
+					</if>
+				</if>
+				<if test="endTimeType == 2">
+					<if test="endTime != null and endTime != ''">
+						AND a.order_time &lt; CONCAT(DATE_ADD(#{cteatTime},INTERVAL -1 DAY),' ',#{endTime})
+					</if>
+				</if>
+				<if test="orderCode != null and orderCode != ''">
+					<bind name="orderCode" value="'%'+orderCode+'%'"/>
+						and a.order_code like #{orderCode}
+				</if>
+			</where>) f
+	
+	</select>
+	<select id="selectSellerOrderInfoListBySelective" parameterType="OrderInfoQueryVo" resultType="OrderInfoCustom">
+			SELECT 
+				d.nickname AS nickname,
+				d.acc_code AS accCode,
+				d.user_phone AS userPhone,
+				DATE_FORMAT(a.pay_time,'%Y-%m-%d %T') AS payTime,
+				a.order_code AS orderCode,
+				b.seller_name AS sellerName,
+				e.plcae_name AS placeName,
+				a.order_type AS orderType,
+				g.transaction_code AS transactionCode,
+				a.all_money AS allMoney,
+				a.exclusive_money AS exclusiveMoney,
+				a.pay_type AS payType,
+				a.discount AS discount,
+				a.pay_money AS payMoney,
+				a.assume_type as assumeType,
+				a.official_assume AS officialAssume,
+				a.seller_income AS sellerIncome
+			
+			FROM order_info a 
+			LEFT JOIN seller_info b ON a.seller_info_id = b.id
+			LEFT JOIN t_system_district e ON b.district_code = e.id 
+			LEFT JOIN company_info c ON b.company_id = c.id
+			LEFT JOIN user_info d ON a.user_id = d.id
+			LEFT JOIN order_pay_stream g ON a.pay_stream_id = g.pay_id
+			<where>
+				a.pay_status = 1
+				AND a.order_type IN (1,3,11,12)
+				<if test="companyId != null">
+					AND c.id = #{companyId}
+				</if>
+				<if test="sellerId != null">
+					AND b.id = #{sellerId}
+				</if>
+				<if test="orderType != 0">
+					AND a.order_type  = #{orderType}
+				</if>
+				<if test="payType != 0">
+					AND a.pay_type =  #{payType}
+				</if>
+				<if test="startTime != null and startTime != ''">
+					AND a.order_time &gt; #{startTime}
+				</if>
+				<if test="endTime != null and endTime != ''">
+					AND a.order_time &lt; #{endTime}
+				</if>
+				<if test="sellerName != null and sellerName != ''">
+					<bind name="sellerName" value="'%'+sellerName+'%'"/>
+					AND (b.seller_name LIKE #{sellerName} OR b.id LIKE #{sellerName} OR a.order_code LIKE #{sellerName})
+				</if>
+			</where>
+			order by a.pay_time desc
+	</select>
+	<select id="selectSellerOrderInfoSum" parameterType="OrderInfoQueryVo" resultType="OrderInfoCustom">
+		SELECT
+				count(*) as orderCount,
+				sum(f.allMoney) as orderAllmoneySum,
+				sum(f.payMoney) as orderPaymoneySum,
+				sum(f.officialAssume) as officialAssumeSum,
+				sum(f.sellerIncome) as sellerIncomeSum
+		from
+		(SELECT 
+				d.nickname AS nickname,
+				d.acc_code AS accCode,
+				d.user_phone AS userPhone,
+				DATE_FORMAT(a.pay_time,'%Y-%m-%d %T') AS payTime,
+				a.order_code AS orderCode,
+				b.seller_name AS sellerName,
+				e.plcae_name AS placeName,
+				a.order_type AS orderType,
+				g.transaction_code AS transactionCode,
+				a.all_money AS allMoney,
+				a.exclusive_money AS exclusiveMoney,
+				a.pay_type AS payType,
+				a.discount AS discount,
+				a.pay_money AS payMoney,
+				a.assume_type as assumeType,
+				a.official_assume AS officialAssume,
+				a.seller_income AS sellerIncome
+			
+			FROM order_info a 
+			LEFT JOIN seller_info b ON a.seller_info_id = b.id
+			LEFT JOIN t_system_district e ON b.district_code = e.id 
+			LEFT JOIN company_info c ON b.company_id = c.id
+			LEFT JOIN user_info d ON a.user_id = d.id
+			LEFT JOIN order_pay_stream g ON a.pay_stream_id = g.pay_id
+			<where>
+				a.pay_status = 1
+				AND a.order_type IN (1,3,11,12)
+				<if test="companyId != null">
+					AND c.id = #{companyId}
+				</if>
+				<if test="sellerId != null">
+					AND b.id = #{sellerId}
+				</if>
+				<if test="orderType != 0">
+					AND a.order_type  = #{orderType}
+				</if>
+				<if test="payType != 0">
+					AND a.pay_type =  #{payType}
+				</if>
+				<if test="startTime != null and startTime != ''">
+					AND a.order_time &gt; #{startTime}
+				</if>
+				<if test="endTime != null and endTime != ''">
+					AND a.order_time &lt; #{endTime}
+				</if>
+				<if test="sellerName != null and sellerName != ''">
+					<bind name="sellerName" value="'%'+sellerName+'%'"/>
+					AND (b.seller_name LIKE #{sellerName} OR b.id LIKE #{sellerName} OR a.order_code LIKE #{sellerName})
+				</if>
+			</where>) f 
+	</select>
+	
+	
+	<select id="selectFinancialAuditListBySelective" parameterType="OrderInfoQueryVo" resultType="OrderInfoCustom">
+			SELECT
+				DATE_FORMAT(a.pay_time,'%Y-%m-%d') AS payTime,
+				COUNT(*) AS orderCount,
+				SUM(a.pay_money) AS orderPaymoneySum,
+				SUM(a.official_assume) AS officialAssumeSum,
+				SUM(a.seller_income) AS sellerIncomeSum
+			FROM
+				order_info a
+			LEFT JOIN seller_info b ON a.seller_info_id = b.id
+			LEFT JOIN company_info c ON b.company_id = c.id
+			<where>
+				a.pay_status = 1
+				AND a.order_type IN (1, 3,11,12)
+				<if test="sellerId != null">
+					AND b.id = #{sellerId}
+				</if>
+				<if test="companyId != null">
+					AND c.id = #{companyId}
+				</if>
+				<if test="startTime != null and startTime != ''">
+					AND a.order_time &gt; #{startTime}
+				</if>
+				<if test="endTime != null and endTime != ''">
+					AND a.order_time &lt; #{endTime}
+				</if>
+				<if test="timeType == 2">
+					AND a.order_time &gt; DATE_ADD(#{cteatTime},INTERVAL -6 DAY)
+				</if>
+				<if test="timeType == 3">
+					AND a.order_time &gt; DATE_ADD(#{cteatTime},INTERVAL -29 DAY)
+				</if>
+			</where>
+			GROUP BY
+				DATE_FORMAT(a.order_time, '%Y-%m-%d')
+			ORDER BY a.pay_time DESC
+	</select>
+	<select id="selectFinancialAuditListSum" parameterType="OrderInfoQueryVo" resultType="OrderInfoCustom">
+				SELECT  
+					MIN(d.payTime) AS startTime,
+					MAX(d.payTime) AS endTime,
+					SUM(d.orderPaymoneySum) AS orderPaymoneySum,
+					SUM(d.officialAssumeSum) AS officialAssumeSum,
+					SUM(d.sellerIncomeSum) AS sellerIncomeSum
+				FROM
+				(
+					SELECT
+						DATE_FORMAT(a.pay_time,'%Y-%m-%d') AS payTime,
+						COUNT(*) AS orderCount,
+						SUM(a.pay_money) AS orderPaymoneySum,
+						SUM(a.official_assume) AS officialAssumeSum,
+						SUM(a.seller_income) AS sellerIncomeSum
+					FROM
+						order_info a
+					LEFT JOIN seller_info b ON a.seller_info_id = b.id
+					LEFT JOIN company_info c ON b.company_id = c.id
+					<where>
+						a.pay_status = 1
+						AND a.order_type IN (1, 3,11,12)
+						<if test="sellerId != null">
+							AND b.id = #{sellerId}
+						</if>
+						<if test="companyId != null">
+							AND c.id = #{companyId}
+						</if>
+						<if test="startTime != null and startTime != ''">
+							AND a.order_time &gt; #{startTime}
+						</if>
+						<if test="endTime != null and endTime != ''">
+							AND a.order_time &lt; #{endTime}
+						</if>
+						<if test="timeType == 2">
+							AND a.order_time &gt; DATE_ADD(#{cteatTime},INTERVAL -6 DAY)
+						</if>
+						<if test="timeType == 3">
+							AND a.order_time &gt; DATE_ADD(#{cteatTime},INTERVAL -29 DAY)
+						</if>
+					</where>
+					GROUP BY
+						DATE_FORMAT(a.order_time, '%Y-%m-%d')
+				) d
+	</select>
+	<select id="selectFinancialAuditListForOneDayBySelective" parameterType="OrderInfoQueryVo" resultType="OrderInfoCustom">
+			
+			SELECT 
+				d.nickname AS nickname,
+				d.acc_code AS accCode,
+				d.user_phone AS userPhone,
+				DATE_FORMAT(a.pay_time,'%Y-%m-%d %T') AS payTime,
+				a.order_code AS orderCode,
+				b.seller_name AS sellerName,
+				e.plcae_name AS placeName,
+				a.order_type AS orderType,
+				g.transaction_code AS transactionCode,
+				a.all_money AS allMoney,
+				a.exclusive_money AS exclusiveMoney,
+				a.pay_type AS payType,
+				a.discount AS discount,
+				a.pay_money AS payMoney,
+				a.assume_type as assumeType,
+				a.official_assume AS officialAssume,
+				a.seller_income AS sellerIncome
+			
+			FROM order_info a 
+			LEFT JOIN seller_info b ON a.seller_info_id = b.id
+			LEFT JOIN t_system_district e ON b.district_code = e.id 
+			LEFT JOIN company_info c ON b.company_id = c.id
+			LEFT JOIN user_info d ON a.user_id = d.id
+			LEFT JOIN order_pay_stream g ON a.pay_stream_id = g.pay_id
+			<where>
+				a.pay_status = 1
+				AND a.order_type IN (1,3,11,12)
+				AND a.order_time like CONCAT('%',#{cteatTime},'%')
+				<if test="companyId != null">
+					AND c.id = #{companyId}
+				</if>
+				<if test="sellerId != null">
+					AND b.id = #{sellerId}
+				</if>
+				<if test="orderType != 0">
+					AND a.order_type  = #{orderType}
+				</if>
+				<if test="payType != 0">
+					AND a.pay_type =  #{payType}
+				</if>
+				
+			</where>
+			order by a.pay_time desc
+	
+	
+	</select>
+	<select id="selectFinancialAuditForOneDaySum" parameterType="OrderInfoQueryVo" resultType="OrderInfoCustom">
+		SELECT
+				count(*) as orderCount,
+				sum(f.allMoney) as orderAllmoneySum,
+				sum(f.payMoney) as orderPaymoneySum,
+				sum(f.officialAssume) as officialAssumeSum,
+				sum(f.sellerIncome) as sellerIncomeSum
+		from
+		(
+			SELECT 
+					d.nickname AS nickname,
+					d.acc_code AS accCode,
+					d.user_phone AS userPhone,
+					DATE_FORMAT(a.pay_time,'%Y-%m-%d %T') AS payTime,
+					a.order_code AS orderCode,
+					b.seller_name AS sellerName,
+					e.plcae_name AS placeName,
+					a.order_type AS orderType,
+					g.transaction_code AS transactionCode,
+					a.all_money AS allMoney,
+					a.exclusive_money AS exclusiveMoney,
+					a.pay_type AS payType,
+					a.discount AS discount,
+					a.pay_money AS payMoney,
+					a.assume_type as assumeType,
+					a.official_assume AS officialAssume,
+					a.seller_income AS sellerIncome
+				
+				FROM order_info a 
+				LEFT JOIN seller_info b ON a.seller_info_id = b.id
+				LEFT JOIN t_system_district e ON b.district_code = e.id 
+				LEFT JOIN company_info c ON b.company_id = c.id
+				LEFT JOIN user_info d ON a.user_id = d.id
+				LEFT JOIN order_pay_stream g ON a.pay_stream_id = g.pay_id
+				<where>
+					a.pay_status = 1
+					AND a.order_type IN (1,31,11,12)
+					AND a.order_time like CONCAT('%',#{cteatTime},'%')
+					<if test="companyId != null">
+						AND c.id = #{companyId}
+					</if>
+					<if test="sellerId != null">
+						AND b.id = #{sellerId}
+					</if>
+					<if test="orderType != 0">
+						AND a.order_type  = #{orderType}
+					</if>
+					<if test="payType != 0">
+						AND a.pay_type =  #{payType}
+					</if>
+				</where>
+			) f
+				
+	</select>
+	<select id="selectOrderCountListByOrderInfoQueryVo" parameterType="OrderInfoQueryVo" resultType="OrderInfoCustom">	
+			SELECT 
+				DATE_FORMAT(a.order_time,'%Y-%m-%d') AS orderTimeStr,
+				a.order_code AS orderCode,
+				b.acc_code AS accCode,
+				IFNULL(CONCAT(c.seller_name,'(',d.plcae_name,')'),'-') AS sellerName,
+				IFNULL(e.codes_name,'-') AS sellerLabel,
+				a.all_money/100 AS allMoneyValue,
+				a.pay_money/100 AS payMoneyValue,
+				(CASE a.pay_status WHEN 1 THEN '已支付' ELSE '未支付' END) AS payStatusStr,
+				(CASE a.order_type  WHEN 1 THEN '任务订单' WHEN 2 THEN '积分兑换优惠券' WHEN 3 THEN '普通商家订单' WHEN 4 THEN '任务金豆打赏' WHEN 5 THEN '金豆转赠' WHEN 6 THEN '金豆购买' WHEN 7 THEN '活动报名' WHEN 8 THEN '老客户赠送' END) AS orderTypeStr,
+				IFNULL((CASE a.other_buy WHEN 1 THEN '我买单' WHEN 2 THEN '他买单' WHEN 3 THEN 'AA制' ELSE NULL END),'-') AS otherBuyStr
+				
+				FROM order_info a
+				LEFT JOIN user_info b ON a.user_id = b.id
+				LEFT JOIN seller_info c ON a.seller_info_id = c.id
+				LEFT JOIN t_system_seller e ON c.labels_id = e.id
+				LEFT JOIN t_system_district d ON c.district_code = d.id
+			<where>
+				a.order_type IN (1,3)
+				<if test="startTime != null and startTime != ''">
+						AND a.order_time &gt; #{startTime}
+				</if>
+				<if test="endTime != null and endTime != ''">
+						AND a.order_time &lt; #{endTime}
+				</if>
+			</where>
+			ORDER BY a.order_time DESC
+	</select>
+	<update id="updateOrderStatusByOrderId" parameterType="OrderInfo">
+		UPDATE 
+			order_info 
+		SET 
+				order_status = #{orderStatus}
+			WHERE
+				id = #{id}
+		</update>
+	<select id="getOrderInfoAllListByType" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+	SELECT  DISTINCT
+		s.id AS id,
+		s.order_code as orderCode,
+		(SELECT seller_name FROM seller_info WHERE seller_info.id = s.seller_id ) AS sellerName,
+		( SELECT plcae_name FROM t_system_district WHERE t_system_district.id IN ( SELECT district_code FROM seller_info WHERE seller_info.id = s.seller_id ) ) AS plcaeName,
+		s.other_by AS otherBy,
+		s.order_type as orderType,
+		s.task_id as taskId,
+		s.order_status as orderStatus
+	FROM
+		order_seller s,
+		order_info i
+	WHERE
+		s.user_id IS NOT NULL
+		AND ((s.order_type =3 AND s.task_id = i.id AND i.order_type=3) OR ( s.order_type = 1 AND s.task_id =i.task_info_id and i.order_type=1))
+		<if test="orderStatus==3">
+		AND (s.order_status=1 OR s.order_status=2)
+			<if test="sellerStatus!=null">
+				and i.seller_status=#{sellerStatus}
+			</if>
+		</if>
+		<if test="orderStatus==0">
+		AND s.order_status=0 AND s.order_type=1
+		</if>
+		<if test="orderStatus!=null and orderStatus!='' and orderStatus!=3 and orderStatus==0  and orderStatus!=4">
+		AND  s.order_status=#{orderStatus}
+		</if>
+		<if test="orderStatus==4">
+			AND (s.order_status=1 OR s.order_status=2)
+			<if test="sellerStatus!=null and sellerStatus!=''">
+			AND s.order_status=#{sellerStatus}
+			</if>
+		</if>
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time &gt;=#{startTime} AND i.pay_time &lt;=#{endTime} 
+		</if>
+ 		<if test="couponName!=null and couponName!=''">
+		AND ((s.order_type =3 AND s.task_id = i.id) OR ( s.order_type = 1 AND s.task_id = i.task_info_id)) AND 	i.coupon_id=#{couponName}
+ 		</if>
+ 		<if test="orderType!=null">
+ 		AND s.order_type=#{orderType}
+ 			<if test="otherBuy!=null">
+ 			AND s.other_by=#{otherBuy}
+ 			</if>
+ 		</if>
+ 		<if test="payType!=null and payType!=''">
+		AND ((s.order_type =3 AND s.task_id = i.id) OR ( s.order_type = 1 AND s.task_id = i.task_info_id)) AND 	i.pay_type=#{payType}
+ 		</if>
+ 		<if test="orderCode!=null and orderCode!=''">
+ 		AND (s.order_code like CONCAT('%','${orderCode}','%' ) or s.order_code=#{orderCode})
+ 		</if>
+ 		<if test="likeName!=null and likeName!=''">
+ 		AND ((s.seller_id in(select id from seller_info where seller_name like CONCAT('%','${likeName}','%'))) OR (s.seller_id like CONCAT('%','${likeName}','%')) OR (s.order_code like CONCAT('%','${likeName}','%')))
+ 		</if>
+ 		<if test="id!=null and id!=''">
+		AND s.seller_id=#{id}		
+ 		</if>
+ 		<if test="sellerName!=null and sellerName!=''">
+ 		AND s.seller_id in(select DISTINCT id from seller_info where company_id=#{sellerName})
+		</if>
+		<if test="orderSellerId!=null and orderSellerId!=''">
+		AND s.id=#{orderSellerId}
+		</if>
+ 		ORDER BY i.pay_time DESC
+	</select>
+	
+	<select id="getSellerIncomeAllListByType" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+	SELECT
+		COUNT(DISTINCT s.id) as orderNum,
+		SUM( i.all_money) as allmoneyNum,
+		SUM( i.seller_income) as sellerIncome,
+		SUM( i.pay_money) as paymoneyNum
+	FROM
+		order_seller s,
+		order_info i
+	WHERE
+		 ( ( s.order_type = 1 AND s.task_id = i.task_info_id AND i.order_type = 1) OR ( s.order_type = 3 AND s.task_id = i.id AND i.order_type=3) OR (s.order_type = 11 AND s.order_code = i.order_code AND i.order_type = 11) OR (s.order_type = 12 AND s.order_code = i.order_code AND i.order_type = 12))
+		<if test="orderStatus==3">
+		AND (s.order_status=1 OR s.order_status=2)
+			<if test="sellerStatus!=null">
+				and i.seller_status=#{sellerStatus}
+			</if>
+		</if>
+		<if test="orderStatus==0">
+		AND s.order_status=0 AND s.order_type=1
+		</if>
+		<if test="orderStatus==4">
+			AND (s.order_status=1 OR s.order_status=2)
+			<if test="sellerStatus!=null and sellerStatus!=''">
+			AND s.order_status=#{sellerStatus}
+			</if>
+		</if>
+		<if test="orderStatus!=null and orderStatus!='' and orderStatus!=3 and orderStatus==0 and orderStatus!=4">
+		AND  s.order_status=#{orderStatus}
+		</if>
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time &gt;=#{startTime} AND i.pay_time &lt;=#{endTime} 
+		</if>
+		<if test="couponName!=null and couponName!=''">
+		AND i.coupon_id=#{couponName}
+		</if>
+		<if test="orderType!=null">
+		AND s.order_type=#{orderType}
+			<if test="otherBuy!=null">
+			AND s.other_by=#{otherBuy}
+			</if>
+		</if>
+		<if test="payType!=null and payType!=''">
+		AND i.pay_type=#{payType}
+		</if>
+		<if test="orderCode!=null and orderCode!=''">
+		AND s.order_code like CONCAT('%','${orderCode}','%' )
+		</if>
+		<if test="likeName!=null and likeName!=''">
+ 		AND ((s.seller_id in(select id from seller_info where seller_name like CONCAT('%','${likeName}','%'))) OR (s.seller_id like CONCAT('%','${likeName}','%')) OR (s.order_code like CONCAT('%','${likeName}','%')))
+ 		</if>
+		<if test="id!=null and id!=''">
+		AND s.seller_id=#{id}		
+ 		</if>
+		<if test="sellerName!=null and sellerName!=''">
+		AND s.seller_id in(select  DISTINCT id from seller_info where company_id=#{sellerName})
+		</if>
+	</select>
+	<select id="getOrderInfoListByTaskId" parameterType="int" resultType="java.util.LinkedHashMap">
+		SELECT
+		i.id as id,
+		DATE_FORMAT(i.pay_time,'%Y-%m-%d %H:%i:%s') as payTime,
+		i.order_status as orderStatus,
+		(select nickname from user_info where i.user_id=user_info.id) as nickname,
+		(select acc_code from user_info where i.user_id=user_info.id) as accCode,
+		(select sex from user_info where i.user_id=user_info.id) as sex,
+		(select age from user_info where i.user_id=user_info.id) as age,
+		(select task_appointed_time from task_info where task_info.id=i.task_info_id) as taskTime,
+		i.all_money as allMoney,
+		i.pay_money as payMoney,
+		i.pay_type as payType,
+		i.discount as discount,
+		i.coupon_money as couponMoney,
+		i.exclusive_money as exclusiveMoney,
+		i.seller_income as sellerIncome,
+		i.official_assume as officialAssume,
+		i.official_assume as officialMoney,
+	 	i.user_phone as userPhone,
+		i.seller_status as sellerStatus,
+		i.order_code as orderCode,
+		i.pay_stream_id as payStreamId
+		FROM
+		order_info i
+		WHERE
+		i.task_info_id=#{id}
+		AND i.order_type=1
+		ORDER BY i.pay_time DESC
+	</select>
+	<select id="getOrderInfoListById" parameterType="int" resultType="java.util.LinkedHashMap">
+		SELECT
+		i.id as id,
+		DATE_FORMAT(i.pay_time,'%Y-%m-%d %H:%i:%s') as payTime,
+		i.order_status as orderStatus,
+		(select nickname from user_info where i.user_id=user_info.id) as nickname,
+		(select acc_code from user_info where i.user_id=user_info.id) as accCode,
+		(select sex from user_info where i.user_id=user_info.id) as sex,
+		(select age from user_info where i.user_id=user_info.id) as age,
+		i.all_money as allMoney,
+		i.pay_money as payMoney,
+		i.pay_type as payType,
+		i.discount as discount,
+		i.coupon_money as couponMoney,
+		i.exclusive_money as exclusiveMoney,
+		i.seller_income as sellerIncome,
+		i.official_assume as officialAssume,
+		i.official_assume as officialMoney,
+		i.user_phone as userPhone,
+		i.seller_status as sellerStatus,
+		i.order_code as orderCode,
+		i.pay_stream_id as payStreamId
+		FROM
+		order_info i
+		WHERE
+		i.id=#{id}
+		
+	</select>
+	<update id="updateOrderInfoById" parameterType="int">
+		UPDATE
+			order_info
+		SET
+			seller_status=1
+		WHERE
+			id=#{id}
+	</update>
+	<select id="getSellerInfoBySellerId" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+		SELECT
+			id as id,
+			seller_name as sellerName,
+			(select plcae_name from t_system_district where seller_info.district_code=t_system_district.id) as plcaeName
+		FROM
+			seller_info
+		WHERE
+			1=1
+			<if test="companyId!=null and companyId!=''">
+				AND company_id=#{companyId}
+			</if>
+			<if test="sellerInfoId!=null and sellerInfoId!=''">
+				AND id=#{sellerInfoId}
+			</if>
+	</select>
+	<select id="getCouponInfoBySellerId" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+		SELECT DISTINCT
+			i.id as id,
+			i.coupon_name as couponName
+		FROM
+			coupon_info i,
+			coupon_user u
+		WHERE
+			u.coupon_id=i.id
+			AND u.coupon_num=0
+			<if test="sellerName!=null and sellerName!=''">
+				AND u.seller_id=#{sellerName}
+			</if>
+			<if test="companyId!=null and companyId!=''">
+			AND	(u.seller_id in(select id from seller_info where company_id=#{companyId}))
+			</if>
+	</select>
+	<select id="getOrderInfoByOrderStatus" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+		SELECT  DISTINCT
+		s.id AS id,
+		s.order_code as orderCode,
+		(SELECT seller_name FROM seller_info WHERE seller_info.id = s.seller_id ) AS sellerName,
+		( SELECT plcae_name FROM t_system_district WHERE t_system_district.id IN ( SELECT district_code FROM seller_info WHERE seller_info.id = s.seller_id ) ) AS plcaeName,
+		s.other_by AS otherBy,
+		s.order_type as orderType,
+		s.task_id as taskId,
+		s.order_status as orderStatus,
+		(select nickname from user_info where s.task_user_id=user_info.id) as nickname,
+		(select sex from user_info where s.task_user_id=user_info.id) as sex,
+		(select age from user_info where s.task_user_id=user_info.id) as age,
+		(select user_name from user_login where user_login.id in(select user_login_id from user_info where s.task_user_id=user_info.id)) as userPhone,
+		(select nickname from user_info where s.task_other_id=user_info.id) as nicknameTwo,
+		(select sex from user_info where s.task_other_id=user_info.id) as sexTwo,
+		(select age from user_info where s.task_other_id=user_info.id) as ageTwo,
+		(select user_name from user_login where user_login.id in(select user_login_id from user_info where s.task_other_id=user_info.id)) as userPhoneTwo,
+		(select task_appointed_time from task_info where task_info.id=s.task_id) as taskTime
+	FROM
+		order_seller s,
+		task_info i
+	WHERE
+		1=1 
+		<if test="orderStatus==0">
+		AND s.order_status=0 AND s.order_type=1
+		</if>
+		<if test="companyId!=null and companyId!=''">
+ 		AND s.seller_id in(select DISTINCT id from seller_info where company_id=#{companyId})
+		</if>
+		<if test="orderCode!=null and orderCode!=''">
+		AND s.order_code like CONCAT('%','${orderCode}','%' )
+		</if>
+		<if test="sellerName!=null and sellerName!=''">
+		AND s.seller_id=#{sellerName}
+		</if>
+		<if test="id!=null and id!=''">
+		AND s.seller_id=#{id}		
+ 		</if>
+ 		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND s.task_id in(select id from task_info where task_info.task_appointed_time&lt;=#{endTime} AND task_info.task_appointed_time&gt;=#{startTime} )
+		</if>
+		AND s.task_id=i.id
+		order BY i.task_appointed_time desc
+	</select>
+	<select id="getOrderInfoNumByOrderStatus" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+	SELECT
+		COUNT(DISTINCT s.id) as orderNum
+	FROM
+		order_seller s
+	WHERE
+		1=1 
+		<if test="orderStatus==0">
+		AND s.order_status=0 AND s.order_type=1
+		</if>
+		<if test="companyId!=null and companyId!=''">
+ 		AND s.seller_id in(select DISTINCT id from seller_info where company_id=#{companyId})
+		</if>
+		<if test="orderCode!=null and orderCode!=''">
+		AND s.order_code like CONCAT('%','${orderCode}','%' )
+		</if>
+		<if test="sellerName!=null and sellerName!=''">
+		AND s.seller_id=#{sellerName}
+		</if>
+		<if test="id!=null and id!=''">
+		AND s.seller_id=#{id}			
+ 		</if>
+ 		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND s.task_id in(select id from task_info where task_info.task_appointed_time&lt;=#{endTime} AND task_info.task_appointed_time&gt;=#{startTime} )
+		</if>
+	</select>
+	<select id="getfinancialAuditAllByType" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+		SELECT 	DISTINCT  
+			SUBSTR(i.pay_time,1,10) as payTime
+		FROM
+			order_seller s,
+			order_info i
+		WHERE
+			1 = 1
+		<if test="orderStatus!=null">
+		AND (s.order_status=1 OR s.order_status=2)
+		AND ((s.order_type=1 AND s.task_id=i.task_info_id AND i.order_type = 1) OR (s.order_type=3 AND s.task_id=i.id AND i.order_type=3) OR (s.order_type = 11 AND s.order_code = i.order_code AND i.order_type = 11) OR (s.order_type = 12 AND s.order_code = i.order_code AND i.order_type = 12))
+		</if>
+		<if test="companyId!=null and companyId!=''">
+		AND s.seller_id IN (SELECT DISTINCT id FROM seller_info WHERE company_id =#{companyId})
+		</if>
+		<if test="sellerName!=null and sellerName!=''">
+		AND s.seller_id=#{sellerName}
+		</if>
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time&lt;=#{endTime} AND i.pay_time&gt;=#{startTime}
+		</if>
+		<if test="orderStatus==6">
+		AND i.pay_time is not null
+		</if>
+		ORDER BY i.pay_time DESC
+	</select>
+	<select id="getfinancialAuditNumByType" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+		SELECT
+		COUNT(DISTINCT s.id) AS orderNum,
+		SUM(i.all_money) AS allmoneyNum,
+		SUM(i.pay_money) AS paymoneyNum,
+		SUM(i.seller_income) as sellerIncome,
+		SUM(i.official_assume) as officialAssume
+		FROM
+			order_seller s,
+			order_info i
+		WHERE
+		1 = 1
+		AND (s.order_status=1 OR s.order_status=2)
+		AND ((s.order_type=1 AND s.task_id=i.task_info_id AND i.order_type = 1) OR (s.order_type=3 AND s.task_id=i.id AND i.order_type=3) OR (s.order_type = 11 AND s.order_code = i.order_code AND i.order_type = 11) OR (s.order_type = 12 AND s.order_code = i.order_code AND i.order_type = 12))
+		<if test="companyId!=null and companyId!=''">
+		AND s.seller_id IN (SELECT DISTINCT id FROM seller_info WHERE company_id =#{companyId})
+		</if>
+		<if test="sellerName!=null and sellerName!=''">
+		AND s.seller_id=#{sellerName}
+		</if>
+		<if test="payTime!=null and payTime!=''">
+		AND i.pay_time LIKE CONCAT('%','${payTime}','%' )
+		</if>
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time&lt;=#{endTime} AND i.pay_time&gt;=#{startTime}
+		</if>
+	</select>	
+	<select id="selectCountTotal" parameterType="String" resultType="String">
+		SELECT 
+			CAST(SUM(a.pay_money) AS DECIMAL(20,2)) AS totalAmount 
+		FROM order_info a 
+		WHERE 
+		a.order_status IN (1,2)
+		AND a.seller_info_id IN (#{companyORseller}) 
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="getOrderInfoAllListByCity" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+	SELECT  DISTINCT
+		s.id AS id,
+		s.order_code as orderCode,
+		(SELECT seller_name FROM seller_info WHERE seller_info.id = s.seller_id ) AS sellerName,
+		( SELECT plcae_name FROM t_system_district WHERE t_system_district.id IN ( SELECT district_code FROM seller_info WHERE seller_info.id = s.seller_id ) ) AS plcaeName,
+		s.other_by AS otherBy,
+		s.order_type as orderType,
+		s.task_id as taskId,
+		s.order_status as orderStatus,
+		s.order_time as orderTime,
+		(select company_name from company_info where company_info.id in(select company_id from seller_info where seller_info.id=s.seller_id)) as companyName
+	FROM
+		order_seller s,
+		order_info i
+	WHERE
+		1=1 
+		AND s.user_id IS NOT NULL
+		AND ((s.order_type =3 AND s.task_id = i.id AND i.order_type=3) OR ( s.order_type = 1 AND s.task_id =i.task_info_id AND s.order_status!=0 and i.order_type=1) OR (s.order_type = 11 AND s.order_code = i.order_code AND i.order_type = 11) OR (s.order_type = 12 AND s.order_code = i.order_code AND i.order_type = 12))
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time &gt;=#{startTime} AND i.pay_time &lt;=#{endTime} 
+		</if>
+ 		<if test="orderType!=null">
+ 		AND s.order_type=#{orderType}
+ 			<if test="otherBuy!=null">
+ 			AND s.other_by=#{otherBuy}
+ 			</if>
+ 		</if>
+ 		<if test="orderStatus!=null">
+ 		AND s.order_status=#{orderStatus}
+ 		</if>
+ 		<if test="payType!=null and payType!=''">
+		AND ((s.order_type =3 AND s.task_id = i.id) OR ( s.order_type = 1 AND s.task_id = i.task_info_id)) AND 	i.pay_type=#{payType}
+ 		</if>
+ 		<if test="codesProvince!=null and codesProvince!=''">
+ 		AND s.seller_id in(select id from seller_info where seller_info.provinceId=#{codesProvince})
+ 		</if>
+ 		<if test="cityCode!=null and cityCode!=''">
+ 		AND s.seller_id in(select id from seller_info where seller_info.city_code=#{cityCode})
+ 		</if>
+ 		<if test="sellerType!=null and sellerType!=''">
+ 		AND s.seller_id in(select id from seller_info where seller_info.seller_type=#{sellerType})
+ 		</if>
+ 		<if test="labelsId!=null and labelsId!=''">
+ 		AND s.seller_id in(select id from seller_info where seller_info.labels_id=#{labelsId})
+ 		</if>
+ 		<if test="likeName!=null and likeName!=''">
+ 		AND ((s.seller_id like CONCAT('%','${likeName}','%' )) OR (s.seller_id in(select id from seller_info where seller_info.seller_name like CONCAT('%','${likeName}','%' ))) OR (s.seller_id in(select id from seller_info where seller_info.company_id like CONCAT('%','${likeName}','%' ))) OR (s.seller_id in(select id from seller_info where seller_info.company_id in(select id from company_info where company_info.company_name like CONCAT('%','${likeName}','%' )))))
+ 		</if>
+ 		<if test="orderCode!=null and orderCode!=''">
+ 		AND (s.order_code like CONCAT('%','${orderCode}','%' ) OR i.order_code like CONCAT('%','${orderCode}','%' ) OR i.pay_stream_id like CONCAT('%','${orderCode}','%' ))
+ 		</if>
+ 		<if test="accCode!=null and accCode!=''">
+ 		AND i.user_id in(select id FROM user_info where user_info.acc_code=#{accCode})
+ 		</if>
+ 		ORDER BY i.pay_time DESC
+	</select>
+	<select id="getSellerIncomeAllNumByCity" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+	SELECT
+		COUNT(DISTINCT s.id) as orderNum,
+		(select COUNT(DISTINCT s.order_code) 
+		from 
+		order_seller s,
+		order_info i
+		WHERE
+		((	s.order_type = 1
+			AND s.task_id = i.task_info_id
+		) OR (	s.order_type = 3
+			AND s.task_id = i.id
+		))
+		AND s.user_id IS NOT NULL
+		AND ((s.order_type =3 AND s.task_id = i.id AND i.order_type=3) OR ( s.order_type = 1 AND s.task_id =i.task_info_id AND s.order_status!=0 and i.seller_info_id=s.seller_id AND i.order_type=1))
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time &gt;=#{startTime} AND i.pay_time &lt;=#{endTime} 
+		</if>
+ 		<if test="orderType!=null">
+ 		AND s.order_type=#{orderType}
+ 			<if test="otherBuy!=null">
+ 			AND s.other_by=#{otherBuy}
+ 			</if>
+ 		</if>
+ 		<if test="orderStatus!=null">
+ 		AND s.order_status=#{orderStatus}
+ 		</if>
+ 		<if test="payType!=null and payType!=''">
+		AND ((s.order_type =3 AND s.task_id = i.id) OR ( s.order_type = 1 AND s.task_id = i.task_info_id)) AND 	i.pay_type=#{payType}
+ 		</if>
+ 		<if test="codesProvince!=null and codesProvince!=''">
+ 		AND s.seller_id in(select id from seller_info where seller_info.provinceId=#{codesProvince})
+ 		</if>
+ 		<if test="cityCode!=null and cityCode!=''">
+ 		AND s.seller_id in(select id from seller_info where seller_info.city_code=#{cityCode})
+ 		</if>
+ 		<if test="sellerType!=null and sellerType!=''">
+ 		AND s.seller_id in(select id from seller_info where seller_info.seller_type=#{sellerType})
+ 		</if>
+ 		<if test="labelsId!=null and labelsId!=''">
+ 		AND s.seller_id in(select id from seller_info where seller_info.labels_id=#{labelsId})
+ 		</if>
+ 		<if test="likeName!=null and likeName!=''">
+ 		AND ((s.seller_id like CONCAT('%','${likeName}','%' )) OR (s.seller_id in(select id from seller_info where seller_info.seller_name like CONCAT('%','${likeName}','%' ))) OR (s.seller_id in(select id from seller_info where seller_info.company_id like CONCAT('%','${likeName}','%' ))) OR (s.seller_id in(select id from seller_info where seller_info.company_id in(select id from company_info where company_info.company_name like CONCAT('%','${likeName}','%' )))))
+ 		</if>
+ 		<if test="orderCode!=null and orderCode!=''">
+ 		AND (s.order_code like CONCAT('%','${orderCode}','%' ) OR i.order_code like CONCAT('%','${orderCode}','%' ) )
+ 		</if>
+ 		<if test="accCode!=null and accCode!=''">
+ 		AND i.user_id in(select id FROM user_info where user_info.acc_code=#{accCode})
+ 		</if>
+		) as allOrderNum,
+		SUM( i.all_money) as allmoneyNum,
+		SUM( i.pay_money) as paymoneyNum,
+		SUM( i.seller_income) as sellerIncome 
+	FROM
+		order_seller s,
+		order_info i
+	WHERE
+		1=1 
+		AND ((s.order_type = 1	AND s.task_id = i.task_info_id AND i.order_type=1)	OR (s.order_type = 3 AND s.task_id = i.id AND i.order_type=3))
+		AND (s.order_status=1 or s.order_status=2)
+		and i.seller_info_id=s.seller_id
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND ((s.order_type =3 AND s.task_id = i.id ) OR ( s.order_type = 1 AND s.task_id =i.task_info_id and i.seller_info_id=s.seller_id))
+		AND i.pay_time &gt;=#{startTime} AND i.pay_time &lt;=#{endTime} 
+		</if>
+		<if test="orderStatus!=null">
+ 		AND s.order_status=#{orderStatus}
+ 		</if>
+		<if test="orderType!=null">
+		AND s.order_type=#{orderType}
+			<if test="otherBuy!=null">
+			AND s.other_by=#{otherBuy}
+			</if>
+		</if>
+		<if test="payType!=null and payType!=''">
+		AND ((s.order_type =3 AND s.task_id = i.id) OR ( s.order_type = 1 AND s.task_id = i.task_info_id)) AND 	i.pay_type=#{payType}
+		</if>
+		<if test="codesProvince!=null and codesProvince!=''">
+ 		AND s.seller_id in(select id from seller_info where seller_info.provinceId=#{codesProvince})
+ 		</if>
+ 		<if test="cityCode!=null and cityCode!=''">
+ 		AND s.seller_id in(select id from seller_info where seller_info.city_code=#{cityCode})
+ 		</if>
+ 		<if test="sellerType!=null and sellerType!=''">
+ 		AND s.seller_id in(select id from seller_info where seller_info.seller_type=#{sellerType})
+ 		</if>
+ 		<if test="labelsId!=null and labelsId!=''">
+ 		AND s.seller_id in(select id from seller_info where seller_info.labels_id=#{labelsId})
+ 		</if>
+ 		<if test="likeName!=null and likeName!=''">
+ 		AND ((s.seller_id like CONCAT('%','${likeName}','%' )) OR (s.seller_id in(select id from seller_info where seller_info.seller_name like CONCAT('%','${likeName}','%' ))) OR (s.seller_id in(select id from seller_info where seller_info.company_id like CONCAT('%','${likeName}','%' ))) OR (s.seller_id in(select id from seller_info where seller_info.company_id in(select id from company_info where company_info.company_name like CONCAT('%','${likeName}','%' )))))
+ 		</if>
+ 		<if test="accCode!=null and accCode!=''">
+ 		AND i.user_id in(select id FROM user_info where user_info.acc_code=#{accCode})
+ 		</if>
+	</select>
+	<select id="getfinancialAuditAllBySellerId" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+		SELECT 	DISTINCT  
+			SUBSTR(i.pay_time,1,10) as payTime
+		FROM
+			order_seller s,
+			order_info i
+		WHERE
+			1 = 1
+		AND ((s.order_type=1 AND s.task_id=i.task_info_id AND i.order_type=1) OR (s.order_type=3 AND s.task_id=i.id AND i.order_type=3) OR (s.order_type = 11 AND s.order_code = i.order_code AND i.order_type = 11) OR (s.order_type = 12 AND s.order_code = i.order_code AND i.order_type = 12))
+		AND (s.order_status=1 OR s.order_status=2)
+		AND i.pay_time is not null
+		<if test="sellerName!=null and sellerName!=''">
+		AND s.seller_id=#{sellerName}
+		AND i.seller_info_id=#{sellerName}
+		</if>
+		<if test="companyId!=null and companyId!=''">
+		AND s.seller_id IN (SELECT DISTINCT id FROM seller_info WHERE company_id =#{companyId})
+		AND i.seller_info_id IN (SELECT DISTINCT id FROM seller_info WHERE company_id =#{companyId})
+		</if>
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time&lt;=#{endTime} AND i.pay_time&gt;=#{startTime}
+		</if>
+		ORDER BY i.pay_time DESC
+	</select>
+	<select id="getfinancialAuditNumBySellerId" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+		SELECT
+		COUNT(DISTINCT s.id) AS orderNum,
+		SUM(i.all_money) AS allmoneyNum,
+		SUM(i.pay_money) AS paymoneyNum,
+		SUM( i.seller_income) as sellerIncome 
+		FROM
+			order_seller s,
+			order_info i
+		WHERE
+		1 = 1
+		AND ((s.order_type=1 AND s.task_id=i.task_info_id AND i.order_type=1) OR (s.order_type=3 AND s.task_id=i.id AND i.order_type=3) OR (s.order_type = 11 AND s.order_code = i.order_code AND i.order_type = 11) OR (s.order_type = 12 AND s.order_code = i.order_code AND i.order_type = 12))
+		AND (s.order_status=1 OR s.order_status=2)
+		<if test="sellerName!=null and sellerName!=''">
+		AND s.seller_id=#{sellerName}
+		AND i.seller_info_id=#{sellerName}
+		</if>
+		<if test="companyId!=null and companyId!=''">
+		AND s.seller_id IN (SELECT DISTINCT id FROM seller_info WHERE company_id =#{companyId})
+		AND i.seller_info_id IN (SELECT DISTINCT id FROM seller_info WHERE company_id =#{companyId})
+		</if>
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time&lt;=#{endTime} AND i.pay_time&gt;=#{startTime}
+		</if>
+		<if test="payTime!=null and payTime!=''">
+		AND i.pay_time LIKE CONCAT('%','${payTime}','%' )
+		</if>
+	</select>
+	
+	<select id="getfinancialUnpayStatic" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+	SELECT SUM(account_actual) account_actual,
+       SUM(account_official) account_official,
+       SUM(account_receivable) account_receivable,
+       SUM(account_unpay) account_unpay,
+       SUM(orderNum) orderNum
+    FROM (SELECT account_actual,
+               account_official,
+               account_receivable,
+               (case account_status
+                 when 0 then
+                  account_receivable
+               end) account_unpay,
+               (case account_status
+                 when 0 then
+                  1
+               end) orderNum
+          FROM financial_account
+         where seller_id in
+               (SELECT id from seller_info where company_id = #{companyId}) AND account_status=0) t
+	
+	</select>
+	
+	<select id="getfinancialUnpayDate" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+	SELECT recycle_startTime startTime,recycle_endTime endTime
+	  FROM financial_account
+	 WHERE seller_id in (SELECT id from seller_info where company_id = #{companyId})
+	   AND account_status = 0
+	 <if test="sellerInfoId!=null and sellerInfoId!=''">
+	   AND seller_id = #{sellerInfoId}
+	 </if>
+	 ORDER BY create_time DESC
+	</select>
+	
+	<select id="getfinancialUnpayList" parameterType="java.util.Map" resultType="java.util.LinkedHashMap">
+		SELECT DATE_FORMAT(order_time, '%Y-%m-%d') payTime,
+		       count(0) orderNum,
+		       SUM(pay_money) paymoneyNum,
+		       SUM(official_assume) officialmoneyNum,
+		       SUM(seller_income) sellerIncome
+		  from order_info
+		 where order_status > 0
+		 <if test="companyId!=null and companyId!=''">
+		   AND seller_info_id in(SELECT id from seller_info where company_id = #{companyId})
+		 </if>
+		 <if test="sellerInfoId!=null and sellerInfoId!=''">
+		   AND seller_info_id = #{sellerInfoId}
+		 </if>
+		 and 
+		 <foreach collection="paramList" item="paramObj" open="(" close=")" separator="or" >
+             order_time >=#{paramObj.startTime} and order_time &lt; #{paramObj.endTime}
+         </foreach>
+		 GROUP BY DATE_FORMAT(order_time,'%Y-%m-%d') DESC
+	</select> 
+	
+	<select id="getOrderUnpayTime" parameterType="OrderInfo" resultType="OrderInfo">
+	  SELECT MIN(recycle_startTime) startTime, MAX(recycle_endTime) endTime
+	  FROM financial_account
+	 WHERE seller_id in (SELECT id from seller_info where company_id = #{companyId})
+	   AND account_status = 0
+	</select>
+	
+<select id="getOrderUnpayStatic" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+		SELECT count(0) orderNum,
+		  SUM(all_money) allMoney,
+	      SUM(exclusive_money)  exclusivMoney,
+	       SUM(pay_money)  payMoney,
+	       SUM(seller_income)  sellerIncome,
+	       SUM(official_assume) officialAssume
+	  FROM order_info o
+	 WHERE o.seller_info_id in
+	       (SELECT id from seller_info where company_id = #{companyId})
+	   AND o.order_status &gt; 0
+	   AND o.order_time &gt;= #{startTime}
+	   AND o.order_time &lt; #{endTime}
+	   <if test="sellerInfoId!=null and sellerInfoId!=''">
+	   AND o.seller_info_d = #{sellerInfoId}
+	   </if>
+	   <if test="orderType!=null and orderType!=''">
+	   AND o.order_type = #{orderType}
+	   </if>
+	   <if test="payType!=null and payType!=''">
+	   AND o.pay_type = #{payType}
+	   </if>
+     ORDER BY o.order_time DESC
+	</select> 
+	
+	<select id="getOrderUnpayList" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+		SELECT u.nickname,
+	       u.acc_code,
+	       u.user_phone,
+	       o.pay_time,
+	       o.order_code,
+	       s.seller_name,
+	       o.pay_type,
+	       o.order_type,
+	       o.assume_type,
+	       p.transaction_code,
+	       o.all_money,
+	       o.exclusive_money,
+	       o.pay_money,
+	       o.seller_income,
+	       o.official_assume,
+	       o.discount
+	  FROM order_info o, user_info u, seller_info s, order_pay_stream p
+	 WHERE o.seller_info_id in
+	       (SELECT id from seller_info where company_id = #{companyId})
+	   AND o.order_status &gt; 0
+	   AND o.order_time &gt;= #{startTime}
+	   AND o.order_time &lt; #{endTime}
+	   <if test="sellerInfoId!=null and sellerInfoId!=''">
+	   AND o.seller_info_d = #{sellerInfoId}
+	   </if>
+	   <if test="orderType!=null and orderType!=''">
+	   AND o.order_type = #{orderType}
+	   </if>
+	   <if test="payType!=null and payType!=''">
+	   AND o.pay_type = #{payType}
+	   </if>
+	   AND o.user_id = u.id
+	   and o.seller_info_id = s.id
+	   AND o.pay_stream_id = p.pay_id
+     ORDER BY o.order_time DESC
+	</select> 
+	
+	<select id="getfinancialAuditOneByTypeMgr" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+	SELECT  DISTINCT
+		s.id AS id,
+		s.order_code as orderCode,
+		(SELECT seller_name FROM seller_info WHERE seller_info.id = s.seller_id ) AS sellerName,
+		( SELECT plcae_name FROM t_system_district WHERE t_system_district.id IN ( SELECT district_code FROM seller_info WHERE seller_info.id = s.seller_id ) ) AS plcaeName,
+		s.other_by AS otherBy,
+		s.order_type as orderType,
+		s.task_id as taskId,
+		s.order_status as orderStatus
+	FROM
+		order_seller s,
+		order_info i
+	WHERE
+		1=1 
+		AND (s.order_status=1 OR s.order_status=2)
+		AND ((s.order_type =3 AND s.task_id = i.id AND i.order_type=3) OR ( s.order_type = 1 AND s.task_id =i.task_info_id AND i.order_type=1) OR (s.order_type = 11 AND s.order_code = i.order_code AND i.order_type = 11) OR (s.order_type = 12 AND s.order_code = i.order_code AND i.order_type = 12))
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time &gt;=#{startTime} AND i.pay_time &lt;=#{endTime} 
+		</if>
+ 		<if test="orderType!=null">
+ 		AND s.order_type=#{orderType}
+ 			<if test="otherBuy!=null">
+ 			AND s.other_by=#{otherBuy}
+ 			</if>
+ 		</if>
+ 		<if test="payType!=null and payType!=''">
+		AND ((s.order_type =3 AND s.task_id = i.id) OR ( s.order_type = 1 AND s.task_id = i.task_info_id) OR (s.order_type = 11 AND s.order_code = i.order_code) OR (s.order_type = 12 AND s.order_code = i.order_code)) AND 	i.pay_type=#{payType}
+ 		</if>
+ 		<if test="sellerName!=null and sellerName!=''">
+ 		AND s.seller_id=#{sellerName}
+ 		AND i.seller_info_id=#{sellerName}
+		</if>
+		<if test="companyId!=null and companyId!=''">
+		AND s.seller_id IN (SELECT DISTINCT id FROM seller_info WHERE company_id =#{companyId})
+		AND i.seller_info_id IN (SELECT DISTINCT id FROM seller_info WHERE company_id =#{companyId})
+		</if>
+		<if test="orderSellerId!=null and orderSellerId!=''">
+		AND s.id=#{orderSellerId}
+		</if>
+ 		ORDER BY i.pay_time DESC
+	</select>
+	<select id="getSellerIncomeAllListByTypeMgr" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+	SELECT
+		COUNT(DISTINCT s.id) as orderNum,
+		SUM( i.all_money) as allmoneyNum,
+		SUM( i.seller_income ) as sellerIncome, 
+		SUM( i.pay_money) as paymoneyNum
+	FROM
+		order_seller s,
+		order_info i
+	WHERE
+		1=1 
+		AND (s.order_status=1 OR s.order_status=2)
+		AND ((s.order_type =3 AND s.task_id = i.id AND i.order_type=3) OR ( s.order_type = 1 AND s.task_id =i.task_info_id AND i.order_type=1) OR (s.order_type = 11 AND s.order_code = i.order_code AND i.order_type = 11) OR (s.order_type = 12 AND s.order_code = i.order_code AND i.order_type = 12))
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time &gt;=#{startTime} AND i.pay_time &lt;=#{endTime} 
+		</if>
+ 		<if test="orderType!=null">
+ 		AND s.order_type=#{orderType}
+ 			<if test="otherBuy!=null">
+ 			AND s.other_by=#{otherBuy}
+ 			</if>
+ 		</if>
+ 		<if test="payType!=null and payType!=''">
+		AND ((s.order_type =3 AND s.task_id = i.id) OR ( s.order_type = 1 AND s.task_id = i.task_info_id) OR (s.order_type = 11 AND s.order_code = i.order_code) OR (s.order_type = 12 AND s.order_code = i.order_code)) AND 	i.pay_type=#{payType}
+ 		</if>
+ 		<if test="sellerName!=null and sellerName!=''">
+ 		AND s.seller_id=#{sellerName}
+ 		AND i.seller_info_id=#{sellerName}
+		</if>
+		<if test="companyId!=null and companyId!=''">
+		AND s.seller_id IN (SELECT DISTINCT id FROM seller_info WHERE company_id =#{companyId})
+		AND i.seller_info_id IN (SELECT DISTINCT id FROM seller_info WHERE company_id =#{companyId})
+		</if>
+	</select>
+	<select id="getpayForMoneyOneByTypeMgr" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+	SELECT  DISTINCT
+		s.id AS id,
+		s.order_code as orderCode,
+		(SELECT seller_name FROM seller_info WHERE seller_info.id = s.seller_id ) AS sellerName,
+		( SELECT plcae_name FROM t_system_district WHERE t_system_district.id IN ( SELECT district_code FROM seller_info WHERE seller_info.id = s.seller_id ) ) AS plcaeName,
+		s.other_by AS otherBy,
+		s.order_type as orderType,
+		s.task_id as taskId,
+		s.order_status as orderStatus
+	FROM
+		order_seller s,
+		order_info i
+	WHERE
+		1=1 
+		AND (s.order_status=1 OR s.order_status=2)
+		AND ((s.order_type =3 AND s.task_id = i.id 	AND i.order_type=3) OR ( s.order_type = 1 AND s.task_id =i.task_info_id AND i.order_type=1 ) OR (s.order_type = 11 AND s.order_code = i.order_code AND i.order_type = 11) OR (s.order_type = 12 AND s.order_code = i.order_code AND i.order_type = 12))
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time &gt;=#{startTime} AND i.pay_time &lt;=#{endTime} 
+		</if>
+ 		<if test="orderType!=null">
+ 		AND s.order_type=#{orderType}
+ 			<if test="otherBuy!=null">
+ 			AND s.other_by=#{otherBuy}
+ 			</if>
+ 		</if>
+ 		<if test="payType!=null and payType!=''">
+		AND ((s.order_type =3 AND s.task_id = i.id) OR ( s.order_type = 1 AND s.task_id = i.task_info_id) OR (s.order_type = 11 AND s.order_code = i.order_code AND i.order_type = 11) OR (s.order_type = 12 AND s.order_code = i.order_code AND i.order_type = 12)) AND 	i.pay_type=#{payType}
+ 		</if>
+ 		<if test="sellerName!=null and sellerName!=''">
+ 		AND s.seller_id=#{sellerName}
+ 		AND i.seller_info_id=#{sellerName}
+		</if>
+		<if test="orderSellerId!=null and orderSellerId!=''">
+		AND s.id=#{orderSellerId}
+		</if>
+ 		ORDER BY i.pay_time DESC
+	</select>
+	<select id="getpayForMoneyOneNumByTypeMgr" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+<!-- 	SELECT
+		COUNT(DISTINCT s.id) as orderNum,
+		SUM( i.all_money) as allmoneyNum,
+		SUM( i.seller_income) as sellerIncome,
+		SUM( i.official_assume) as officialAssume,
+		SUM( i.pay_money) as paymoneyNum
+	FROM
+		order_seller s,
+		order_info i
+	WHERE
+		1=1
+		AND (s.order_status=1 OR s.order_status=2)
+		AND ((s.order_type =3 AND s.task_id = i.id 	AND i.order_type=3) OR ( s.order_type = 1 AND s.task_id =i.task_info_id AND i.order_type=1))
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time &gt;=#{startTime} AND i.pay_time &lt;=#{endTime} 
+		</if>
+ 		<if test="orderType!=null">
+ 		AND s.order_type=#{orderType}
+ 			<if test="otherBuy!=null">
+ 			AND s.other_by=#{otherBuy}
+ 			</if>
+ 		</if>
+ 		<if test="payType!=null and payType!=''">
+		AND ((s.order_type =3 AND s.task_id = i.id) OR ( s.order_type = 1 AND s.task_id = i.task_info_id)) AND 	i.pay_type=#{payType}
+ 		</if>
+ 		<if test="sellerName!=null and sellerName!=''">
+ 		AND s.seller_id=#{sellerName}
+ 		AND i.seller_info_id=#{sellerName}
+		</if>
+		<if test="orderSellerId!=null and orderSellerId!=''">
+		AND s.id=#{orderSellerId}
+		</if> -->
+	SELECT
+		COUNT(DISTINCT i.id) as orderNum,
+		SUM( i.all_money) as allmoneyNum,
+		SUM( i.seller_income) as sellerIncome,
+		SUM( i.official_assume) as officialAssume,
+		SUM( i.pay_money) as paymoneyNum
+	FROM
+		order_info i
+	WHERE
+		1=1
+		AND i.order_status &gt; 0 
+		AND i.order_type in(1,3,11,12)
+		<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+		AND i.pay_time &gt;=#{startTime} AND i.pay_time &lt;=#{endTime} 
+		</if>
+ 		<if test="sellerName!=null and sellerName!=''">
+ 		AND i.seller_info_id=#{sellerName}
+		</if>
+	</select>
+	<select id="getFinancialAccountById" parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+		select 
+		company_name as companyName,
+		clearCycle as clearCycle,
+		POClear as POClear,
+		agreeMoney as agreeMoney,
+		agreeMoney_now as agreeMoneyNow,
+		(select DATE_FORMAT(recycle_startTime,'%Y-%m-%d %H:%i:%s') from financial_account where seller_id in(select id from seller_info where seller_info.company_id=${companyId}) AND account_status=0 order by recycle_startTime limit 1) as recycleStartTime, 
+		(select DATE_FORMAT(recycle_endTime,'%Y-%m-%d %H:%i:%s') from financial_account where seller_id in(select id from seller_info where seller_info.company_id=${companyId}) AND account_status=0 order by recycle_endTime desc limit 1) as recycleEndTime 
+		from
+		company_info 
+		where
+		id=#{companyId}
+	</select>
+	<select id="getFinancialAccountListById"  parameterType="OrderInfo" resultType="java.util.LinkedHashMap">
+		select
+			id as id,
+			financial_no as financialNo,
+			seller_id as sellerId,
+			seller_name as sellerName,
+			(select bankName from seller_account where seller_account.seller_id=financial_account.seller_id) as bankName,
+			(select subBankName from seller_account where seller_account.seller_id=financial_account.seller_id) as subBankName,
+			(select bankno from seller_account where seller_account.seller_id=financial_account.seller_id) as bankno,
+			(select bankUser from seller_account where seller_account.seller_id=financial_account.seller_id) as bankUser,
+			(select bankCardNo from seller_account where seller_account.seller_id=financial_account.seller_id) as bankCardNo,
+			DATE_FORMAT(recycle_startTime,'%Y-%m-%d %H:%i:%s') as recycleStartTime,
+			DATE_FORMAT(recycle_time,'%Y-%m-%d %H:%i:%s') as recycleTime,
+			DATE_FORMAT(recycle_endTime,'%Y-%m-%d %H:%i:%s') as recycleEndTime,
+			account_receivable as accountReceivable,
+			(select codes_name from t_system_city where t_system_city.id in(select provinceId from seller_info where seller_info.id=financial_account.seller_id)) as province,
+			(select codes_name from t_system_city where t_system_city.id in(select city_code from seller_info where seller_info.id=financial_account.seller_id)) as cityCode
+		from 
+			financial_account
+		where
+			seller_id in(select id from seller_info where seller_info.company_id=${companyId})
+			AND account_status=0
+	</select>
+	<select id="countAllBySellerIdAndTime" parameterType="java.util.LinkedHashMap" resultType="BigDecimal">
+		SELECT
+			SUM(seller_income) as seller_income
+		FROM
+			order_info
+		WHERE
+			seller_info_id=#{sellerId}
+			AND (order_status=1 OR order_status=2)
+			AND pay_time>=#{paytime}
+	</select>
+	<select id="getSellerInfoByType" parameterType="java.util.LinkedHashMap" resultType="java.util.LinkedHashMap">
+		SELECT
+			DISTINCT
+			seller_id as sellerId,
+			(SELECT DISTINCT seller_name FROM seller_info WHERE seller_info.id=order_seller.seller_id) as sellerName,
+			(select codes_name from t_system_city where id in(SELECT DISTINCT provinceId FROM seller_info WHERE seller_info.id=order_seller.seller_id)) as provinceId,
+			(select codes_name from t_system_city where id in(SELECT DISTINCT city_code FROM seller_info WHERE seller_info.id=order_seller.seller_id)) as cityCode,
+			(select plcae_name from t_system_district where id in(SELECT DISTINCT district_code FROM seller_info WHERE seller_info.id=order_seller.seller_id)) as districtName,
+			(select codes_name from t_system_seller where id in(SELECT DISTINCT seller_type FROM seller_info WHERE seller_info.id=order_seller.seller_id)) as seller_type,
+			(select codes_name from t_system_seller where id in(SELECT DISTINCT labels_id FROM seller_info WHERE seller_info.id=order_seller.seller_id)) as labels_id
+		from
+			order_seller
+		where
+			order_status&gt;0
+			and (order_type=1 OR order_type=3)
+			<if test="codesProvince!=null and codesProvince!=''">
+				and #{codesProvince} in (select provinceId from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="cityCode!=null and cityCode!=''">
+				and #{cityCode} in (select city_code from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="sellerType!=null and sellerType!=''">
+				and #{sellerType} in (select seller_type from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="labelsId!=null and labelsId!=''">
+				and #{labelsId} in (select labels_id from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+				and order_time&lt;=#{endTime} and order_time&gt;=#{startTime}
+			</if>
+	</select>
+	
+	<select id="selectSellerPay" parameterType="HashMap" resultType="Map">
+			SELECT 
+				d.codes_name AS provinceId,
+				e.codes_name AS cityCode,
+				f.plcae_name AS districtName,
+				g.codes_name AS seller_type,
+				h.codes_name AS labels_id,
+				c.seller_name AS sellerName,
+				b.countAll,
+				IFNULL(b.moneyAll,0) AS moneyAll,
+				b.countTask,
+				IFNULL(b.moneyTask,0) AS moneyTask,
+				b.countSeller,
+				IFNULL(b.moneySeller,0) AS moneySeller
+				 FROM 
+				(
+					SELECT
+						a.seller_info_id,
+						COUNT(*) AS countAll,
+						SUM(a.pay_money)/100 AS moneyAll,
+						SUM(CASE a.order_type WHEN 1 THEN 1 ELSE 0 END) AS countTask,
+						SUM(CASE a.order_type WHEN 1 THEN a.pay_money ELSE 0 END)/100 AS moneyTask,
+						SUM(CASE a.order_type WHEN 3 THEN 1 ELSE 0 END) AS countSeller,
+						SUM(CASE a.order_type WHEN 3 THEN a.pay_money ELSE 0 END)/100 AS moneySeller
+					FROM
+						order_info a
+					<where>
+						a.order_type IN (1,3)
+						AND a.pay_status = 1
+						<if test="startTime != null and startTime != ''">
+							AND a.pay_time &gt; #{startTime}
+						</if>
+						<if test="endTime != null and endTime != ''"> 
+							AND a.pay_time &lt; #{endTime}
+						</if>
+					</where>
+					GROUP BY a.seller_info_id
+				
+				) b 
+				LEFT JOIN seller_info c ON b.seller_info_id = c.id
+				LEFT JOIN t_system_city d ON c.provinceId = d.id
+				LEFT JOIN t_system_city e ON c.city_code = e.id
+				LEFT JOIN t_system_district f ON c.district_code = f.id
+				LEFT JOIN t_system_seller g ON c.seller_type = g.id
+				LEFT JOIN t_system_seller h ON c.labels_id = h.id
+				LEFT JOIN company_info i ON c.company_id = i.id
+				<where>
+					<if test="codesProvince != null and codesProvince!=''">
+						c.provinceId = #{codesProvince}
+					</if>
+					<if test="cityCode !=null and cityCode!=''">
+					 	and c.city_code = #{cityCode}
+					</if> 
+					<if test="distId != null and distId != null">
+						and c.distId = #{distId}
+					</if>
+					<if test="districtCode != null and districtCode != '' ">
+						and c.district_code = #{districtCode}
+					</if>
+					<if test="sellerType !=null and sellerType!=''">
+						and c.seller_type = #{sellerType}
+					</if>
+					<if test="labelsId !=null and labelsId!=''">
+						and c.labels_id = #{labelsId}
+					</if>
+					<if test="shopmanager != null and shopmanager != ''">
+						and i.shopmanager = #{shopmanager}
+					</if>
+					<if test="sellerName != null and sellerName != ''">
+						<bind name="sellerName" value="'%'+sellerName+'%'"/>
+						and c.seller_name like #{sellerName}
+					</if>
+				</where>
+				ORDER BY b.seller_info_id
+	</select>
+	<select id="selectSellerPaySum" parameterType="HashMap" resultType="Map">
+	SELECT
+			count(j.sellerName) as sellerNameCount,
+			sum(j.countAll) as countAllSum,
+			sum(j.moneyAll) as moneyAllSum,
+			sum(j.countTask) as countTaskSum,
+			sum(j.moneyTask) as moneyTaskSum,
+			sum(j.countSeller) as countSellerSum,
+			sum(j.moneySeller) as moneySellerSum
+	from
+		(
+			SELECT 
+				d.codes_name AS provinceId,
+				e.codes_name AS cityCode,
+				f.plcae_name AS districtName,
+				g.codes_name AS seller_type,
+				h.codes_name AS labels_id,
+				c.seller_name AS sellerName,
+				b.countAll,
+				IFNULL(b.moneyAll,0) AS moneyAll,
+				b.countTask,
+				IFNULL(b.moneyTask,0) AS moneyTask,
+				b.countSeller,
+				IFNULL(b.moneySeller,0) AS moneySeller
+				 FROM 
+				(
+					SELECT
+						a.seller_info_id,
+						COUNT(*) AS countAll,
+						SUM(a.pay_money)/100 AS moneyAll,
+						SUM(CASE a.order_type WHEN 1 THEN 1 ELSE 0 END) AS countTask,
+						SUM(CASE a.order_type WHEN 1 THEN a.pay_money ELSE 0 END)/100 AS moneyTask,
+						SUM(CASE a.order_type WHEN 3 THEN 1 ELSE 0 END) AS countSeller,
+						SUM(CASE a.order_type WHEN 3 THEN a.pay_money ELSE 0 END)/100 AS moneySeller
+					FROM
+						order_info a
+					<where>
+						a.order_type IN (1,3)
+						AND a.pay_status = 1
+						<if test="startTime != null and startTime != ''">
+							AND a.pay_time &gt; #{startTime}
+						</if>
+						<if test="endTime != null and endTime != ''"> 
+							AND a.pay_time &lt; #{endTime}
+						</if>
+					</where>
+					GROUP BY a.seller_info_id
+				
+				) b 
+				LEFT JOIN seller_info c ON b.seller_info_id = c.id
+				LEFT JOIN t_system_city d ON c.provinceId = d.id
+				LEFT JOIN t_system_city e ON c.city_code = e.id
+				LEFT JOIN t_system_district f ON c.district_code = f.id
+				LEFT JOIN t_system_seller g ON c.seller_type = g.id
+				LEFT JOIN t_system_seller h ON c.labels_id = h.id
+				LEFT JOIN company_info i ON c.company_id = i.id
+				<where>
+					<if test="codesProvince != null and codesProvince!=''">
+						c.provinceId = #{codesProvince}
+					</if>
+					<if test="cityCode !=null and cityCode!=''">
+					 	and c.city_code = #{cityCode}
+					</if> 
+					<if test="distId != null and distId != null">
+						and c.distId = #{distId}
+					</if>
+					<if test="districtCode != null and districtCode != '' ">
+						and c.district_code = #{districtCode}
+					</if>
+					<if test="sellerType !=null and sellerType!=''">
+						and c.seller_type = #{sellerType}
+					</if>
+					<if test="labelsId !=null and labelsId!=''">
+						and c.labels_id = #{labelsId}
+					</if>
+					<if test="shopmanager != null and shopmanager != ''">
+						and i.shopmanager = #{shopmanager}
+					</if>
+					<if test="sellerName != null and sellerName != ''">
+						<bind name="sellerName" value="'%'+sellerName+'%'"/>
+						and c.seller_name like #{sellerName}
+					</if>
+				</where>) j
+	</select>
+	<select id="getcountNumListBySellerId" parameterType="java.util.LinkedHashMap" resultType="java.util.LinkedHashMap">
+		SELECT
+			DISTINCT
+			(SELECT COUNT(id) FROM order_seller where 
+			order_status&gt;0
+			and (order_type=1 OR order_type=3)
+			<if test="codesProvince!=null and codesProvince!=''">
+				and #{codesProvince} in (select provinceId from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="cityCode!=null and cityCode!=''">
+				and #{cityCode} in (select city_code from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="sellerType!=null and sellerType!=''">
+				and #{sellerType} in (select seller_type from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="labelsId!=null and labelsId!=''">
+				and #{labelsId} in (select labels_id from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+				and order_time&lt;=#{endTime} and order_time&gt;=#{startTime}
+			</if>
+			<if test="sellerId!=null and sellerId!=''">
+				and seller_id=#{sellerId}
+			</if>) as countAll,
+			(SELECT truncate(SUM(pay_money)/100,2) FROM order_seller where 
+			order_status&gt;0
+			and (order_type=1 OR order_type=3)
+			<if test="codesProvince!=null and codesProvince!=''">
+				and #{codesProvince} in (select provinceId from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="cityCode!=null and cityCode!=''">
+				and #{cityCode} in (select city_code from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="sellerType!=null and sellerType!=''">
+				and #{sellerType} in (select seller_type from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="labelsId!=null and labelsId!=''">
+				and #{labelsId} in (select labels_id from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+				and order_time&lt;=#{endTime} and order_time&gt;=#{startTime}
+			</if>
+			<if test="sellerId!=null and sellerId!=''">
+				and seller_id=#{sellerId}
+			</if>) as moneyAll,
+			(SELECT COUNT(id) FROM order_seller where
+			order_status&gt;0
+			and order_type=3
+			<if test="codesProvince!=null and codesProvince!=''">
+				and #{codesProvince} in (select provinceId from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="cityCode!=null and cityCode!=''">
+				and #{cityCode} in (select city_code from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="sellerType!=null and sellerType!=''">
+				and #{sellerType} in (select seller_type from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="labelsId!=null and labelsId!=''">
+				and #{labelsId} in (select labels_id from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+				and order_time&lt;=#{endTime} and order_time&gt;=#{startTime}
+			</if>
+			<if test="sellerId!=null and sellerId!=''">
+				and seller_id=#{sellerId}
+			</if>) as countSeller,
+			(SELECT truncate(SUM(pay_money)/100,2) FROM order_seller where
+			order_status&gt;0
+			and order_type=3
+			<if test="codesProvince!=null and codesProvince!=''">
+				and #{codesProvince} in (select provinceId from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="cityCode!=null and cityCode!=''">
+				and #{cityCode} in (select city_code from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="sellerType!=null and sellerType!=''">
+				and #{sellerType} in (select seller_type from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="labelsId!=null and labelsId!=''">
+				and #{labelsId} in (select labels_id from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+				and order_time&lt;=#{endTime} and order_time&gt;=#{startTime}
+			</if>
+			<if test="sellerId!=null and sellerId!=''">
+				and seller_id=#{sellerId}
+			</if>) as moneySeller,
+			(SELECT COUNT(id) FROM order_seller where
+			order_status&gt;0
+			and order_type=1
+			<if test="codesProvince!=null and codesProvince!=''">
+				and #{codesProvince} in (select provinceId from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="cityCode!=null and cityCode!=''">
+				and #{cityCode} in (select city_code from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="sellerType!=null and sellerType!=''">
+				and #{sellerType} in (select seller_type from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="labelsId!=null and labelsId!=''">
+				and #{labelsId} in (select labels_id from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+				and order_time&lt;=#{endTime} and order_time&gt;=#{startTime}
+			</if>
+			<if test="sellerId!=null and sellerId!=''">
+				and seller_id=#{sellerId}
+			</if>) as countTask,
+			(SELECT truncate(SUM(pay_money)/100,2) FROM order_seller where
+			order_status&gt;0
+			and order_type=1
+			<if test="codesProvince!=null and codesProvince!=''">
+				and #{codesProvince} in (select provinceId from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="cityCode!=null and cityCode!=''">
+				and #{cityCode} in (select city_code from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="sellerType!=null and sellerType!=''">
+				and #{sellerType} in (select seller_type from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="labelsId!=null and labelsId!=''">
+				and #{labelsId} in (select labels_id from seller_info where seller_info.id=order_seller.seller_id)
+			</if>
+			<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+				and order_time&lt;=#{endTime} and order_time&gt;=#{startTime}
+			</if>
+			<if test="sellerId!=null and sellerId!=''">
+				and seller_id=#{sellerId}
+			</if>) as moneyTask
+		FROM 
+			order_seller
+	</select>
+	
+	<select id="selectOrderMoneyByTime" parameterType="HashMap" resultType="Map">
+		SELECT ROUND(sum(ifnull(pay_money, 0)) / 100, 2) dayOrderPayMoney,
+	       ROUND(sum(ifnull(old_money, 0)) / 100, 2) dayOrderOldMoney,
+	       ROUND(sum(ifnull(new_money, 0)) / 100, 2) dayOrderNewMoney,
+	       ROUND(sum(ifnull(task_money, 0)) / 100, 2) dayOrderTaskMoney
+	    from (SELECT o.pay_money,
+	               CASE u.isOld
+	                 WHEN 1 THEN
+	                  o.pay_money
+	                 ELSE
+	                  0
+	               END old_money,
+	               CASE u.isOld
+	                 WHEN 1 THEN
+	                  0
+	                 ELSE
+	                  o.pay_money
+	               END new_money,
+               CASE o.order_type
+                 WHEN 1 THEN
+                  o.pay_money
+                 ELSE
+                  0
+               END task_money
+	          FROM order_info o, user_info u
+	         WHERE o.user_id = u.id
+	           AND order_status > 0
+	           AND order_type in(1,3)
+	           AND DATE_FORMAT(order_time, '%Y-%m-%d') = #{time}) t
+	</select>
+	
+</mapper>

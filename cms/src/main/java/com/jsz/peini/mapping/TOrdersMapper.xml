@@ -1,0 +1,1029 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsz.peini.mapper.TOrdersMapper">
+	<resultMap id="BaseResultMap" type="com.jsz.peini.bean.TOrders">
+		<id column="ORDERSCODE" property="orderscode" jdbcType="OTHER" />
+		<result column="ORDERSTYPE" property="orderstype" jdbcType="OTHER" />
+		<result column="TBDWCODE" property="tbdwcode" jdbcType="OTHER" />
+		<result column="TBDWNAME" property="tbdwname" jdbcType="OTHER" />
+		<result column="GGCODE" property="ggcode" jdbcType="OTHER" />
+		<result column="GGNAME" property="ggname" jdbcType="OTHER" />
+		<result column="DLDWCODE" property="dldwcode" jdbcType="OTHER" />
+		<result column="DLDWNAME" property="dldwname" jdbcType="OTHER" />
+		<result column="ZBPROCODE" property="zbprocode" jdbcType="OTHER" />
+		<result column="ZBPRONAME" property="zbproname" jdbcType="OTHER" />
+		<result column="ZBDWCODE" property="zbdwcode" jdbcType="OTHER" />
+		<result column="ZBDWNAME" property="zbdwname" jdbcType="OTHER" />
+		<result column="KFPDWNAME" property="kfpdwname" jdbcType="OTHER" />
+		<result column="GBDATE" property="gbdate" jdbcType="TIMESTAMP" />
+		<result column="ORDERSDATE" property="ordersdate" jdbcType="TIMESTAMP" />
+		<result column="TBLXR" property="tblxr" jdbcType="OTHER" />
+		<result column="DEPTNAME" property="deptname" jdbcType="OTHER" />
+		<result column="ZHIWU" property="zhiwu" jdbcType="OTHER" />
+		<result column="PHONE" property="phone" jdbcType="OTHER" />
+		<result column="MOBILE" property="mobile" jdbcType="OTHER" />
+		<result column="FAX" property="fax" jdbcType="OTHER" />
+		<result column="EMAIL" property="email" jdbcType="OTHER" />
+		<result column="ADDRESS" property="address" jdbcType="OTHER" />
+		<result column="QQ" property="qq" jdbcType="OTHER" />
+		<result column="ZIPCODE" property="zipcode" jdbcType="OTHER" />
+		<result column="TBRKHH" property="tbrkhh" jdbcType="OTHER" />
+		<result column="TBRYHZH" property="tbryhzh" jdbcType="OTHER" />
+		<result column="FKFS" property="fkfs" jdbcType="OTHER" />
+		<result column="ORDERSSUM" property="orderssum" jdbcType="DECIMAL" />
+		<result column="FJJE" property="fjje" jdbcType="DECIMAL" />
+		<result column="FKJE" property="fkje" jdbcType="DECIMAL" />
+		<result column="PAYMENTNO" property="paymentno" jdbcType="OTHER" />
+		<result column="PAYMENTSTATUS" property="paymentstatus" jdbcType="DECIMAL" />
+		<result column="PAYMENTAMOUNT" property="paymentamount" jdbcType="DECIMAL" />
+		<result column="PAYMENTTIME" property="paymenttime" jdbcType="TIMESTAMP" />
+		<result column="TKNO" property="tkno" jdbcType="OTHER" />
+		<result column="TKSTATUS" property="tkstatus" jdbcType="DECIMAL" />
+		<result column="TKAMOUNT" property="tkamount" jdbcType="DECIMAL" />
+		<result column="TKTIME" property="tktime" jdbcType="TIMESTAMP" />
+		<result column="REMARKS" property="remarks" jdbcType="OTHER" />
+		<result column="FILEGUID" property="fileguid" jdbcType="OTHER" />
+		<result column="AUDITSTATUS" property="auditstatus" jdbcType="OTHER" />
+		<result column="AUDITCONTENT" property="auditcontent" jdbcType="OTHER" />
+		<result column="AUDITDATE" property="auditdate" jdbcType="TIMESTAMP" />
+		<result column="AUDITUSERID" property="audituserid" jdbcType="DECIMAL" />
+		<result column="AUDITUSERNAME" property="auditusername" jdbcType="OTHER" />
+		<result column="ORDERNUM" property="ordernum" jdbcType="DECIMAL" />
+		<result column="ADDTIME" property="addtime" jdbcType="TIMESTAMP" />
+		<result column="ADDUSERID" property="adduserid" jdbcType="DECIMAL" />
+		<result column="ADDUSERNAME" property="addusername" jdbcType="OTHER" />
+		<result column="ADDUSERDEPTID" property="adduserdeptid" jdbcType="OTHER" />
+		<result column="ADDUSERDEPTNAME" property="adduserdeptname" jdbcType="OTHER" />
+		<result column="ADDDWCODE" property="adddwcode" jdbcType="OTHER" />
+		<result column="ADDDWNAME" property="adddwname" jdbcType="OTHER" />
+		<result column="DETAIL" property="detail" jdbcType="OTHER" />
+		<result column="SHBJ" property="shbj" jdbcType="CHAR" />
+		<result column="SCBJ" property="scbj" jdbcType="CHAR" />
+		<result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+		<result column="MODIFYDATE" property="modifydate" jdbcType="TIMESTAMP" />
+		<result column="MDIUSERID" property="mdiuserid" jdbcType="DECIMAL" />
+		<result column="MDIUSERNAME" property="mdiusername" jdbcType="OTHER" />
+		<result column="MDIDWCODE" property="mdidwcode" jdbcType="OTHER" />
+		<result column="MDIDWNAME" property="mdidwname" jdbcType="OTHER" />
+		<result column="BY1" property="by1" jdbcType="VARCHAR" />
+		<result column="BY2" property="by2" jdbcType="VARCHAR" />
+		<result column="BY3" property="by3" jdbcType="VARCHAR" />
+		<result column="BY4" property="by4" jdbcType="VARCHAR" />
+		<result column="BY5" property="by5" jdbcType="VARCHAR" />
+		<result column="DYTIME" property="dytime" jdbcType="TIMESTAMP" />
+		<result column="DYBJ" property="dybj" jdbcType="CHAR" />
+		<result column="DYR" property="dyr" jdbcType="OTHER" />
+		<result column="KFPDZ" property="kfpdz" jdbcType="OTHER" />
+		<result column="KFPDH" property="kfpdh" jdbcType="OTHER" />
+		<result column="KFPBZ" property="kfpbz" jdbcType="OTHER" />
+		<result column="FPTIME" property="fptime" jdbcType="TIMESTAMP" />
+		<result column="FPBJ" property="fpbj" jdbcType="CHAR" />
+		<result column="FPTYPE" property="fptype" jdbcType="CHAR" />
+		<result column="MAILGS" property="mailgs" jdbcType="OTHER" />
+		<result column="MAILNO" property="mailno" jdbcType="OTHER" />
+		<result column="SENDTIME" property="sendtime" jdbcType="TIMESTAMP" />
+		<result column="PROVINCE" property="province" jdbcType="OTHER" />
+		<result column="CITY" property="city" jdbcType="OTHER" />
+		<result column="COUNTY" property="county" jdbcType="OTHER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ORDERSCODE, ORDERSTYPE, TBDWCODE, TBDWNAME, GGCODE, GGNAME, DLDWCODE, DLDWNAME, ZBPROCODE,
+		ZBPRONAME, ZBDWCODE, ZBDWNAME, KFPDWNAME, GBDATE, ORDERSDATE, TBLXR, DEPTNAME, ZHIWU,
+		PHONE, MOBILE, FAX, EMAIL, ADDRESS, QQ, ZIPCODE, TBRKHH, TBRYHZH, FKFS, ORDERSSUM,
+		FJJE, FKJE, PAYMENTNO, PAYMENTSTATUS, PAYMENTAMOUNT, PAYMENTTIME, TKNO, TKSTATUS,
+		TKAMOUNT, TKTIME, REMARKS, FILEGUID, AUDITSTATUS, AUDITCONTENT, AUDITDATE, AUDITUSERID,
+		AUDITUSERNAME, ORDERNUM, ADDTIME, ADDUSERID, ADDUSERNAME, ADDUSERDEPTID, ADDUSERDEPTNAME,
+		ADDDWCODE, ADDDWNAME, DETAIL, SHBJ, SCBJ, CREATEDATE, MODIFYDATE, MDIUSERID, MDIUSERNAME,
+		MDIDWCODE, MDIDWNAME, BY1, BY2, BY3, BY4, BY5, DYTIME, DYBJ, DYR, KFPDZ, KFPDH, KFPBZ,
+		FPTIME, FPBJ,
+		FPTYPE, MAILGS, MAILNO, SENDTIME, PROVINCE, CITY, COUNTY
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from CMS.T_ORDERS
+		where ORDERSCODE = #{orderscode,jdbcType=OTHER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from CMS.T_ORDERS
+		where ORDERSCODE = #{orderscode,jdbcType=OTHER}
+	</delete>
+	<insert id="insert" parameterType="com.jsz.peini.bean.TOrders">
+		insert into CMS.T_ORDERS (ORDERSCODE, ORDERSTYPE, TBDWCODE,
+		TBDWNAME, GGCODE, GGNAME,
+		DLDWCODE, DLDWNAME, ZBPROCODE,
+		ZBPRONAME, ZBDWCODE, ZBDWNAME,
+		KFPDWNAME, GBDATE, ORDERSDATE,
+		TBLXR, DEPTNAME, ZHIWU, PHONE,
+		MOBILE, FAX, EMAIL, ADDRESS,
+		QQ, ZIPCODE, TBRKHH, TBRYHZH,
+		FKFS, ORDERSSUM, FJJE,
+		FKJE, PAYMENTNO, PAYMENTSTATUS,
+		PAYMENTAMOUNT, PAYMENTTIME, TKNO,
+		TKSTATUS, TKAMOUNT, TKTIME,
+		REMARKS, FILEGUID, AUDITSTATUS,
+		AUDITCONTENT, AUDITDATE, AUDITUSERID,
+		AUDITUSERNAME, ORDERNUM, ADDTIME,
+		ADDUSERID, ADDUSERNAME, ADDUSERDEPTID,
+		ADDUSERDEPTNAME, ADDDWCODE, ADDDWNAME,
+		DETAIL, SHBJ, SCBJ, CREATEDATE,
+		MODIFYDATE, MDIUSERID, MDIUSERNAME,
+		MDIDWCODE, MDIDWNAME, BY1,
+		BY2, BY3, BY4, BY5,
+		DYTIME, DYBJ,
+		DYR, KFPDZ,
+		KFPDH, KFPBZ, FPTIME,
+		FPBJ, FPTYPE, MAILGS, MAILNO,
+		SENDTIME, PROVINCE, CITY,
+		COUNTY)
+		values (#{orderscode,jdbcType=OTHER}, #{orderstype,jdbcType=OTHER}, #{tbdwcode,jdbcType=OTHER},
+		#{tbdwname,jdbcType=OTHER}, #{ggcode,jdbcType=OTHER}, #{ggname,jdbcType=OTHER},
+		#{dldwcode,jdbcType=OTHER}, #{dldwname,jdbcType=OTHER}, #{zbprocode,jdbcType=OTHER},
+		#{zbproname,jdbcType=OTHER}, #{zbdwcode,jdbcType=OTHER}, #{zbdwname,jdbcType=OTHER},
+		#{kfpdwname,jdbcType=OTHER}, #{gbdate,jdbcType=TIMESTAMP}, #{ordersdate,jdbcType=TIMESTAMP},
+		#{tblxr,jdbcType=OTHER}, #{deptname,jdbcType=OTHER}, #{zhiwu,jdbcType=OTHER}, #{phone,jdbcType=OTHER},
+		#{mobile,jdbcType=OTHER}, #{fax,jdbcType=OTHER}, #{email,jdbcType=OTHER},
+		#{address,jdbcType=OTHER},
+		#{qq,jdbcType=OTHER}, #{zipcode,jdbcType=OTHER}, #{tbrkhh,jdbcType=OTHER}, #{tbryhzh,jdbcType=OTHER},
+		#{fkfs,jdbcType=OTHER}, #{orderssum,jdbcType=DECIMAL}, #{fjje,jdbcType=DECIMAL},
+		#{fkje,jdbcType=DECIMAL}, #{paymentno,jdbcType=OTHER}, #{paymentstatus,jdbcType=DECIMAL},
+		#{paymentamount,jdbcType=DECIMAL}, #{paymenttime,jdbcType=TIMESTAMP}, #{tkno,jdbcType=OTHER},
+		#{tkstatus,jdbcType=DECIMAL}, #{tkamount,jdbcType=DECIMAL}, #{tktime,jdbcType=TIMESTAMP},
+		#{remarks,jdbcType=OTHER}, #{fileguid,jdbcType=OTHER}, #{auditstatus,jdbcType=OTHER},
+		#{auditcontent,jdbcType=OTHER}, #{auditdate,jdbcType=TIMESTAMP}, #{audituserid,jdbcType=DECIMAL},
+		#{auditusername,jdbcType=OTHER},
+		#{ordernum,jdbcType=DECIMAL}, #{addtime,jdbcType=TIMESTAMP},
+		#{adduserid,jdbcType=DECIMAL}, #{addusername,jdbcType=OTHER}, #{adduserdeptid,jdbcType=OTHER},
+		#{adduserdeptname,jdbcType=OTHER}, #{adddwcode,jdbcType=OTHER}, #{adddwname,jdbcType=OTHER},
+		#{detail,jdbcType=OTHER}, #{shbj,jdbcType=CHAR}, #{scbj,jdbcType=CHAR}, #{createdate,jdbcType=TIMESTAMP},
+		#{modifydate,jdbcType=TIMESTAMP}, #{mdiuserid,jdbcType=DECIMAL}, #{mdiusername,jdbcType=OTHER},
+		#{mdidwcode,jdbcType=OTHER}, #{mdidwname,jdbcType=OTHER}, #{by1,jdbcType=VARCHAR},
+		#{by2,jdbcType=VARCHAR}, #{by3,jdbcType=VARCHAR}, #{by4,jdbcType=VARCHAR}, #{by5,jdbcType=VARCHAR},
+		#{dytime,jdbcType=TIMESTAMP}, #{dybj,jdbcType=CHAR}, #{dyr,jdbcType=OTHER},
+		#{kfpdz,jdbcType=OTHER},
+		#{kfpdh,jdbcType=OTHER}, #{kfpbz,jdbcType=OTHER}, #{fptime,jdbcType=TIMESTAMP},
+		#{fpbj,jdbcType=CHAR}, #{fptype,jdbcType=CHAR}, #{mailgs,jdbcType=OTHER}, #{mailno,jdbcType=OTHER},
+		#{sendtime,jdbcType=TIMESTAMP}, #{province,jdbcType=OTHER}, #{city,jdbcType=OTHER},
+		#{county,jdbcType=OTHER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jsz.peini.bean.TOrders">
+		insert into CMS.T_ORDERS
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderscode != null">
+				ORDERSCODE,
+			</if>
+			<if test="orderstype != null">
+				ORDERSTYPE,
+			</if>
+			<if test="tbdwcode != null">
+				TBDWCODE,
+			</if>
+			<if test="tbdwname != null">
+				TBDWNAME,
+			</if>
+			<if test="ggcode != null">
+				GGCODE,
+			</if>
+			<if test="ggname != null">
+				GGNAME,
+			</if>
+			<if test="dldwcode != null">
+				DLDWCODE,
+			</if>
+			<if test="dldwname != null">
+				DLDWNAME,
+			</if>
+			<if test="zbprocode != null">
+				ZBPROCODE,
+			</if>
+			<if test="zbproname != null">
+				ZBPRONAME,
+			</if>
+			<if test="zbdwcode != null">
+				ZBDWCODE,
+			</if>
+			<if test="zbdwname != null">
+				ZBDWNAME,
+			</if>
+			<if test="kfpdwname != null">
+				KFPDWNAME,
+			</if>
+			<if test="gbdate != null">
+				GBDATE,
+			</if>
+			<if test="ordersdate != null">
+				ORDERSDATE,
+			</if>
+			<if test="tblxr != null">
+				TBLXR,
+			</if>
+			<if test="deptname != null">
+				DEPTNAME,
+			</if>
+			<if test="zhiwu != null">
+				ZHIWU,
+			</if>
+			<if test="phone != null">
+				PHONE,
+			</if>
+			<if test="mobile != null">
+				MOBILE,
+			</if>
+			<if test="fax != null">
+				FAX,
+			</if>
+			<if test="email != null">
+				EMAIL,
+			</if>
+			<if test="address != null">
+				ADDRESS,
+			</if>
+			<if test="qq != null">
+				QQ,
+			</if>
+			<if test="zipcode != null">
+				ZIPCODE,
+			</if>
+			<if test="tbrkhh != null">
+				TBRKHH,
+			</if>
+			<if test="tbryhzh != null">
+				TBRYHZH,
+			</if>
+			<if test="fkfs != null">
+				FKFS,
+			</if>
+			<if test="orderssum != null">
+				ORDERSSUM,
+			</if>
+			<if test="fjje != null">
+				FJJE,
+			</if>
+			<if test="fkje != null">
+				FKJE,
+			</if>
+			<if test="paymentno != null">
+				PAYMENTNO,
+			</if>
+			<if test="paymentstatus != null">
+				PAYMENTSTATUS,
+			</if>
+			<if test="paymentamount != null">
+				PAYMENTAMOUNT,
+			</if>
+			<if test="paymenttime != null">
+				PAYMENTTIME,
+			</if>
+			<if test="tkno != null">
+				TKNO,
+			</if>
+			<if test="tkstatus != null">
+				TKSTATUS,
+			</if>
+			<if test="tkamount != null">
+				TKAMOUNT,
+			</if>
+			<if test="tktime != null">
+				TKTIME,
+			</if>
+			<if test="remarks != null">
+				REMARKS,
+			</if>
+			<if test="fileguid != null">
+				FILEGUID,
+			</if>
+			<if test="auditstatus != null">
+				AUDITSTATUS,
+			</if>
+			<if test="auditcontent != null">
+				AUDITCONTENT,
+			</if>
+			<if test="auditdate != null">
+				AUDITDATE,
+			</if>
+			<if test="audituserid != null">
+				AUDITUSERID,
+			</if>
+			<if test="auditusername != null">
+				AUDITUSERNAME,
+			</if>
+			<if test="ordernum != null">
+				ORDERNUM,
+			</if>
+			<if test="addtime != null">
+				ADDTIME,
+			</if>
+			<if test="adduserid != null">
+				ADDUSERID,
+			</if>
+			<if test="addusername != null">
+				ADDUSERNAME,
+			</if>
+			<if test="adduserdeptid != null">
+				ADDUSERDEPTID,
+			</if>
+			<if test="adduserdeptname != null">
+				ADDUSERDEPTNAME,
+			</if>
+			<if test="adddwcode != null">
+				ADDDWCODE,
+			</if>
+			<if test="adddwname != null">
+				ADDDWNAME,
+			</if>
+			<if test="detail != null">
+				DETAIL,
+			</if>
+			<if test="shbj != null">
+				SHBJ,
+			</if>
+			<if test="scbj != null">
+				SCBJ,
+			</if>
+			<if test="createdate != null">
+				CREATEDATE,
+			</if>
+			<if test="modifydate != null">
+				MODIFYDATE,
+			</if>
+			<if test="mdiuserid != null">
+				MDIUSERID,
+			</if>
+			<if test="mdiusername != null">
+				MDIUSERNAME,
+			</if>
+			<if test="mdidwcode != null">
+				MDIDWCODE,
+			</if>
+			<if test="mdidwname != null">
+				MDIDWNAME,
+			</if>
+			<if test="by1 != null">
+				BY1,
+			</if>
+			<if test="by2 != null">
+				BY2,
+			</if>
+			<if test="by3 != null">
+				BY3,
+			</if>
+			<if test="by4 != null">
+				BY4,
+			</if>
+			<if test="by5 != null">
+				BY5,
+			</if>
+			<if test="dytime != null">
+				DYTIME,
+			</if>
+			<if test="dybj != null">
+				DYBJ,
+			</if>
+			<if test="dyr != null">
+				DYR,
+			</if>
+			<if test="kfpdz != null">
+				KFPDZ,
+			</if>
+			<if test="kfpdh != null">
+				KFPDH,
+			</if>
+			<if test="kfpbz != null">
+				KFPBZ,
+			</if>
+			<if test="fptime != null">
+				FPTIME,
+			</if>
+			<if test="fpbj != null">
+				FPBJ,
+			</if>
+			<if test="fptype != null">
+				FPTYPE,
+			</if>
+			<if test="mailgs != null">
+				MAILGS,
+			</if>
+			<if test="mailno != null">
+				MAILNO,
+			</if>
+			<if test="sendtime != null">
+				SENDTIME,
+			</if>
+			<if test="province != null">
+				PROVINCE,
+			</if>
+			<if test="city != null">
+				CITY,
+			</if>
+			<if test="county != null">
+				COUNTY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderscode != null">
+				#{orderscode,jdbcType=OTHER},
+			</if>
+			<if test="orderstype != null">
+				#{orderstype,jdbcType=OTHER},
+			</if>
+			<if test="tbdwcode != null">
+				#{tbdwcode,jdbcType=OTHER},
+			</if>
+			<if test="tbdwname != null">
+				#{tbdwname,jdbcType=OTHER},
+			</if>
+			<if test="ggcode != null">
+				#{ggcode,jdbcType=OTHER},
+			</if>
+			<if test="ggname != null">
+				#{ggname,jdbcType=OTHER},
+			</if>
+			<if test="dldwcode != null">
+				#{dldwcode,jdbcType=OTHER},
+			</if>
+			<if test="dldwname != null">
+				#{dldwname,jdbcType=OTHER},
+			</if>
+			<if test="zbprocode != null">
+				#{zbprocode,jdbcType=OTHER},
+			</if>
+			<if test="zbproname != null">
+				#{zbproname,jdbcType=OTHER},
+			</if>
+			<if test="zbdwcode != null">
+				#{zbdwcode,jdbcType=OTHER},
+			</if>
+			<if test="zbdwname != null">
+				#{zbdwname,jdbcType=OTHER},
+			</if>
+			<if test="kfpdwname != null">
+				#{kfpdwname,jdbcType=OTHER},
+			</if>
+			<if test="gbdate != null">
+				#{gbdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ordersdate != null">
+				#{ordersdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tblxr != null">
+				#{tblxr,jdbcType=OTHER},
+			</if>
+			<if test="deptname != null">
+				#{deptname,jdbcType=OTHER},
+			</if>
+			<if test="zhiwu != null">
+				#{zhiwu,jdbcType=OTHER},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=OTHER},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=OTHER},
+			</if>
+			<if test="fax != null">
+				#{fax,jdbcType=OTHER},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=OTHER},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=OTHER},
+			</if>
+			<if test="qq != null">
+				#{qq,jdbcType=OTHER},
+			</if>
+			<if test="zipcode != null">
+				#{zipcode,jdbcType=OTHER},
+			</if>
+			<if test="tbrkhh != null">
+				#{tbrkhh,jdbcType=OTHER},
+			</if>
+			<if test="tbryhzh != null">
+				#{tbryhzh,jdbcType=OTHER},
+			</if>
+			<if test="fkfs != null">
+				#{fkfs,jdbcType=OTHER},
+			</if>
+			<if test="orderssum != null">
+				#{orderssum,jdbcType=DECIMAL},
+			</if>
+			<if test="fjje != null">
+				#{fjje,jdbcType=DECIMAL},
+			</if>
+			<if test="fkje != null">
+				#{fkje,jdbcType=DECIMAL},
+			</if>
+			<if test="paymentno != null">
+				#{paymentno,jdbcType=OTHER},
+			</if>
+			<if test="paymentstatus != null">
+				#{paymentstatus,jdbcType=DECIMAL},
+			</if>
+			<if test="paymentamount != null">
+				#{paymentamount,jdbcType=DECIMAL},
+			</if>
+			<if test="paymenttime != null">
+				#{paymenttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tkno != null">
+				#{tkno,jdbcType=OTHER},
+			</if>
+			<if test="tkstatus != null">
+				#{tkstatus,jdbcType=DECIMAL},
+			</if>
+			<if test="tkamount != null">
+				#{tkamount,jdbcType=DECIMAL},
+			</if>
+			<if test="tktime != null">
+				#{tktime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=OTHER},
+			</if>
+			<if test="fileguid != null">
+				#{fileguid,jdbcType=OTHER},
+			</if>
+			<if test="auditstatus != null">
+				#{auditstatus,jdbcType=OTHER},
+			</if>
+			<if test="auditcontent != null">
+				#{auditcontent,jdbcType=OTHER},
+			</if>
+			<if test="auditdate != null">
+				#{auditdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="audituserid != null">
+				#{audituserid,jdbcType=DECIMAL},
+			</if>
+			<if test="auditusername != null">
+				#{auditusername,jdbcType=OTHER},
+			</if>
+			<if test="ordernum != null">
+				#{ordernum,jdbcType=DECIMAL},
+			</if>
+			<if test="addtime != null">
+				#{addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="adduserid != null">
+				#{adduserid,jdbcType=DECIMAL},
+			</if>
+			<if test="addusername != null">
+				#{addusername,jdbcType=OTHER},
+			</if>
+			<if test="adduserdeptid != null">
+				#{adduserdeptid,jdbcType=OTHER},
+			</if>
+			<if test="adduserdeptname != null">
+				#{adduserdeptname,jdbcType=OTHER},
+			</if>
+			<if test="adddwcode != null">
+				#{adddwcode,jdbcType=OTHER},
+			</if>
+			<if test="adddwname != null">
+				#{adddwname,jdbcType=OTHER},
+			</if>
+			<if test="detail != null">
+				#{detail,jdbcType=OTHER},
+			</if>
+			<if test="shbj != null">
+				#{shbj,jdbcType=CHAR},
+			</if>
+			<if test="scbj != null">
+				#{scbj,jdbcType=CHAR},
+			</if>
+			<if test="createdate != null">
+				#{createdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifydate != null">
+				#{modifydate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mdiuserid != null">
+				#{mdiuserid,jdbcType=DECIMAL},
+			</if>
+			<if test="mdiusername != null">
+				#{mdiusername,jdbcType=OTHER},
+			</if>
+			<if test="mdidwcode != null">
+				#{mdidwcode,jdbcType=OTHER},
+			</if>
+			<if test="mdidwname != null">
+				#{mdidwname,jdbcType=OTHER},
+			</if>
+			<if test="by1 != null">
+				#{by1,jdbcType=VARCHAR},
+			</if>
+			<if test="by2 != null">
+				#{by2,jdbcType=VARCHAR},
+			</if>
+			<if test="by3 != null">
+				#{by3,jdbcType=VARCHAR},
+			</if>
+			<if test="by4 != null">
+				#{by4,jdbcType=VARCHAR},
+			</if>
+			<if test="by5 != null">
+				#{by5,jdbcType=VARCHAR},
+			</if>
+			<if test="dytime != null">
+				#{dytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dybj != null">
+				#{dybj,jdbcType=CHAR},
+			</if>
+			<if test="dyr != null">
+				#{dyr,jdbcType=OTHER},
+			</if>
+			<if test="kfpdz != null">
+				#{kfpdz,jdbcType=OTHER},
+			</if>
+			<if test="kfpdh != null">
+				#{kfpdh,jdbcType=OTHER},
+			</if>
+			<if test="kfpbz != null">
+				#{kfpbz,jdbcType=OTHER},
+			</if>
+			<if test="fptime != null">
+				#{fptime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fpbj != null">
+				#{fpbj,jdbcType=CHAR},
+			</if>
+			<if test="fptype != null">
+				#{fptype,jdbcType=CHAR},
+			</if>
+			<if test="mailgs != null">
+				#{mailgs,jdbcType=OTHER},
+			</if>
+			<if test="mailno != null">
+				#{mailno,jdbcType=OTHER},
+			</if>
+			<if test="sendtime != null">
+				#{sendtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="province != null">
+				#{province,jdbcType=OTHER},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=OTHER},
+			</if>
+			<if test="county != null">
+				#{county,jdbcType=OTHER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jsz.peini.bean.TOrders">
+		update CMS.T_ORDERS
+		<set>
+			<if test="orderstype != null">
+				ORDERSTYPE = #{orderstype,jdbcType=OTHER},
+			</if>
+			<if test="tbdwcode != null">
+				TBDWCODE = #{tbdwcode,jdbcType=OTHER},
+			</if>
+			<if test="tbdwname != null">
+				TBDWNAME = #{tbdwname,jdbcType=OTHER},
+			</if>
+			<if test="ggcode != null">
+				GGCODE = #{ggcode,jdbcType=OTHER},
+			</if>
+			<if test="ggname != null">
+				GGNAME = #{ggname,jdbcType=OTHER},
+			</if>
+			<if test="dldwcode != null">
+				DLDWCODE = #{dldwcode,jdbcType=OTHER},
+			</if>
+			<if test="dldwname != null">
+				DLDWNAME = #{dldwname,jdbcType=OTHER},
+			</if>
+			<if test="zbprocode != null">
+				ZBPROCODE = #{zbprocode,jdbcType=OTHER},
+			</if>
+			<if test="zbproname != null">
+				ZBPRONAME = #{zbproname,jdbcType=OTHER},
+			</if>
+			<if test="zbdwcode != null">
+				ZBDWCODE = #{zbdwcode,jdbcType=OTHER},
+			</if>
+			<if test="zbdwname != null">
+				ZBDWNAME = #{zbdwname,jdbcType=OTHER},
+			</if>
+			<if test="kfpdwname != null">
+				KFPDWNAME = #{kfpdwname,jdbcType=OTHER},
+			</if>
+			<if test="gbdate != null">
+				GBDATE = #{gbdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ordersdate != null">
+				ORDERSDATE = #{ordersdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tblxr != null">
+				TBLXR = #{tblxr,jdbcType=OTHER},
+			</if>
+			<if test="deptname != null">
+				DEPTNAME = #{deptname,jdbcType=OTHER},
+			</if>
+			<if test="zhiwu != null">
+				ZHIWU = #{zhiwu,jdbcType=OTHER},
+			</if>
+			<if test="phone != null">
+				PHONE = #{phone,jdbcType=OTHER},
+			</if>
+			<if test="mobile != null">
+				MOBILE = #{mobile,jdbcType=OTHER},
+			</if>
+			<if test="fax != null">
+				FAX = #{fax,jdbcType=OTHER},
+			</if>
+			<if test="email != null">
+				EMAIL = #{email,jdbcType=OTHER},
+			</if>
+			<if test="address != null">
+				ADDRESS = #{address,jdbcType=OTHER},
+			</if>
+			<if test="qq != null">
+				QQ = #{qq,jdbcType=OTHER},
+			</if>
+			<if test="zipcode != null">
+				ZIPCODE = #{zipcode,jdbcType=OTHER},
+			</if>
+			<if test="tbrkhh != null">
+				TBRKHH = #{tbrkhh,jdbcType=OTHER},
+			</if>
+			<if test="tbryhzh != null">
+				TBRYHZH = #{tbryhzh,jdbcType=OTHER},
+			</if>
+			<if test="fkfs != null">
+				FKFS = #{fkfs,jdbcType=OTHER},
+			</if>
+			<if test="orderssum != null">
+				ORDERSSUM = #{orderssum,jdbcType=DECIMAL},
+			</if>
+			<if test="fjje != null">
+				FJJE = #{fjje,jdbcType=DECIMAL},
+			</if>
+			<if test="fkje != null">
+				FKJE = #{fkje,jdbcType=DECIMAL},
+			</if>
+			<if test="paymentno != null">
+				PAYMENTNO = #{paymentno,jdbcType=OTHER},
+			</if>
+			<if test="paymentstatus != null">
+				PAYMENTSTATUS = #{paymentstatus,jdbcType=DECIMAL},
+			</if>
+			<if test="paymentamount != null">
+				PAYMENTAMOUNT = #{paymentamount,jdbcType=DECIMAL},
+			</if>
+			<if test="paymenttime != null">
+				PAYMENTTIME = #{paymenttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tkno != null">
+				TKNO = #{tkno,jdbcType=OTHER},
+			</if>
+			<if test="tkstatus != null">
+				TKSTATUS = #{tkstatus,jdbcType=DECIMAL},
+			</if>
+			<if test="tkamount != null">
+				TKAMOUNT = #{tkamount,jdbcType=DECIMAL},
+			</if>
+			<if test="tktime != null">
+				TKTIME = #{tktime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remarks != null">
+				REMARKS = #{remarks,jdbcType=OTHER},
+			</if>
+			<if test="fileguid != null">
+				FILEGUID = #{fileguid,jdbcType=OTHER},
+			</if>
+			<if test="auditstatus != null">
+				AUDITSTATUS = #{auditstatus,jdbcType=OTHER},
+			</if>
+			<if test="auditcontent != null">
+				AUDITCONTENT = #{auditcontent,jdbcType=OTHER},
+			</if>
+			<if test="auditdate != null">
+				AUDITDATE = #{auditdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="audituserid != null">
+				AUDITUSERID = #{audituserid,jdbcType=DECIMAL},
+			</if>
+			<if test="auditusername != null">
+				AUDITUSERNAME = #{auditusername,jdbcType=OTHER},
+			</if>
+			<if test="ordernum != null">
+				ORDERNUM = #{ordernum,jdbcType=DECIMAL},
+			</if>
+			<if test="addtime != null">
+				ADDTIME = #{addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="adduserid != null">
+				ADDUSERID = #{adduserid,jdbcType=DECIMAL},
+			</if>
+			<if test="addusername != null">
+				ADDUSERNAME = #{addusername,jdbcType=OTHER},
+			</if>
+			<if test="adduserdeptid != null">
+				ADDUSERDEPTID = #{adduserdeptid,jdbcType=OTHER},
+			</if>
+			<if test="adduserdeptname != null">
+				ADDUSERDEPTNAME = #{adduserdeptname,jdbcType=OTHER},
+			</if>
+			<if test="adddwcode != null">
+				ADDDWCODE = #{adddwcode,jdbcType=OTHER},
+			</if>
+			<if test="adddwname != null">
+				ADDDWNAME = #{adddwname,jdbcType=OTHER},
+			</if>
+			<if test="detail != null">
+				DETAIL = #{detail,jdbcType=OTHER},
+			</if>
+			<if test="shbj != null">
+				SHBJ = #{shbj,jdbcType=CHAR},
+			</if>
+			<if test="scbj != null">
+				SCBJ = #{scbj,jdbcType=CHAR},
+			</if>
+			<if test="createdate != null">
+				CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifydate != null">
+				MODIFYDATE = #{modifydate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mdiuserid != null">
+				MDIUSERID = #{mdiuserid,jdbcType=DECIMAL},
+			</if>
+			<if test="mdiusername != null">
+				MDIUSERNAME = #{mdiusername,jdbcType=OTHER},
+			</if>
+			<if test="mdidwcode != null">
+				MDIDWCODE = #{mdidwcode,jdbcType=OTHER},
+			</if>
+			<if test="mdidwname != null">
+				MDIDWNAME = #{mdidwname,jdbcType=OTHER},
+			</if>
+			<if test="by1 != null">
+				BY1 = #{by1,jdbcType=VARCHAR},
+			</if>
+			<if test="by2 != null">
+				BY2 = #{by2,jdbcType=VARCHAR},
+			</if>
+			<if test="by3 != null">
+				BY3 = #{by3,jdbcType=VARCHAR},
+			</if>
+			<if test="by4 != null">
+				BY4 = #{by4,jdbcType=VARCHAR},
+			</if>
+			<if test="by5 != null">
+				BY5 = #{by5,jdbcType=VARCHAR},
+			</if>
+			<if test="dytime != null">
+				DYTIME = #{dytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dybj != null">
+				DYBJ = #{dybj,jdbcType=CHAR},
+			</if>
+			<if test="dyr != null">
+				DYR = #{dyr,jdbcType=OTHER},
+			</if>
+			<if test="kfpdz != null">
+				KFPDZ = #{kfpdz,jdbcType=OTHER},
+			</if>
+			<if test="kfpdh != null">
+				KFPDH = #{kfpdh,jdbcType=OTHER},
+			</if>
+			<if test="kfpbz != null">
+				KFPBZ = #{kfpbz,jdbcType=OTHER},
+			</if>
+			<if test="fptime != null">
+				FPTIME = #{fptime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fpbj != null">
+				FPBJ = #{fpbj,jdbcType=CHAR},
+			</if>
+			<if test="fptype != null">
+				FPTYPE = #{fptype,jdbcType=CHAR},
+			</if>
+			<if test="mailgs != null">
+				MAILGS = #{mailgs,jdbcType=OTHER},
+			</if>
+			<if test="mailno != null">
+				MAILNO = #{mailno,jdbcType=OTHER},
+			</if>
+			<if test="sendtime != null">
+				SENDTIME = #{sendtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="province != null">
+				PROVINCE = #{province,jdbcType=OTHER},
+			</if>
+			<if test="city != null">
+				CITY = #{city,jdbcType=OTHER},
+			</if>
+			<if test="county != null">
+				COUNTY = #{county,jdbcType=OTHER},
+			</if>
+		</set>
+		where ORDERSCODE = #{orderscode,jdbcType=OTHER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jsz.peini.bean.TOrders">
+		update CMS.T_ORDERS
+		set ORDERSTYPE = #{orderstype,jdbcType=OTHER},
+		TBDWCODE = #{tbdwcode,jdbcType=OTHER},
+		TBDWNAME = #{tbdwname,jdbcType=OTHER},
+		GGCODE = #{ggcode,jdbcType=OTHER},
+		GGNAME = #{ggname,jdbcType=OTHER},
+		DLDWCODE = #{dldwcode,jdbcType=OTHER},
+		DLDWNAME = #{dldwname,jdbcType=OTHER},
+		ZBPROCODE = #{zbprocode,jdbcType=OTHER},
+		ZBPRONAME = #{zbproname,jdbcType=OTHER},
+		ZBDWCODE = #{zbdwcode,jdbcType=OTHER},
+		ZBDWNAME = #{zbdwname,jdbcType=OTHER},
+		KFPDWNAME = #{kfpdwname,jdbcType=OTHER},
+		GBDATE = #{gbdate,jdbcType=TIMESTAMP},
+		ORDERSDATE = #{ordersdate,jdbcType=TIMESTAMP},
+		TBLXR = #{tblxr,jdbcType=OTHER},
+		DEPTNAME = #{deptname,jdbcType=OTHER},
+		ZHIWU =
+		#{zhiwu,jdbcType=OTHER},
+		PHONE = #{phone,jdbcType=OTHER},
+		MOBILE = #{mobile,jdbcType=OTHER},
+		FAX = #{fax,jdbcType=OTHER},
+		EMAIL = #{email,jdbcType=OTHER},
+		ADDRESS = #{address,jdbcType=OTHER},
+		QQ = #{qq,jdbcType=OTHER},
+		ZIPCODE = #{zipcode,jdbcType=OTHER},
+		TBRKHH = #{tbrkhh,jdbcType=OTHER},
+		TBRYHZH = #{tbryhzh,jdbcType=OTHER},
+		FKFS = #{fkfs,jdbcType=OTHER},
+		ORDERSSUM = #{orderssum,jdbcType=DECIMAL},
+		FJJE = #{fjje,jdbcType=DECIMAL},
+		FKJE = #{fkje,jdbcType=DECIMAL},
+		PAYMENTNO = #{paymentno,jdbcType=OTHER},
+		PAYMENTSTATUS = #{paymentstatus,jdbcType=DECIMAL},
+		PAYMENTAMOUNT = #{paymentamount,jdbcType=DECIMAL},
+		PAYMENTTIME = #{paymenttime,jdbcType=TIMESTAMP},
+		TKNO = #{tkno,jdbcType=OTHER},
+		TKSTATUS = #{tkstatus,jdbcType=DECIMAL},
+		TKAMOUNT = #{tkamount,jdbcType=DECIMAL},
+		TKTIME = #{tktime,jdbcType=TIMESTAMP},
+		REMARKS = #{remarks,jdbcType=OTHER},
+		FILEGUID = #{fileguid,jdbcType=OTHER},
+		AUDITSTATUS = #{auditstatus,jdbcType=OTHER},
+		AUDITCONTENT = #{auditcontent,jdbcType=OTHER},
+		AUDITDATE = #{auditdate,jdbcType=TIMESTAMP},
+		AUDITUSERID = #{audituserid,jdbcType=DECIMAL},
+		AUDITUSERNAME = #{auditusername,jdbcType=OTHER},
+		ORDERNUM = #{ordernum,jdbcType=DECIMAL},
+		ADDTIME = #{addtime,jdbcType=TIMESTAMP},
+		ADDUSERID = #{adduserid,jdbcType=DECIMAL},
+		ADDUSERNAME = #{addusername,jdbcType=OTHER},
+		ADDUSERDEPTID = #{adduserdeptid,jdbcType=OTHER},
+		ADDUSERDEPTNAME = #{adduserdeptname,jdbcType=OTHER},
+		ADDDWCODE = #{adddwcode,jdbcType=OTHER},
+		ADDDWNAME =
+		#{adddwname,jdbcType=OTHER},
+		DETAIL = #{detail,jdbcType=OTHER},
+		SHBJ = #{shbj,jdbcType=CHAR},
+		SCBJ = #{scbj,jdbcType=CHAR},
+		CREATEDATE = #{createdate,jdbcType=TIMESTAMP},
+		MODIFYDATE = #{modifydate,jdbcType=TIMESTAMP},
+		MDIUSERID = #{mdiuserid,jdbcType=DECIMAL},
+		MDIUSERNAME = #{mdiusername,jdbcType=OTHER},
+		MDIDWCODE = #{mdidwcode,jdbcType=OTHER},
+		MDIDWNAME = #{mdidwname,jdbcType=OTHER},
+		BY1 = #{by1,jdbcType=VARCHAR},
+		BY2 = #{by2,jdbcType=VARCHAR},
+		BY3 = #{by3,jdbcType=VARCHAR},
+		BY4 = #{by4,jdbcType=VARCHAR},
+		BY5 = #{by5,jdbcType=VARCHAR},
+		DYTIME = #{dytime,jdbcType=TIMESTAMP},
+		DYBJ = #{dybj,jdbcType=CHAR},
+		DYR = #{dyr,jdbcType=OTHER},
+		KFPDZ = #{kfpdz,jdbcType=OTHER},
+		KFPDH = #{kfpdh,jdbcType=OTHER},
+		KFPBZ =
+		#{kfpbz,jdbcType=OTHER},
+		FPTIME = #{fptime,jdbcType=TIMESTAMP},
+		FPBJ = #{fpbj,jdbcType=CHAR},
+		FPTYPE = #{fptype,jdbcType=CHAR},
+		MAILGS = #{mailgs,jdbcType=OTHER},
+		MAILNO = #{mailno,jdbcType=OTHER},
+		SENDTIME = #{sendtime,jdbcType=TIMESTAMP},
+		PROVINCE = #{province,jdbcType=OTHER},
+		CITY = #{city,jdbcType=OTHER},
+		COUNTY = #{county,jdbcType=OTHER}
+		where ORDERSCODE = #{orderscode,jdbcType=OTHER}
+	</update>
+	<select id="selectTOrdersByTbdwname" parameterType="String" resultType="TOrders">
+		SELECT
+			A .ORDERSCODE AS ORDERSCODE,
+			a.TBDWNAME as TBDWNAME,
+			A .TBLXR AS TBLXR,
+			A .PAYMENTAMOUNT AS PAYMENTAMOUNT,
+			A .MOBILE AS MOBILE,
+			A .REMARKS AS REMARKS,
+			A .FKFS AS FKFS
+		FROM
+			T_ORDERS A
+		WHERE
+			A .TBDWNAME = #{tbdwname}
+	</select>
+</mapper>

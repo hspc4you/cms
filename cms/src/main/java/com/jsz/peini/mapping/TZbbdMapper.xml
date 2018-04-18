@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsz.peini.mapper.TZbbdMapper" >
+  <resultMap id="BaseResultMap" type="com.jsz.peini.bean.TZbbd" >
+    <result column="BDCODE" property="bdcode" jdbcType="OTHER" />
+    <result column="ZBPROCODE" property="zbprocode" jdbcType="OTHER" />
+    <result column="ZBPRONAME" property="zbproname" jdbcType="OTHER" />
+    <result column="BDNAME" property="bdname" jdbcType="OTHER" />
+    <result column="BDTYPECODE" property="bdtypecode" jdbcType="CHAR" />
+    <result column="BDTYPENAME" property="bdtypename" jdbcType="OTHER" />
+    <result column="BDHTGSJ" property="bdhtgsj" jdbcType="DECIMAL" />
+    <result column="BZCODE" property="bzcode" jdbcType="CHAR" />
+    <result column="BZTEXT" property="bztext" jdbcType="OTHER" />
+    <result column="JEDWCODE" property="jedwcode" jdbcType="CHAR" />
+    <result column="JEDWNAME" property="jedwname" jdbcType="OTHER" />
+    <result column="EXTFWFZFFS" property="extfwfzffs" jdbcType="OTHER" />
+    <result column="EXTFWF" property="extfwf" jdbcType="DECIMAL" />
+    <result column="EXTZBWJSJ" property="extzbwjsj" jdbcType="DECIMAL" />
+    <result column="EXTTBBZJ" property="exttbbzj" jdbcType="DECIMAL" />
+    <result column="EXTBZJZH" property="extbzjzh" jdbcType="OTHER" />
+    <result column="EXTBZJZHMC" property="extbzjzhmc" jdbcType="OTHER" />
+    <result column="EXTFINSHBJ" property="extfinshbj" jdbcType="CHAR" />
+    <result column="EXTDWYJBJ" property="extdwyjbj" jdbcType="CHAR" />
+    <result column="EXTRYYJBJ" property="extryyjbj" jdbcType="CHAR" />
+    <result column="ORDERNUM" property="ordernum" jdbcType="DECIMAL" />
+    <result column="ADDTIME" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="ADDUSERID" property="adduserid" jdbcType="DECIMAL" />
+    <result column="ADDUSERNAME" property="addusername" jdbcType="OTHER" />
+    <result column="ADDUSERDEPTID" property="adduserdeptid" jdbcType="OTHER" />
+    <result column="ADDUSERDEPTNAME" property="adduserdeptname" jdbcType="OTHER" />
+    <result column="ADDDWCODE" property="adddwcode" jdbcType="OTHER" />
+    <result column="ADDDWNAME" property="adddwname" jdbcType="OTHER" />
+    <result column="DETAIL" property="detail" jdbcType="OTHER" />
+    <result column="SHBJ" property="shbj" jdbcType="CHAR" />
+    <result column="SCBJ" property="scbj" jdbcType="CHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="MODIFYDATE" property="modifydate" jdbcType="TIMESTAMP" />
+    <result column="MDIUSERID" property="mdiuserid" jdbcType="DECIMAL" />
+    <result column="MDIUSERNAME" property="mdiusername" jdbcType="OTHER" />
+    <result column="MDIDWCODE" property="mdidwcode" jdbcType="OTHER" />
+    <result column="MDIDWNAME" property="mdidwname" jdbcType="OTHER" />
+    <result column="BY1" property="by1" jdbcType="VARCHAR" />
+    <result column="BY2" property="by2" jdbcType="VARCHAR" />
+    <result column="BY3" property="by3" jdbcType="VARCHAR" />
+    <result column="BY4" property="by4" jdbcType="VARCHAR" />
+    <result column="BY5" property="by5" jdbcType="VARCHAR" />
+    <result column="BMZLGUID" property="bmzlguid" jdbcType="OTHER" />
+    <result column="EXTJMKSTIME" property="extjmkstime" jdbcType="TIMESTAMP" />
+    <result column="EXTJMJSTIME" property="extjmjstime" jdbcType="TIMESTAMP" />
+    <result column="EXTTZYJ" property="exttzyj" jdbcType="DECIMAL" />
+    <result column="BZJTHBJ" property="bzjthbj" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.jsz.peini.bean.TZbbdWithBLOBs" extends="BaseResultMap" >
+    <result column="BDCONTENT" property="bdcontent" jdbcType="CLOB" />
+    <result column="TBRZGTJ" property="tbrzgtj" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Blob_Column_List" >
+    BDCONTENT, TBRZGTJ
+  </sql>
+  <insert id="insert" parameterType="com.jsz.peini.bean.TZbbdWithBLOBs" >
+    insert into CMS.T_ZBBD (BDCODE, ZBPROCODE, ZBPRONAME, 
+      BDNAME, BDTYPECODE, BDTYPENAME, 
+      BDHTGSJ, BZCODE, BZTEXT, 
+      JEDWCODE, JEDWNAME, EXTFWFZFFS, 
+      EXTFWF, EXTZBWJSJ, EXTTBBZJ, 
+      EXTBZJZH, EXTBZJZHMC, EXTFINSHBJ, 
+      EXTDWYJBJ, EXTRYYJBJ, ORDERNUM, 
+      ADDTIME, ADDUSERID, ADDUSERNAME, 
+      ADDUSERDEPTID, ADDUSERDEPTNAME, ADDDWCODE, 
+      ADDDWNAME, DETAIL, SHBJ, SCBJ, 
+      CREATEDATE, MODIFYDATE, MDIUSERID, 
+      MDIUSERNAME, MDIDWCODE, MDIDWNAME, 
+      BY1, BY2, BY3, BY4, 
+      BY5, BMZLGUID, EXTJMKSTIME, 
+      EXTJMJSTIME, EXTTZYJ, BZJTHBJ, 
+      BDCONTENT, TBRZGTJ)
+    values (#{bdcode,jdbcType=OTHER}, #{zbprocode,jdbcType=OTHER}, #{zbproname,jdbcType=OTHER}, 
+      #{bdname,jdbcType=OTHER}, #{bdtypecode,jdbcType=CHAR}, #{bdtypename,jdbcType=OTHER}, 
+      #{bdhtgsj,jdbcType=DECIMAL}, #{bzcode,jdbcType=CHAR}, #{bztext,jdbcType=OTHER}, 
+      #{jedwcode,jdbcType=CHAR}, #{jedwname,jdbcType=OTHER}, #{extfwfzffs,jdbcType=OTHER}, 
+      #{extfwf,jdbcType=DECIMAL}, #{extzbwjsj,jdbcType=DECIMAL}, #{exttbbzj,jdbcType=DECIMAL}, 
+      #{extbzjzh,jdbcType=OTHER}, #{extbzjzhmc,jdbcType=OTHER}, #{extfinshbj,jdbcType=CHAR}, 
+      #{extdwyjbj,jdbcType=CHAR}, #{extryyjbj,jdbcType=CHAR}, #{ordernum,jdbcType=DECIMAL}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{adduserid,jdbcType=DECIMAL}, #{addusername,jdbcType=OTHER}, 
+      #{adduserdeptid,jdbcType=OTHER}, #{adduserdeptname,jdbcType=OTHER}, #{adddwcode,jdbcType=OTHER}, 
+      #{adddwname,jdbcType=OTHER}, #{detail,jdbcType=OTHER}, #{shbj,jdbcType=CHAR}, #{scbj,jdbcType=CHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{modifydate,jdbcType=TIMESTAMP}, #{mdiuserid,jdbcType=DECIMAL}, 
+      #{mdiusername,jdbcType=OTHER}, #{mdidwcode,jdbcType=OTHER}, #{mdidwname,jdbcType=OTHER}, 
+      #{by1,jdbcType=VARCHAR}, #{by2,jdbcType=VARCHAR}, #{by3,jdbcType=VARCHAR}, #{by4,jdbcType=VARCHAR}, 
+      #{by5,jdbcType=VARCHAR}, #{bmzlguid,jdbcType=OTHER}, #{extjmkstime,jdbcType=TIMESTAMP}, 
+      #{extjmjstime,jdbcType=TIMESTAMP}, #{exttzyj,jdbcType=DECIMAL}, #{bzjthbj,jdbcType=CHAR}, 
+      #{bdcontent,jdbcType=CLOB}, #{tbrzgtj,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jsz.peini.bean.TZbbdWithBLOBs" >
+    insert into CMS.T_ZBBD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bdcode != null" >
+        BDCODE,
+      </if>
+      <if test="zbprocode != null" >
+        ZBPROCODE,
+      </if>
+      <if test="zbproname != null" >
+        ZBPRONAME,
+      </if>
+      <if test="bdname != null" >
+        BDNAME,
+      </if>
+      <if test="bdtypecode != null" >
+        BDTYPECODE,
+      </if>
+      <if test="bdtypename != null" >
+        BDTYPENAME,
+      </if>
+      <if test="bdhtgsj != null" >
+        BDHTGSJ,
+      </if>
+      <if test="bzcode != null" >
+        BZCODE,
+      </if>
+      <if test="bztext != null" >
+        BZTEXT,
+      </if>
+      <if test="jedwcode != null" >
+        JEDWCODE,
+      </if>
+      <if test="jedwname != null" >
+        JEDWNAME,
+      </if>
+      <if test="extfwfzffs != null" >
+        EXTFWFZFFS,
+      </if>
+      <if test="extfwf != null" >
+        EXTFWF,
+      </if>
+      <if test="extzbwjsj != null" >
+        EXTZBWJSJ,
+      </if>
+      <if test="exttbbzj != null" >
+        EXTTBBZJ,
+      </if>
+      <if test="extbzjzh != null" >
+        EXTBZJZH,
+      </if>
+      <if test="extbzjzhmc != null" >
+        EXTBZJZHMC,
+      </if>
+      <if test="extfinshbj != null" >
+        EXTFINSHBJ,
+      </if>
+      <if test="extdwyjbj != null" >
+        EXTDWYJBJ,
+      </if>
+      <if test="extryyjbj != null" >
+        EXTRYYJBJ,
+      </if>
+      <if test="ordernum != null" >
+        ORDERNUM,
+      </if>
+      <if test="addtime != null" >
+        ADDTIME,
+      </if>
+      <if test="adduserid != null" >
+        ADDUSERID,
+      </if>
+      <if test="addusername != null" >
+        ADDUSERNAME,
+      </if>
+      <if test="adduserdeptid != null" >
+        ADDUSERDEPTID,
+      </if>
+      <if test="adduserdeptname != null" >
+        ADDUSERDEPTNAME,
+      </if>
+      <if test="adddwcode != null" >
+        ADDDWCODE,
+      </if>
+      <if test="adddwname != null" >
+        ADDDWNAME,
+      </if>
+      <if test="detail != null" >
+        DETAIL,
+      </if>
+      <if test="shbj != null" >
+        SHBJ,
+      </if>
+      <if test="scbj != null" >
+        SCBJ,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="modifydate != null" >
+        MODIFYDATE,
+      </if>
+      <if test="mdiuserid != null" >
+        MDIUSERID,
+      </if>
+      <if test="mdiusername != null" >
+        MDIUSERNAME,
+      </if>
+      <if test="mdidwcode != null" >
+        MDIDWCODE,
+      </if>
+      <if test="mdidwname != null" >
+        MDIDWNAME,
+      </if>
+      <if test="by1 != null" >
+        BY1,
+      </if>
+      <if test="by2 != null" >
+        BY2,
+      </if>
+      <if test="by3 != null" >
+        BY3,
+      </if>
+      <if test="by4 != null" >
+        BY4,
+      </if>
+      <if test="by5 != null" >
+        BY5,
+      </if>
+      <if test="bmzlguid != null" >
+        BMZLGUID,
+      </if>
+      <if test="extjmkstime != null" >
+        EXTJMKSTIME,
+      </if>
+      <if test="extjmjstime != null" >
+        EXTJMJSTIME,
+      </if>
+      <if test="exttzyj != null" >
+        EXTTZYJ,
+      </if>
+      <if test="bzjthbj != null" >
+        BZJTHBJ,
+      </if>
+      <if test="bdcontent != null" >
+        BDCONTENT,
+      </if>
+      <if test="tbrzgtj != null" >
+        TBRZGTJ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bdcode != null" >
+        #{bdcode,jdbcType=OTHER},
+      </if>
+      <if test="zbprocode != null" >
+        #{zbprocode,jdbcType=OTHER},
+      </if>
+      <if test="zbproname != null" >
+        #{zbproname,jdbcType=OTHER},
+      </if>
+      <if test="bdname != null" >
+        #{bdname,jdbcType=OTHER},
+      </if>
+      <if test="bdtypecode != null" >
+        #{bdtypecode,jdbcType=CHAR},
+      </if>
+      <if test="bdtypename != null" >
+        #{bdtypename,jdbcType=OTHER},
+      </if>
+      <if test="bdhtgsj != null" >
+        #{bdhtgsj,jdbcType=DECIMAL},
+      </if>
+      <if test="bzcode != null" >
+        #{bzcode,jdbcType=CHAR},
+      </if>
+      <if test="bztext != null" >
+        #{bztext,jdbcType=OTHER},
+      </if>
+      <if test="jedwcode != null" >
+        #{jedwcode,jdbcType=CHAR},
+      </if>
+      <if test="jedwname != null" >
+        #{jedwname,jdbcType=OTHER},
+      </if>
+      <if test="extfwfzffs != null" >
+        #{extfwfzffs,jdbcType=OTHER},
+      </if>
+      <if test="extfwf != null" >
+        #{extfwf,jdbcType=DECIMAL},
+      </if>
+      <if test="extzbwjsj != null" >
+        #{extzbwjsj,jdbcType=DECIMAL},
+      </if>
+      <if test="exttbbzj != null" >
+        #{exttbbzj,jdbcType=DECIMAL},
+      </if>
+      <if test="extbzjzh != null" >
+        #{extbzjzh,jdbcType=OTHER},
+      </if>
+      <if test="extbzjzhmc != null" >
+        #{extbzjzhmc,jdbcType=OTHER},
+      </if>
+      <if test="extfinshbj != null" >
+        #{extfinshbj,jdbcType=CHAR},
+      </if>
+      <if test="extdwyjbj != null" >
+        #{extdwyjbj,jdbcType=CHAR},
+      </if>
+      <if test="extryyjbj != null" >
+        #{extryyjbj,jdbcType=CHAR},
+      </if>
+      <if test="ordernum != null" >
+        #{ordernum,jdbcType=DECIMAL},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adduserid != null" >
+        #{adduserid,jdbcType=DECIMAL},
+      </if>
+      <if test="addusername != null" >
+        #{addusername,jdbcType=OTHER},
+      </if>
+      <if test="adduserdeptid != null" >
+        #{adduserdeptid,jdbcType=OTHER},
+      </if>
+      <if test="adduserdeptname != null" >
+        #{adduserdeptname,jdbcType=OTHER},
+      </if>
+      <if test="adddwcode != null" >
+        #{adddwcode,jdbcType=OTHER},
+      </if>
+      <if test="adddwname != null" >
+        #{adddwname,jdbcType=OTHER},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=OTHER},
+      </if>
+      <if test="shbj != null" >
+        #{shbj,jdbcType=CHAR},
+      </if>
+      <if test="scbj != null" >
+        #{scbj,jdbcType=CHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null" >
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mdiuserid != null" >
+        #{mdiuserid,jdbcType=DECIMAL},
+      </if>
+      <if test="mdiusername != null" >
+        #{mdiusername,jdbcType=OTHER},
+      </if>
+      <if test="mdidwcode != null" >
+        #{mdidwcode,jdbcType=OTHER},
+      </if>
+      <if test="mdidwname != null" >
+        #{mdidwname,jdbcType=OTHER},
+      </if>
+      <if test="by1 != null" >
+        #{by1,jdbcType=VARCHAR},
+      </if>
+      <if test="by2 != null" >
+        #{by2,jdbcType=VARCHAR},
+      </if>
+      <if test="by3 != null" >
+        #{by3,jdbcType=VARCHAR},
+      </if>
+      <if test="by4 != null" >
+        #{by4,jdbcType=VARCHAR},
+      </if>
+      <if test="by5 != null" >
+        #{by5,jdbcType=VARCHAR},
+      </if>
+      <if test="bmzlguid != null" >
+        #{bmzlguid,jdbcType=OTHER},
+      </if>
+      <if test="extjmkstime != null" >
+        #{extjmkstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extjmjstime != null" >
+        #{extjmjstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exttzyj != null" >
+        #{exttzyj,jdbcType=DECIMAL},
+      </if>
+      <if test="bzjthbj != null" >
+        #{bzjthbj,jdbcType=CHAR},
+      </if>
+      <if test="bdcontent != null" >
+        #{bdcontent,jdbcType=CLOB},
+      </if>
+      <if test="tbrzgtj != null" >
+        #{tbrzgtj,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+</mapper>

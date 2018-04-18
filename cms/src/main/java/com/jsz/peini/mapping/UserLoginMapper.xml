@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsz.peini.mapper.UserLoginMapper" >
+	<resultMap id="BaseResultMap" type="UserLogin" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="last_time" property="lastTime" jdbcType="TIMESTAMP" />
+    <result column="third_name" property="thirdName" jdbcType="VARCHAR" />
+    <result column="thirdType" property="thirdtype" jdbcType="INTEGER" />
+    <result column="adminName" property="adminname" jdbcType="VARCHAR" />
+    <result column="adminPass" property="adminpass" jdbcType="VARCHAR" />
+    <result column="accType" property="acctype" jdbcType="INTEGER" />
+    <result column="accStatus" property="accstatus" jdbcType="INTEGER" />
+    <result column="ipStatus" property="ipstatus" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="UserLogin" extends="BaseResultMap" >
+    <result column="funsIdStr" property="funsidstr" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_name, user_password, last_time, third_name, thirdType, adminName, adminPass, 
+    accType, accStatus, ipStatus
+  </sql>
+  <sql id="Blob_Column_List" >
+    funsIdStr
+  </sql>
+  
+  <!-- 根据主键查询实体 -->
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_login
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+  <!-- 根据UserInfo的ID查询实体 -->
+  <select id="selectByUserId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select user_login.* 
+    from user_login,user_info 
+    where user_login.id = user_info.user_login_id and user_info.id = #{id,jdbcType=INTEGER}
+  </select>
+  
+	<select id="selectByLogin" parameterType="UserLogin" resultType="UserLogin">
+		SELECT 
+			id as id,
+			user_name as userName,
+			user_password as userPassword,
+			third_name as thirdName,
+			ipStatus as ipStatus,
+			accStatus as accStatus
+		FROM 
+			user_login
+		where user_name = #{userName} and user_password = #{userPassword}
+	</select>
+	
+	<update id="updateByUserLoginId" parameterType="int">
+		UPDATE 
+			user_login 
+		SET 
+			last_time = now() 
+		WHERE 
+			id = #{userLoginId}
+	</update>
+	
+	<select id="selectByUserName" resultType="UserLogin" parameterType="String"> 
+		SELECT
+			 a.id as id,
+			 a.user_name as userName ,
+			 a.user_password as userPassword,
+			 a.accStatus as accstatus,
+			 b.id as userId
+		FROM 
+			user_login a
+		left join user_info b on a.id = b.user_login_id 
+		WHERE 
+			user_name=#{userName}
+	</select>
+	
+	<insert id="insertByUserLogin" parameterType="UserLogin" useGeneratedKeys="true" keyProperty="id">
+		INSERT 
+		INTO 
+			user_login 
+			(user_name,user_password,last_time) 
+		VALUES
+			(#{userName},#{userPassword},#{lastTime})
+	</insert>
+	
+	<select id="selectByThirdName" parameterType="UserLogin" resultType="UserLogin">
+		SELECT 
+			id as id,
+			user_name as userName,
+			user_password as userPassword,
+			third_name as thirdName,
+			ipStatus as ipStatus,
+			accStatus as accStatus
+		FROM 
+			user_login
+		WHERE 
+			third_name = #{thirdName}
+	</select>
+	
+	<insert id="registerThirdUserLogin" parameterType="UserLogin" useGeneratedKeys="true" keyProperty="id">
+		INSERT 
+		INTO 
+			user_login 
+			(user_name,last_time,third_name,thirdType) 
+		VALUES
+			(#{userName},now(),#{thirdName},#{thirdtype})
+	</insert>
+	
+	<update id="updatePwdByUserName" parameterType="UserLogin">
+		UPDATE 
+			user_login 
+		SET 
+			user_password = #{userPassword} 
+		WHERE 
+			user_name = #{userName}
+	</update>
+	
+	<update id="updatePhoneByUserLoginId" parameterType="UserLogin">
+		UPDATE 
+			user_login 
+		SET 
+			user_name = #{userName} 
+		WHERE 
+			id = #{id}
+	</update>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="UserLogin" >
+    update user_login
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thirdName != null" >
+        third_name = #{thirdName,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdtype != null" >
+        thirdType = #{thirdtype,jdbcType=INTEGER},
+      </if>
+      <if test="adminname != null" >
+        adminName = #{adminname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpass != null" >
+        adminPass = #{adminpass,jdbcType=VARCHAR},
+      </if>
+      <if test="acctype != null" >
+        accType = #{acctype,jdbcType=INTEGER},
+      </if>
+      <if test="accstatus != null" >
+        accStatus = #{accstatus,jdbcType=INTEGER},
+      </if>
+      <if test="ipstatus != null" >
+        ipStatus = #{ipstatus,jdbcType=INTEGER},
+      </if>
+      <if test="funsidstr != null" >
+        funsIdStr = #{funsidstr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

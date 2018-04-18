@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsz.peini.mapper.UserSmsMapper" >
+  <resultMap id="BaseResultMap" type="com.jsz.peini.bean.UserSms" >
+    <id column="smsId" property="smsid" jdbcType="VARCHAR" />
+    <result column="fromId" property="fromid" jdbcType="VARCHAR" />
+    <result column="toId" property="toid" jdbcType="VARCHAR" />
+    <result column="paramId" property="paramid" jdbcType="VARCHAR" />
+    <result column="sendTime" property="sendtime" jdbcType="VARCHAR" />
+    <result column="isRemind" property="isremind" jdbcType="INTEGER" />
+    <result column="sendDel" property="senddel" jdbcType="INTEGER" />
+    <result column="receivDel" property="receivdel" jdbcType="INTEGER" />
+    <result column="smsType" property="smstype" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="UserSms" extends="BaseResultMap" >
+    <result column="smsContent" property="smscontent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    smsId, fromId, toId, paramId, sendTime, isRemind, sendDel, receivDel, smsType
+  </sql>
+  <sql id="Blob_Column_List" >
+    smsContent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_sms
+    where smsId = #{smsid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_sms
+    where smsId = #{smsid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="UserSms" >
+    insert into user_sms (smsId, fromId, toId, 
+      paramId, sendTime, isRemind, 
+      sendDel, receivDel, smsType, 
+      smsContent)
+    values (#{smsid,jdbcType=VARCHAR}, #{fromid,jdbcType=VARCHAR}, #{toid,jdbcType=VARCHAR}, 
+      #{paramid,jdbcType=VARCHAR}, #{sendtime,jdbcType=TIMESTAMP}, #{isremind,jdbcType=INTEGER}, 
+      #{senddel,jdbcType=INTEGER}, #{receivdel,jdbcType=INTEGER}, #{smstype,jdbcType=INTEGER}, 
+      #{smscontent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="UserSms" >
+    insert into user_sms
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="smsid != null" >
+        smsId,
+      </if>
+      <if test="fromid != null" >
+        fromId,
+      </if>
+      <if test="toid != null" >
+        toId,
+      </if>
+      <if test="paramid != null" >
+        paramId,
+      </if>
+      <if test="sendtime != null" >
+        sendTime,
+      </if>
+      <if test="isremind != null" >
+        isRemind,
+      </if>
+      <if test="senddel != null" >
+        sendDel,
+      </if>
+      <if test="receivdel != null" >
+        receivDel,
+      </if>
+      <if test="smstype != null" >
+        smsType,
+      </if>
+      <if test="smscontent != null" >
+        smsContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="smsid != null" >
+        #{smsid,jdbcType=VARCHAR},
+      </if>
+      <if test="fromid != null" >
+        #{fromid,jdbcType=VARCHAR},
+      </if>
+      <if test="toid != null" >
+        #{toid,jdbcType=VARCHAR},
+      </if>
+      <if test="paramid != null" >
+        #{paramid,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isremind != null" >
+        #{isremind,jdbcType=INTEGER},
+      </if>
+      <if test="senddel != null" >
+        #{senddel,jdbcType=INTEGER},
+      </if>
+      <if test="receivdel != null" >
+        #{receivdel,jdbcType=INTEGER},
+      </if>
+      <if test="smstype != null" >
+        #{smstype,jdbcType=INTEGER},
+      </if>
+      <if test="smscontent != null" >
+        #{smscontent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="UserSms" >
+    update user_sms
+    <set >
+      <if test="fromid != null" >
+        fromId = #{fromid,jdbcType=VARCHAR},
+      </if>
+      <if test="toid != null" >
+        toId = #{toid,jdbcType=VARCHAR},
+      </if>
+      <if test="paramid != null" >
+        paramId = #{paramid,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        sendTime = #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isremind != null" >
+        isRemind = #{isremind,jdbcType=INTEGER},
+      </if>
+      <if test="senddel != null" >
+        sendDel = #{senddel,jdbcType=INTEGER},
+      </if>
+      <if test="receivdel != null" >
+        receivDel = #{receivdel,jdbcType=INTEGER},
+      </if>
+      <if test="smstype != null" >
+        smsType = #{smstype,jdbcType=INTEGER},
+      </if>
+      <if test="smscontent != null" >
+        smsContent = #{smscontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where smsId = #{smsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="UserSms" >
+    update user_sms
+    set fromId = #{fromid,jdbcType=VARCHAR},
+      toId = #{toid,jdbcType=VARCHAR},
+      paramId = #{paramid,jdbcType=VARCHAR},
+      sendTime = #{sendtime,jdbcType=TIMESTAMP},
+      isRemind = #{isremind,jdbcType=INTEGER},
+      sendDel = #{senddel,jdbcType=INTEGER},
+      receivDel = #{receivdel,jdbcType=INTEGER},
+      smsType = #{smstype,jdbcType=INTEGER},
+      smsContent = #{smscontent,jdbcType=LONGVARCHAR}
+    where smsId = #{smsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="UserSms" >
+    update user_sms
+    set fromId = #{fromid,jdbcType=VARCHAR},
+      toId = #{toid,jdbcType=VARCHAR},
+      paramId = #{paramid,jdbcType=VARCHAR},
+      sendTime = #{sendtime,jdbcType=TIMESTAMP},
+      isRemind = #{isremind,jdbcType=INTEGER},
+      sendDel = #{senddel,jdbcType=INTEGER},
+      receivDel = #{receivdel,jdbcType=INTEGER},
+      smsType = #{smstype,jdbcType=INTEGER}
+    where smsId = #{smsid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectUserSmsCount" parameterType="String" resultType="String">
+  			SELECT
+				COUNT(*) as userSmsCount
+			FROM
+				user_sms a
+			WHERE
+				a.toId IN (${value})
+			AND a.isRemind = 1
+  </select>
+   <select id="selectUserSmsCountMgr" parameterType="String" resultType="String">
+  			SELECT
+				COUNT(*) as userSmsCount
+			FROM
+				user_sms a
+			WHERE
+				a.toId = #{companyORseller}
+			AND a.isRemind = 1
+  </select>
+  <update id="updateByToId" parameterType="String">
+	  UPDATE 
+	  	user_sms a 
+	  SET 
+	 	a.isRemind = 0 
+	  WHERE  
+		a.toId IN (${value}) 
+		AND a.isRemind = 1 
+  </update>
+  <update id="updateBySmsId" parameterType="String">
+  	  UPDATE 
+	  	user_sms a 
+	  SET 
+	 	a.isRemind = 0 
+	  WHERE  
+		a.smsId IN (#{_parameter}) 
+		AND a.isRemind = 1 
+  </update>
+  <update id="updateUserSecretaryRead">
+	update user_sms set isRemind = 0 where isRemind = 1 and toId = #{userId} and smsType&gt;=200 
+  </update>
+</mapper>
